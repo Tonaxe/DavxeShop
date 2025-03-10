@@ -1,0 +1,13 @@
+DavxeShopSPA/node_modules
+DavxeShopSPA/.angular/cache
+DavxeShopAPI/.vs
+DavxeShopAPI/DavxeShop.Api/bin
+DavxeShopAPI/DavxeShop.Api/obj
+DavxeShopAPI/DavxeShop.Library.Test/bin
+DavxeShopAPI/DavxeShop.Library.Test/obj
+DavxeShopAPI/DavxeShop.Library/bin
+DavxeShopAPI/DavxeShop.Library/obj
+DavxeShopAPI/DavxeShop.Models/bin
+DavxeShopAPI/DavxeShop.Models/obj
+DavxeShopAPI/DavxeShop.Persistance/bin
+DavxeShopAPI/DavxeShop.Persistance/obj
