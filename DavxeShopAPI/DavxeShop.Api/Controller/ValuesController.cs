@@ -8,24 +8,24 @@ namespace DavxeShop.Api.Controller
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private readonly ITrenService _trenService;
+        private readonly IUserService _userService;
 
-        public ValuesController(ITrenService trenService)
+        public ValuesController(IUserService userService)
         {
-            _trenService = trenService;
+            _userService = userService;
         }
 
-        [HttpGet("RecomendedTrains")]
+        [HttpGet("users")]
         public IActionResult GetRecomendedTrains()
         {
-            var recommendedTrains = _trenService.GetRecomendedTrains();
+            var users = _userService.GetUsers();
 
-            if (recommendedTrains == null || !recommendedTrains.Any())
+            if (users == null || !users.Any())
             {
-                return NotFound("No recommended trains found");
+                return NotFound("No users found");
             }
 
-            return Ok(recommendedTrains);
+            return Ok(users);
         }
     }
 }

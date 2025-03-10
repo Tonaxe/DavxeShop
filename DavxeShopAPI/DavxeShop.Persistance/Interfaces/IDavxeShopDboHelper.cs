@@ -2,8 +2,8 @@
 
 namespace DavxeShop.Persistance.Interfaces
 {
-    public interface ITrenDboHelper
+    public interface IDavxeShopDboHelper
     {
-        List<TrenDbData> GetAllTrenes();
+        List<User> GetAllTrenes();
     }
 }

@@ -2,8 +2,8 @@
 
 namespace DavxeShop.Library.Services.Interfaces
 {
-    public interface ITrenService
+    public interface IUserService
     {
-        List<TrenDbData> GetRecomendedTrains();
+        List<User> GetUsers();
     }
 }

@@ -17,12 +17,9 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader());
 });
 
-builder.Services.AddTransient<ISeleniumService, SeleniumService>();
-builder.Services.AddTransient<ICSVProcessorService, CSVProcessorService>();
-builder.Services.AddTransient<ITrenDboHelper, TrenDboHelper>();
-builder.Services.AddTransient<ITrenService, TrenService>();
 builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddDbContextFactory<TrenScannerContext>(options =>
+builder.Services.AddTransient<IDavxeShopDboHelper, DavxeShopDboHelper>();
+builder.Services.AddDbContextFactory<DavxeShopContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
