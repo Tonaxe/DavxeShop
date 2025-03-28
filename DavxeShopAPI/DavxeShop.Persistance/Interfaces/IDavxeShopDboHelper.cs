@@ -6,6 +6,6 @@ namespace DavxeShop.Persistance.Interfaces
     {
         List<User> GetUsers();
 
-        User GetUser(string dni);
+        User GetUser(int UserId);
     }
 }

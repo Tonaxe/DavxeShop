@@ -18,9 +18,14 @@ namespace DavxeShop.Library.Services
             return _davxeShopDboHelper.GetUsers();
         }
 
-        public User GetUser(string dni)
+        public User GetUser(int UserId)
         {
-            return _davxeShopDboHelper.GetUser(dni);
+            return _davxeShopDboHelper.GetUser(UserId);
+        }
+
+        public void LogIn() 
+        {
+            
         }
     }
 }

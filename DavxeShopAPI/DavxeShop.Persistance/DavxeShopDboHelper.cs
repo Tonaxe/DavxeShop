@@ -17,9 +17,9 @@ namespace DavxeShop.Persistance
             return _context.Users.ToList();
         }
 
-        public User GetUser(string dni)
+        public User GetUser(int UserId)
         {
-            return _context.Users.FirstOrDefault(x => x.DNI.Equals(dni));
+            return _context.Users.FirstOrDefault(x => x.UserId.Equals(UserId));
         }
     }
 }

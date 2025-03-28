@@ -22,24 +22,36 @@ namespace DavxeShop.Api.Controller
 
             if (users == null || !users.Any())
             {
-                return NotFound("No users found");
+                return NotFound("No users found.");
             }
 
             return Ok(users);
         }
 
-
-        [HttpGet("users/{dni}")]
-        public IActionResult GetUser(string dni)
+        [HttpGet("users/{UserId}")]
+        public IActionResult GetUser(int UserId)
         {
-            var users = _userService.GetUser(dni);
+            var users = _userService.GetUser(UserId);
 
             if (users == null)
             {
-                return NotFound("No user found");
+                return NotFound("No user found.");
             }
 
             return Ok(users);
+        }
+
+        [HttpPost("login")]
+        public IActionResult LogIn()
+        {
+            var logged = _userService.LogIn();
+
+            if (logged == null)
+            {
+                return NotFound("User was not logged.");
+            }
+
+            return Ok(logged);
         }
     }
 }
