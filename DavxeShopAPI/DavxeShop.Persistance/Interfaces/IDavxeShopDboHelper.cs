@@ -4,6 +4,8 @@ namespace DavxeShop.Persistance.Interfaces
 {
     public interface IDavxeShopDboHelper
     {
-        List<User> GetAllTrenes();
+        List<User> GetUsers();
+
+        User GetUser(string dni);
     }
 }

@@ -16,13 +16,27 @@ namespace DavxeShop.Api.Controller
         }
 
         [HttpGet("users")]
-        public IActionResult GetRecomendedTrains()
+        public IActionResult GetUsers()
         {
             var users = _userService.GetUsers();
 
             if (users == null || !users.Any())
             {
                 return NotFound("No users found");
+            }
+
+            return Ok(users);
+        }
+
+
+        [HttpGet("users/{dni}")]
+        public IActionResult GetUser(string dni)
+        {
+            var users = _userService.GetUser(dni);
+
+            if (users == null)
+            {
+                return NotFound("No user found");
             }
 
             return Ok(users);

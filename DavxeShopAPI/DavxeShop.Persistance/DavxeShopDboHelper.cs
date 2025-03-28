@@ -12,9 +12,14 @@ namespace DavxeShop.Persistance
         {
             _context = context;
         }
-        public List<User> GetAllTrenes()
+        public List<User> GetUsers()
         {
             return _context.Users.ToList();
+        }
+
+        public User GetUser(string dni)
+        {
+            return _context.Users.FirstOrDefault(x => x.DNI.Equals(dni));
         }
     }
 }

@@ -15,7 +15,12 @@ namespace DavxeShop.Library.Services
 
         public List<User> GetUsers()
         {
-            return _davxeShopDboHelper.GetAllTrenes();
+            return _davxeShopDboHelper.GetUsers();
+        }
+
+        public User GetUser(string dni)
+        {
+            return _davxeShopDboHelper.GetUser(dni);
         }
     }
 }
