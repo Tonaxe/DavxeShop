@@ -9,10 +9,12 @@ namespace DavxeShop.Api.Controller
     public class ValuesController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IValidations _validations;
 
-        public ValuesController(IUserService userService)
+        public ValuesController(IUserService userService, IValidations validations)
         {
             _userService = userService;
+            _validations = validations;
         }
 
         [HttpGet("users")]
@@ -22,7 +24,7 @@ namespace DavxeShop.Api.Controller
 
             if (users == null || !users.Any())
             {
-                return NotFound("No users found.");
+                return NotFound("El usuario no se ha encontrado.");
             }
 
             return Ok(users);
@@ -35,23 +37,43 @@ namespace DavxeShop.Api.Controller
 
             if (users == null)
             {
-                return NotFound("No user found.");
+                return NotFound("El usuario no se ha encontrado.");
             }
 
             return Ok(users);
         }
 
-        [HttpPost("login")]
-        public IActionResult LogIn()
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] RegisterRequest request)
         {
-            var logged = _userService.LogIn();
+            bool validatedEmail = _validations.ValidEmail(request.Email);
+            bool validatedDNI = _validations.ValidDni(request.DNI);
 
-            if (logged == null)
+            if (!validatedEmail)
             {
-                return NotFound("User was not logged.");
+                return BadRequest("El email no es válido.");
             }
 
-            return Ok(logged);
+            if (!validatedDNI)
+            {
+                return BadRequest("El DNI no es válido.");
+            }
+
+            bool userExists = _validations.UserExists(request.Name, request.Email, request.DNI);
+
+            if (!userExists)
+            {
+                return BadRequest("El usuario no existe.");
+            }
+
+            var registered = _userService.Register(request);
+
+            if (registered == null)
+            {
+                return NotFound("El usuario no se ha registrado.");
+            }
+
+            return Ok(registered);
         }
     }
 }

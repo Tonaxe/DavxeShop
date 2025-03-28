@@ -12,12 +12,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
-        policy.WithOrigins("http://localhost:4200", "http://localhost:62754")
+        policy.WithOrigins("http://localhost")
               .AllowAnyMethod()
               .AllowAnyHeader());
 });
 
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IValidations, Validations>();
 builder.Services.AddTransient<IDavxeShopDboHelper, DavxeShopDboHelper>();
 builder.Services.AddDbContextFactory<DavxeShopContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))

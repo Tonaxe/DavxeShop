@@ -6,5 +6,6 @@ namespace DavxeShop.Library.Services.Interfaces
     {
         List<User> GetUsers();
         User GetUser(int UserId);
+        string Register(RegisterRequest request);
     }
 }

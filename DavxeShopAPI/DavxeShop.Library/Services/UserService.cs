@@ -1,6 +1,7 @@
 ﻿using DavxeShop.Library.Services.Interfaces;
 using DavxeShop.Models;
 using DavxeShop.Persistance.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace DavxeShop.Library.Services
 {
@@ -23,9 +24,13 @@ namespace DavxeShop.Library.Services
             return _davxeShopDboHelper.GetUser(UserId);
         }
 
-        public void LogIn() 
+        public string Register(RegisterRequest request) 
         {
-            
+            //3 hashear la contraseña
+            //4 hacer un salt para que 2 usuario puedan tener la misma contraseña sin conflicto
+            //5 guardar en base de datos
+            //6 generar el token
+            return "";
         }
     }
 }

@@ -21,5 +21,10 @@ namespace DavxeShop.Persistance
         {
             return _context.Users.FirstOrDefault(x => x.UserId.Equals(UserId));
         }
+
+        public bool UserExists(string Name, string Email, string DNI)
+        {
+            return _context.Users.Any(x => x.Name == Name && x.Email == Email && x.DNI == DNI);
+        }
     }
 }
