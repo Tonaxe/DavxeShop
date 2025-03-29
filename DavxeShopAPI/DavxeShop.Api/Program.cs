@@ -2,13 +2,17 @@ using DavxeShop.Library.Services;
 using DavxeShop.Library.Services.Interfaces;
 using DavxeShop.Persistance;
 using DavxeShop.Persistance.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -16,6 +20,19 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod()
               .AllowAnyHeader());
 });
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:SecretKey"]))
+        };
+    });
 
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IValidations, Validations>();

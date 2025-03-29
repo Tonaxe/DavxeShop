@@ -1,4 +1,5 @@
-﻿using DavxeShop.Library.Services.Interfaces;
+﻿using Azure.Core;
+using DavxeShop.Library.Services.Interfaces;
 using DavxeShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ namespace DavxeShop.Api.Controller
             _validations = validations;
         }
 
-        [HttpGet("users")]
+        [HttpGet("DavxeShop/users")]
         public IActionResult GetUsers()
         {
             var users = _userService.GetUsers();
@@ -30,9 +31,14 @@ namespace DavxeShop.Api.Controller
             return Ok(users);
         }
 
-        [HttpGet("users/{UserId}")]
+        [HttpGet("DavxeShop/users/{UserId}")]
         public IActionResult GetUser(int UserId)
         {
+            if (UserId <= 0)
+            {
+                return BadRequest("El contenido de la petición está incompleto.");
+            }
+
             var users = _userService.GetUser(UserId);
 
             if (users == null)
@@ -43,16 +49,22 @@ namespace DavxeShop.Api.Controller
             return Ok(users);
         }
 
-        [HttpPost("register")]
+        [HttpPost("DavxeShop/register")]
         public IActionResult Register([FromBody] RegisterRequest request)
         {
+            if (request == null || HasNullOrEmptyProperties(request))
+            {
+                return BadRequest("El contenido de la petición está incompleto.");
+            }
+
             bool validatedEmail = _validations.ValidEmail(request.Email);
-            bool validatedDNI = _validations.ValidDni(request.DNI);
 
             if (!validatedEmail)
             {
                 return BadRequest("El email no es válido.");
             }
+
+            bool validatedDNI = _validations.ValidDni(request.DNI);
 
             if (!validatedDNI)
             {
@@ -63,17 +75,57 @@ namespace DavxeShop.Api.Controller
 
             if (!userExists)
             {
-                return BadRequest("El usuario no existe.");
+                return NotFound("El usuario no existe.");
             }
 
-            var registered = _userService.Register(request);
+            var requestHashed = _userService.RequestHashed(request);
+
+            bool userSaved = _userService.SaveUser(requestHashed);
+
+            if (!userSaved)
+            {
+                return StatusCode(500, "El usuario no se ha registrado.");
+            }
+
+            return Ok("El usuario se ha registrado correctamente");
+        }
+
+        [HttpPost("DavxeShop/login")]
+        public IActionResult LogIn([FromBody] LogInRequest request)
+        {
+
+            if (request == null || HasNullOrEmptyProperties(request))
+            {
+                return BadRequest("El contenido de la petición está incompleto.");
+            }
+
+            bool validatedEmail = _validations.ValidEmail(request.Email);
+
+            if (!validatedEmail)
+            {
+                return BadRequest("El email no es válido.");
+            }
+
+            bool correctUser = _userService.CorrectUser(request);
+
+            if (!correctUser)
+            {
+                return StatusCode(500, "El usuario no se ha creado.");
+            }
+
+            string registered = _userService.GenerateToken(request);
 
             if (registered == null)
             {
-                return NotFound("El usuario no se ha registrado.");
+                return StatusCode(500, "El token no ha sido creado.");
             }
 
             return Ok(registered);
+        }
+
+        private bool HasNullOrEmptyProperties(object obj)
+        {
+            return obj.GetType().GetProperties().Any(p => p.GetValue(obj) == null || (p.PropertyType == typeof(string) && string.IsNullOrWhiteSpace(p.GetValue(obj) as string)));
         }
     }
 }
