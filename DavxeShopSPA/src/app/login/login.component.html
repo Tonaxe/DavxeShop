@@ -11,14 +11,17 @@
           <label>
             <input type="checkbox" formControlName="rememberMe" class="recordar"> Recordar contraseña
           </label>
-          <a href="#">Recuperar la contraseña?</a>
+          <a class="recuperar" href="#">Recuperar la contraseña?</a>
         </div>
   
-        <button type="submit" >INICIAR SESIÓN</button>
+        <button type="submit" [disabled]="!loginForm.valid">INICIAR SESIÓN</button>
   
         <div class="social-login">
           <img src="assets/google.png" alt="Google">
           <img src="assets/facebook.png" alt="Facebook">
+        </div>
+        <div>
+          <a class="register" href="/register">¿No tienes cuenta? Regístrate aquí</a>
         </div>
       </form>
     </div>
