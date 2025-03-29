@@ -16,22 +16,25 @@
 }
 
 .login-box {
-    background: rgba(255, 255, 255, 0.9);
+    background: #8D8D92;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 300px;
+    border: 10px solid #6B6B70;
 }
 
 .logo {
-    width: 80px;
-    margin-bottom: 10px;
+    width: 200px;
+    height: 200px;
+    margin-top: -160px;
 }
 
 h2 {
     margin-bottom: 20px;
-    color: #333;
+    color: #ececec;
+    font-family: Poppins, sans-serif;
 }
 
 input {
@@ -39,23 +42,57 @@ input {
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .options {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     font-size: 12px;
+    color: #ececec;
+    font-family: Poppins, sans-serif;
+}
+
+.options label {
+    display: flex;
+    cursor: pointer;
+    width: 100%;
+    text-align: right;
+    align-items: center;
+}
+
+.options a {
+    display: flex;
+    cursor: pointer;
+    width: 100%;
+    text-align: right;
+    align-items: center;
+}
+
+.options input[type="checkbox"] {
+    margin-right: 0; 
+    width: 20%;
+    cursor: pointer;
+}
+
+.recordar {
+    margin-right: 5px;
 }
 
 button {
     width: 100%;
     padding: 10px;
     background: #444;
-    color: #fff;
-    border: none;
+    color: whitesmoke;
     border-radius: 5px;
     cursor: pointer;
+    font-family: Poppins, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+    box-shadow: #444 0px 0px 8px;
+    
 }
 
 button:disabled {

@@ -3,22 +3,22 @@
       <img src="assets/logo2.png" alt="Logo" class="logo">
       <h2>INICIAR SESIÓN</h2>
   
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="loginForm"  >
         <input type="text" placeholder="Nombre de usuario" formControlName="username">
         <input type="password" placeholder="Contraseña" formControlName="password">
   
         <div class="options">
           <label>
-            <input type="checkbox" formControlName="rememberMe"> Recordar contraseña
+            <input type="checkbox" formControlName="rememberMe" class="recordar"> Recordar contraseña
           </label>
           <a href="#">Recuperar la contraseña?</a>
         </div>
   
-        <button type="submit" [disabled]="loginForm.invalid">INICIAR SESIÓN</button>
+        <button type="submit" >INICIAR SESIÓN</button>
   
         <div class="social-login">
-          <img src="assets/logo.png" alt="Google">
-          <img src="assets/logo.png" alt="Facebook">
+          <img src="assets/google.png" alt="Google">
+          <img src="assets/facebook.png" alt="Facebook">
         </div>
       </form>
     </div>
