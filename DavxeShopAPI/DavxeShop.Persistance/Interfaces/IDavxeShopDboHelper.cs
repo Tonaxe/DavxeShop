@@ -9,5 +9,6 @@ namespace DavxeShop.Persistance.Interfaces
         bool UserExists(string Name, string Email, string DNI);
         bool SaveUser(User requestHashed);
         bool CorrectUser(LogInRequest request);
+        string GetUserPasswordByEmail(string email);
     }
 }

@@ -39,7 +39,7 @@ namespace DavxeShop.Library.Services
                 Email = request.Email,
                 BirthDate = request.BirthDate,
                 City = request.City,
-                Password = BCrypt.Net.BCrypt.HashPassword(request.Password, BCrypt.Net.BCrypt.GenerateSalt(2))
+                Password = BCrypt.Net.BCrypt.HashPassword(request.Password, BCrypt.Net.BCrypt.GenerateSalt(5))
             };
 
             return requestHashed;
@@ -74,13 +74,11 @@ namespace DavxeShop.Library.Services
 
         public bool CorrectUser(LogInRequest request)
         {
-            var requestDesHashed = new LogInRequest
+            if (!BCrypt.Net.BCrypt.Verify(request.Password, _davxeShopDboHelper.GetUserPasswordByEmail(request.Email)))
             {
-                Email = request.Email,
-                Password = BCrypt.Net.BCrypt.HashPassword(request.Password, BCrypt.Net.BCrypt.GenerateSalt(2))
-            };
-
-            return _davxeShopDboHelper.CorrectUser(requestDesHashed);
+                return false;
+            }
+            return true;
         }
     }
 }

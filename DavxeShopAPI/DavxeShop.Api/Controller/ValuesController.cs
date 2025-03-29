@@ -73,9 +73,9 @@ namespace DavxeShop.Api.Controller
 
             bool userExists = _validations.UserExists(request.Name, request.Email, request.DNI);
 
-            if (!userExists)
+            if (userExists)
             {
-                return NotFound("El usuario no existe.");
+                return NotFound("El usuario ya existe.");
             }
 
             var requestHashed = _userService.RequestHashed(request);
@@ -110,7 +110,7 @@ namespace DavxeShop.Api.Controller
 
             if (!correctUser)
             {
-                return StatusCode(500, "El usuario no se ha creado.");
+                return StatusCode(500, "El usuario no es correcto.");
             }
 
             string registered = _userService.GenerateToken(request);
@@ -119,6 +119,8 @@ namespace DavxeShop.Api.Controller
             {
                 return StatusCode(500, "El token no ha sido creado.");
             }
+
+            //guardar el token en bd
 
             return Ok(registered);
         }

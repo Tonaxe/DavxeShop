@@ -48,5 +48,10 @@ namespace DavxeShop.Persistance
         {
             return _context.Users.Any(x => x.Email == request.Email && x.Password == request.Password);
         }
+
+        public string GetUserPasswordByEmail(string email)
+        {
+            return _context.Users.FirstOrDefault(x => x.Email.Equals(email))?.Password ?? "Usuario no encontrado";
+        }
     }
 }
