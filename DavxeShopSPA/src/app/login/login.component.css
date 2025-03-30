@@ -65,14 +65,14 @@ input {
 .options a {
     display: flex;
     cursor: pointer;
-    width: 100%;
+    width: 70%;
     text-align: right;
     align-items: center;
 }
 
 .options input[type="checkbox"] {
     margin-right: 0; 
-    width: 20%;
+    width: 18%;
     cursor: pointer;
 }
 

@@ -113,16 +113,42 @@ namespace DavxeShop.Api.Controller
                 return StatusCode(500, "El usuario no es correcto.");
             }
 
-            string registered = _userService.GenerateToken(request);
+            var token = _userService.GenerateToken(request);
 
-            if (registered == null)
+            if (token == null)
             {
                 return StatusCode(500, "El token no ha sido creado.");
             }
 
-            //guardar el token en bd
+            bool stored = _userService.StoreSession(token, request.Email);
 
-            return Ok(registered);
+            if (!stored)
+            {
+                return StatusCode(500, "La sesion no se ha guardado correctamente.");
+            }
+
+            return Ok(token);
+        }
+
+        [HttpPost("DavxeShop/logout")]
+        public IActionResult LogIn([FromBody] LogOutRequest request)
+        {
+
+            if (request == null || HasNullOrEmptyProperties(request))
+            {
+                return BadRequest("El contenido de la petición está incompleto.");
+            }
+
+            bool validatedEmail = _validations.ValidEmail(request.Email);
+
+            if (!validatedEmail)
+            {
+                return BadRequest("El email no es válido.");
+            }
+
+            //hacer la logica que falta
+
+            return Ok();
         }
 
         private bool HasNullOrEmptyProperties(object obj)

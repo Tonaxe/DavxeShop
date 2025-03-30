@@ -53,5 +53,25 @@ namespace DavxeShop.Persistance
         {
             return _context.Users.FirstOrDefault(x => x.Email.Equals(email))?.Password ?? "Usuario no encontrado";
         }
+
+        public int? GetUserId(string email)
+        {
+            return _context.Users.FirstOrDefault(x => x.Email.Equals(email))?.UserId;
+        }
+
+        public bool StoreSession(Session session)
+        {
+            try
+            {
+                _context.Sessions.Add(session);
+                int result = _context.SaveChanges();
+
+                return result > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

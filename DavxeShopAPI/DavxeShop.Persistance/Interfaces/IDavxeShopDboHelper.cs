@@ -10,5 +10,7 @@ namespace DavxeShop.Persistance.Interfaces
         bool SaveUser(User requestHashed);
         bool CorrectUser(LogInRequest request);
         string GetUserPasswordByEmail(string email);
+        int? GetUserId(string email);
+        bool StoreSession(Session session);
     }
 }
