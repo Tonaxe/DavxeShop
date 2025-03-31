@@ -8,8 +8,10 @@ namespace DavxeShop.Library.Services.Interfaces
         User? GetUser(int UserId);
         User RequestHashed(RegisterRequest request);
         bool SaveUser(User request);
-        string GenerateToken(LogInRequest request);
+        string GenerateToken(string email);
         bool CorrectUser(LogInRequest request);
-        bool StoreSession(string token, string email);
+        bool StoreSession(string token, int userId);
+        bool LogOut(string request);
+        int? GetUserIdByEmail(string email);
     }
 }

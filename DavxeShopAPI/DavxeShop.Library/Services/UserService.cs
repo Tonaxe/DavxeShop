@@ -50,11 +50,11 @@ namespace DavxeShop.Library.Services
             return _davxeShopDboHelper.SaveUser(request);
         }
 
-        public LogInResponse GenerateToken(LogInRequest request)
+        public string GenerateToken(string email)
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.Email, request.Email)
+                new Claim(ClaimTypes.Email, email)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));
@@ -70,13 +70,7 @@ namespace DavxeShop.Library.Services
 
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            var response = new LogInResponse
-            {
-                UserId = _davxeShopDboHelper.GetUserId(request.Email),
-                Token = tokenHandler.WriteToken(token)
-            };
-
-            return response;
+            return tokenHandler.WriteToken(token);
         }
 
         public bool CorrectUser(LogInRequest request)
@@ -88,13 +82,11 @@ namespace DavxeShop.Library.Services
             return true;
         }
 
-        public bool StoreSession(string token, string email)
+        public bool StoreSession(string token, int userId)
         {
-            var userId = _davxeShopDboHelper.GetUserId(email);
-
-            if (userId == null)
+            if (userId == 0)
             {
-                return false ;
+                return false;
             }
 
             var session = new Session
@@ -106,6 +98,16 @@ namespace DavxeShop.Library.Services
             };
 
             return _davxeShopDboHelper.StoreSession(session);
+        }
+
+        public bool LogOut(string token)
+        {
+            return _davxeShopDboHelper.LogOut(token);
+        }
+
+        public int? GetUserIdByEmail(string email)
+        {
+            return _davxeShopDboHelper.GetUserId(email);
         }
     }
 }

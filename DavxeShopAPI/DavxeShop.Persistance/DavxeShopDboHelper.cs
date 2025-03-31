@@ -3,6 +3,7 @@ using DavxeShop.Models;
 using DavxeShop.Persistance.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using System.Reflection.Metadata.Ecma335;
 
 namespace DavxeShop.Persistance
 {
@@ -72,6 +73,23 @@ namespace DavxeShop.Persistance
             {
                 return false;
             }
+        }
+
+        public bool LogOut(string token) 
+        {
+            var user = _context.Sessions.FirstOrDefault(x => x.Token == token);
+            if (user == null) 
+                return false;
+
+            user.Ended = DateTime.Now;
+            _context.SaveChanges();
+
+            return true;
+        }
+
+        public string GetTokenById(int userId)
+        {
+            return _context.Sessions.First(x => x.UserId == userId).Token ?? string.Empty;
         }
     }
 }

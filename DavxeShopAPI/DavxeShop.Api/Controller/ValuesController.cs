@@ -113,14 +113,14 @@ namespace DavxeShop.Api.Controller
                 return StatusCode(500, "El usuario no es correcto.");
             }
 
-            var token = _userService.GenerateToken(request);
+            var token = _userService.GenerateToken(request.Email);
 
             if (token == null)
             {
                 return StatusCode(500, "El token no ha sido creado.");
             }
 
-            bool stored = _userService.StoreSession(token, request.Email);
+            bool stored = _userService.StoreSession(token, _userService.GetUserIdByEmail(request.Email) ?? 0);
 
             if (!stored)
             {
@@ -131,22 +131,19 @@ namespace DavxeShop.Api.Controller
         }
 
         [HttpPost("DavxeShop/logout")]
-        public IActionResult LogIn([FromBody] LogOutRequest request)
+        public IActionResult LogOut([FromBody] string token)
         {
-
-            if (request == null || HasNullOrEmptyProperties(request))
+            if (token == null)
             {
                 return BadRequest("El contenido de la petición está incompleto.");
             }
 
-            bool validatedEmail = _validations.ValidEmail(request.Email);
+            var loggedOut = _userService.LogOut(token);
 
-            if (!validatedEmail)
+            if (!loggedOut)
             {
-                return BadRequest("El email no es válido.");
+                return StatusCode(500, "La sesion no se ha cerrado correctamente.");
             }
-
-            //hacer la logica que falta
 
             return Ok();
         }

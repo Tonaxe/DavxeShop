@@ -12,5 +12,7 @@ namespace DavxeShop.Persistance.Interfaces
         string GetUserPasswordByEmail(string email);
         int? GetUserId(string email);
         bool StoreSession(Session session);
+        bool LogOut(string token);
+        string GetTokenById(int userId);
     }
 }
