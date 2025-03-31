@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RegisterRequest } from '../models/register.model';
+import { ApiService } from '../services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -27,7 +30,23 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      console.log('Formulario de registro enviado:', this.registerForm.value);
+      const form: RegisterRequest = {
+        dni: this.registerForm.value.dni,
+        name: this.registerForm.value.name,
+        email: this.registerForm.value.email,
+        birthDate: this.registerForm.value.birthDate,
+        city: this.registerForm.value.city,
+        password: this.registerForm.value.password
+      };
+
+      this.apiService.register(form).subscribe(
+        (res) => {
+          this.router.navigate(["/login"]);
+        },
+        (error) => {
+
+        }
+      );
     } else {
       console.log('Formulario de registro inválido');
     }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DavxeShop.Api.Controller
 {
-    [Route("api")]
+    [Route("api/DavxeShop")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
@@ -18,7 +18,7 @@ namespace DavxeShop.Api.Controller
             _validations = validations;
         }
 
-        [HttpGet("DavxeShop/users")]
+        [HttpGet("users")]
         public IActionResult GetUsers()
         {
             var users = _userService.GetUsers();
@@ -31,7 +31,7 @@ namespace DavxeShop.Api.Controller
             return Ok(users);
         }
 
-        [HttpGet("DavxeShop/users/{UserId}")]
+        [HttpGet("users/{UserId}")]
         public IActionResult GetUser(int UserId)
         {
             if (UserId <= 0)
@@ -49,7 +49,7 @@ namespace DavxeShop.Api.Controller
             return Ok(users);
         }
 
-        [HttpPost("DavxeShop/register")]
+        [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterRequest request)
         {
             if (request == null || HasNullOrEmptyProperties(request))
@@ -90,7 +90,7 @@ namespace DavxeShop.Api.Controller
             return Ok("El usuario se ha registrado correctamente");
         }
 
-        [HttpPost("DavxeShop/login")]
+        [HttpPost("login")]
         public IActionResult LogIn([FromBody] LogInRequest request)
         {
 
@@ -130,7 +130,7 @@ namespace DavxeShop.Api.Controller
             return Ok(token);
         }
 
-        [HttpPost("DavxeShop/logout")]
+        [HttpPost("logout")]
         public IActionResult LogOut([FromBody] string token)
         {
             if (token == null)
