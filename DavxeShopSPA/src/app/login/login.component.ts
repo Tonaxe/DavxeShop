@@ -15,16 +15,14 @@ export class LoginComponent {
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required],
       rememberMe: [false]
     });
   }
 
   onSubmit() {
-    console.log("entro1");
     if (this.loginForm.valid) {
-      console.log("entro2");
       const form: LogInRequest = {
         email: this.loginForm.value.email,
         password: this.loginForm.value.password
@@ -32,7 +30,6 @@ export class LoginComponent {
 
       this.apiService.logIn(form).subscribe(
         (res) => {
-          console.log("entro");
           this.router.navigate(["/home"]);
         },
         (error) => {

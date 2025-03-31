@@ -15,8 +15,11 @@ export class RegisterComponent {
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.registerForm = this.fb.group({
-      username: ['', Validators.required],
+      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      dni: ['', Validators.required],
+      birthDate: ['', Validators.required],
+      city: ['', Validators.required], 
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
       acceptTerms: [false, Validators.requiredTrue]
@@ -41,10 +44,11 @@ export class RegisterComponent {
 
       this.apiService.register(form).subscribe(
         (res) => {
+          console.log("Registro exitoso:", res);
           this.router.navigate(["/login"]);
         },
         (error) => {
-
+          console.error("Error en el registro:", error);
         }
       );
     } else {

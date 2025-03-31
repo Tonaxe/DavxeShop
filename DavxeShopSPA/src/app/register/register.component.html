@@ -4,10 +4,13 @@
     <h2>REGISTRARSE</h2>
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <input type="text" placeholder="Nombre de usuario" formControlName="username">
+      <input type="text" placeholder="Nombre de usuario" formControlName="name">
       <input type="email" placeholder="Correo electrónico" formControlName="email">
       <input type="password" placeholder="Contraseña" formControlName="password">
       <input type="password" placeholder="Confirmar contraseña" formControlName="confirmPassword">
+      <input type="text" placeholder="DNI" formControlName="dni">
+      <input type="date" placeholder="Fecha de ancimiento" formControlName="birthDate">
+      <input type="text" placeholder="Ciudad" formControlName="city">
 
       <div class="options">
         <label>
