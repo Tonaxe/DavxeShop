@@ -11,7 +11,7 @@
           <label>
             <input type="checkbox" formControlName="rememberMe" class="recordar"> Recordar contraseña
           </label>
-          <a class="recuperar" href="#">Recuperar la contraseña?</a>
+          <a class="recuperar" routerLink="/recover-password">Recuperar la contraseña?</a>
         </div>
   
         <button type="submit" [disabled]="!loginForm.valid">INICIAR SESIÓN</button>
