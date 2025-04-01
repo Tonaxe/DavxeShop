@@ -111,20 +111,22 @@
   width: 100%;
 }
 
-/* Contenedor de productos con scroll horizontal */
+/* Centrar los productos dentro del contenedor */
 .contenedor-productos {
   width: 100%;
   min-height: 400px;
-  display: flex; 
-  flex-wrap: nowrap; 
-  overflow-x: auto; 
-  gap: 20px; 
-  background-color: #36413E; 
-  padding: 20px; 
-  box-sizing: border-box; 
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 20px;
+  background-color: #36413E;
+  padding: 20px;
+  box-sizing: border-box;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth; /* Hace que el scroll sea suave */
+  scroll-behavior: smooth;
+  justify-content: center; /* 🔹 Alinea los productos en el centro */
 }
+
 
 /* Estilo de los productos */
 .producto {
@@ -175,6 +177,16 @@
 /* Ocultar la barra de desplazamiento */
 .contenedor-productos::-webkit-scrollbar {
   display: none;
+}
+/* 🔹 Sección de productos debajo en formato GRID */
+.contenedor-productos-estaticos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 🔹 Auto-ajustable */
+  gap: 20px;
+  margin-top: 20px;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f5f5f5;
 }
 
 

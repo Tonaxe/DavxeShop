@@ -26,21 +26,22 @@
       <h1>NOVEDADES</h1>
   </div>
   <div class="contenedor-scroll">
-    <button class="scroll-btn left" onclick="scrollLeft()">&#10094;</button>
-    <div class="contenedor-productos">
-        <div class="producto">Producto 1</div>
-        <div class="producto">Producto 2</div>
-        <div class="producto">Producto 3</div>
-        <div class="producto">Producto 4</div>
-        <div class="producto">Producto 5</div>
-        <div class="producto">Producto 6</div>
-        <div class="producto">Producto 7</div>
-        <div class="producto">Producto 8</div>
-        <div class="producto">Producto 9</div>
-        <div class="producto">Producto 10</div>
+    <button class="scroll-btn left" (click)="scrollLeft()">&#10094;</button>
+    
+    <div #contenedor class="contenedor-productos">
+      <div *ngFor="let producto of productos" class="producto">
+        {{ producto }}
+      </div>
     </div>
-    <button class="scroll-btn right" onclick="scrollRight()">&#10095;</button>
-</div>
+  
+    <button class="scroll-btn right" (click)="scrollRight()">&#10095;</button>
+  </div>
+  <div class="contenedor-productos-estaticos">
+    <div *ngFor="let producto of productos.slice(5)" class="producto">
+      {{ producto }}
+    </div>
+  </div>
+  
 
     
 </div>
