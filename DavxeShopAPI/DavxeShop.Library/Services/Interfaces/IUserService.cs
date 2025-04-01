@@ -1,4 +1,5 @@
 ﻿using DavxeShop.Models;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace DavxeShop.Library.Services.Interfaces
 {
@@ -13,5 +14,8 @@ namespace DavxeShop.Library.Services.Interfaces
         bool StoreSession(string token, int userId);
         bool LogOut(string request);
         int? GetUserIdByEmail(string email);
+        bool SendRecoveryCode(string email);
+        bool VerifyRecoveryCode(VerifyRecoverPasswordRequest request);
+        bool ResetPassword(ResetPasswordRequest request);
     }
 }

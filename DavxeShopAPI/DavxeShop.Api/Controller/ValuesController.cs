@@ -149,6 +149,60 @@ namespace DavxeShop.Api.Controller
             return Ok(new { message = "Operación realizada correctamente." });
         }
 
+        [HttpPost("recover-password")]
+        public IActionResult RecoverPassword([FromBody] string email)
+        {
+            bool validatedEmail = _validations.ValidEmail(email);
+
+            if (!validatedEmail)
+            {
+                return BadRequest(new { message = "El email no es válido." });
+            }
+
+            if (!_userService.SendRecoveryCode(email))
+            {
+                return NotFound(new { message = "El correo no está registrado." });
+            }
+
+            return Ok(new { message = "Se ha enviado un correo con las instrucciones." });
+        }
+
+        [HttpPost("verifty-recover-password")]
+        public IActionResult VerifyRecoverPassword([FromBody] VerifyRecoverPasswordRequest request)
+        {
+            bool validatedEmail = _validations.ValidEmail(request.Email);
+
+            if (!validatedEmail)
+            {
+                return BadRequest(new { message = "El email no es válido." });
+            }
+
+            if (!_userService.VerifyRecoveryCode(request))
+            {
+                return NotFound(new { message = "El codigo no es correcto." });
+            }
+
+            return Ok(new { message = "El codigo es correcto." });
+        }
+
+        [HttpPatch("reset-password")]
+        public IActionResult ResetPassword([FromBody] ResetPasswordRequest request)
+        {
+            bool validatedEmail = _validations.ValidEmail(request.Email);
+
+            if (!validatedEmail)
+            {
+                return BadRequest(new { message = "El email no es válido." });
+            }
+
+            if (!_userService.ResetPassword(request))
+            {
+                return NotFound(new { message = "La contraseña no se ha podido cambiar correctamente." });
+            }
+
+            return Ok(new { message = "La contraseña se ha cambiado correctamente." });
+        }
+
         private bool HasNullOrEmptyProperties(object obj)
         {
             return obj.GetType().GetProperties().Any(p => p.GetValue(obj) == null || (p.PropertyType == typeof(string) && string.IsNullOrWhiteSpace(p.GetValue(obj) as string)));

@@ -10,7 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-import { RecuperarContrasenaComponent } from './recuperar-contrasena/recuperar-contrasena.component';
+import { RecuperarContrasenaComponent } from './login/recuperar-contrasena/recuperar-contrasena.component';
+import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { RecuperarContrasenaComponent } from './recuperar-contrasena/recuperar-c
     RegisterComponent,
     LoginComponent,
     RecuperarContrasenaComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

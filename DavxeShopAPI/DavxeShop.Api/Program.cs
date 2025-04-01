@@ -36,6 +36,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IValidations, Validations>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddTransient<IDavxeShopDboHelper, DavxeShopDboHelper>();
 builder.Services.AddDbContextFactory<DavxeShopContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))

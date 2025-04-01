@@ -11,13 +11,15 @@ namespace DavxeShop.Library.Services
 {
     public class UserService : IUserService
     {
-        private readonly IDavxeShopDboHelper _davxeShopDboHelper;
+        private readonly IDavxeShopDboHelper _davxeShopDboHelper; 
+        private readonly IEmailService _emailService;        
         private readonly string _secretKey;
 
-        public UserService(IDavxeShopDboHelper davxeShopDboHelper, IConfiguration configuration)
+        public UserService(IDavxeShopDboHelper davxeShopDboHelper, IConfiguration configuration, IEmailService emailService)
         {
             _davxeShopDboHelper = davxeShopDboHelper;
             _secretKey = configuration["AppSettings:SecretKey"] ?? throw new ArgumentNullException(nameof(configuration), "No se ha encontrado la SecretKet en la configuracion.");
+            _emailService = emailService;
         }
 
         public List<User> GetUsers()
@@ -108,6 +110,42 @@ namespace DavxeShop.Library.Services
         public int? GetUserIdByEmail(string email)
         {
             return _davxeShopDboHelper.GetUserId(email);
+        }
+
+        public bool SendRecoveryCode(string email)
+        {
+            var user = _davxeShopDboHelper.GetUserByEmail(email);
+
+            if (user == null) return false;
+
+            string code = GenerateRecoveryCode(6);
+
+            string message = $"<h3>Recuperación de contraseña</h3><p>Tu código de recuperación es: <strong>{code}</strong></p>";
+
+            _emailService.SendEmail(email, "Código de recuperación", message);
+
+            return _davxeShopDboHelper.SaveRecoveryCode(user.UserId, code, email);
+        }
+
+        public bool VerifyRecoveryCode(VerifyRecoverPasswordRequest request)
+        {
+            return _davxeShopDboHelper.VerifyRecoveryCode(request);
+        }
+
+        public bool ResetPassword(ResetPasswordRequest request)
+        {
+            var passwordHashed = new ResetPasswordRequest
+            {
+                Email = request.Email,
+                Password = BCrypt.Net.BCrypt.HashPassword(request.Password, BCrypt.Net.BCrypt.GenerateSalt(5)
+            };
+
+            return _davxeShopDboHelper.ResetPassword(passwordHashed);
+        }
+
+        private string GenerateRecoveryCode(int length)
+        {
+            return new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", length).Select(s => s[new Random().Next(s.Length)]).ToArray());
         }
     }
 }
