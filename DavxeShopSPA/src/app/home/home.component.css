@@ -1,77 +1,227 @@
+/* Estilo para el menú de categorías */
 .menu-categorias {
-    display: flex;
-    align-items: center; 
-    gap: 20px;
-    font-family: Poppins, sans-serif;
-    color: #000000;
-    color: #000000;
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se acomoden en varias líneas */
+  align-items: center; 
+  gap: 10px;
+  font-family: Poppins, sans-serif;
+  color: #000000;
+  border-bottom: 2px solid #000000;
+  padding: 10px;
+  justify-content: center; /* Centra los elementos en pantallas pequeñas */
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  color: black;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #beb2c8;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #beb2c8;
+}
+
+/* Estilo para las categorías laterales */
+.categorias-laterales {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Alinea los elementos en el centro */
+  gap: 10px; /* Espaciado entre categorías */
+}
+
+.categorias-laterales a {
+  font-size: 16px;
+  color: #000000;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.categorias-laterales a:hover {
+  background-color: #beb2c8;
+  color: #0056b3;
+}
+
+/* Flecha de dropdown */
+.arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.rotated {
+  transform: rotate(180deg); 
+}
+
+.show {
+  display: block; 
+}
+
+/* Título de novedades */
+.titulo-novedades {
+  text-align: center; 
+  margin-top: 10px; 
+}
+
+.titulo-novedades h1 {
+  font-size: 40px; 
+  color: #333; 
+  font-family: Porter Sans Block, sans-serif; 
+  letter-spacing: 2px; 
+}
+/* Contenedor general con botones */
+.contenedor-scroll {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+/* Contenedor de productos con scroll horizontal */
+.contenedor-productos {
+  width: 100%;
+  min-height: 400px;
+  display: flex; 
+  flex-wrap: nowrap; 
+  overflow-x: auto; 
+  gap: 20px; 
+  background-color: #36413E; 
+  padding: 20px; 
+  box-sizing: border-box; 
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth; /* Hace que el scroll sea suave */
+}
+
+/* Estilo de los productos */
+.producto {
+  flex: 0 0 auto;
+  width: 200px; 
+  height: 300px; 
+  background-color: #fff; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  border: 1px solid #ccc; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif; 
+  color: #333; 
+  text-align: center;
+  scroll-snap-align: start;
+}
+
+/* Botones de navegación */
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 15px;
+  font-size: 24px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.scroll-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Posición de los botones */
+.left {
+  left: 10px;
+}
+
+.right {
+  right: 10px;
+}
+
+/* Ocultar la barra de desplazamiento */
+.contenedor-productos::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* Media Queries para hacer el diseño responsive */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .menu-categorias {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
   }
-  
-  .dropdown {
-    position: relative;
-    display: inline-block;
-    color: #000000;
+
+  .categorias-laterales {
+    justify-content: center;
   }
-  
-  .dropbtn {
-    color: black;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
+
+  .contenedor-productos {
+    justify-content: center;
+    padding: 20px;
   }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #beb2c8;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+
+  .producto {
+    width: 150px; 
+    height: 250px; 
   }
-  
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+  .titulo-novedades h1 {
+    font-size: 30px;
   }
-  
-  .dropdown-content a:hover {
-    background-color: #ddd;
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-  
-  .dropdown:hover .dropbtn {
-    background-color: #beb2c8;
-  }
-  
+
   .categorias-laterales a {
-    margin-right: 15px;
-    font-size: 16px;
-    color: #000000;
-    text-decoration: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    
+    font-size: 14px;
   }
-  
-  .categorias-laterales a:hover {
-    background-color: #beb2c8;
-    color: #0056b3;
+
+  .contenedor-productos {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
   }
-  .arrow {
-    display: inline-block;
-    transition: transform 0.3s ease;
+
+  .producto {
+    width: 100%;
+    max-width: 200px;
+    height: 220px;
   }
-  .rotated {
-    transform: rotate(180deg); 
-  }
-  .show {
-    display: block; 
-  }
+}
