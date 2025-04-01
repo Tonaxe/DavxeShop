@@ -137,7 +137,7 @@ namespace DavxeShop.Library.Services
             var passwordHashed = new ResetPasswordRequest
             {
                 Email = request.Email,
-                Password = BCrypt.Net.BCrypt.HashPassword(request.Password, BCrypt.Net.BCrypt.GenerateSalt(5)
+                Password = BCrypt.Net.BCrypt.HashPassword(request.Password, BCrypt.Net.BCrypt.GenerateSalt(5))
             };
 
             return _davxeShopDboHelper.ResetPassword(passwordHashed);
