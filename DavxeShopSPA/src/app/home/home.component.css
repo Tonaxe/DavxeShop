@@ -124,6 +124,7 @@
   box-sizing: border-box;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+  margin-top: auto;
   justify-content: center; /* 🔹 Alinea los productos en el centro */
 }
 
@@ -236,4 +237,38 @@
     max-width: 200px;
     height: 220px;
   }
+}
+.usuario-valoracion {
+  display: flex;
+  align-items: center;
+  background: whitesmoke;
+  padding: 15px;
+  max-width: 300px;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.foto-usuario {
+  width: 60px; 
+  height: 60px;
+  border-radius: 50%; 
+  object-fit: cover;
+  margin-right: 15px; 
+}
+
+.info-usuario {
+  display: flex;
+  flex-direction: column;
+}
+
+.usuario-valoracion h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.estrellas {
+  font-size: 20px;
+  color: blue;
+  margin-top: 5px;
 }

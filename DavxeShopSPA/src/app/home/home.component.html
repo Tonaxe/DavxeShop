@@ -22,26 +22,34 @@
         <a href="#">Gym</a>
       </div>
     </div>
+    
     <div class="titulo-novedades">
       <h1>NOVEDADES</h1>
-  </div>
-  <div class="contenedor-scroll">
-    <button class="scroll-btn left" (click)="scrollLeft()">&#10094;</button>
+    </div>
     
-    <div #contenedor class="contenedor-productos">
-      <div *ngFor="let producto of productos" class="producto">
+    <div class="contenedor-scroll">
+      <button class="scroll-btn left" (click)="scrollLeft()">&#10094;</button>
+      
+      <div #contenedor class="contenedor-productos">
+        <div *ngFor="let producto of productos" class="producto">
+          {{ producto }}
+        </div>
+      </div>
+
+      <button class="scroll-btn right" (click)="scrollRight()">&#10095;</button>
+    </div>
+    <div class="usuario-valoracion">
+      <img src="assets/descarga.webp" alt="Foto de Juan Pérez" class="foto-usuario">
+      <div class="info-usuario">
+        <h3>Tonaxe</h3>
+        <div class="estrellas">★★★★☆</div>
+      </div>
+    </div>
+    
+
+    <div class="contenedor-productos-estaticos">
+      <div *ngFor="let producto of productos.slice(5)" class="producto">
         {{ producto }}
       </div>
     </div>
-  
-    <button class="scroll-btn right" (click)="scrollRight()">&#10095;</button>
-  </div>
-  <div class="contenedor-productos-estaticos">
-    <div *ngFor="let producto of productos.slice(5)" class="producto">
-      {{ producto }}
-    </div>
-  </div>
-  
-
-    
 </div>
