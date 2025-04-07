@@ -1,0 +1,19 @@
+<div class="perfil-contenedor">
+    <div class="perfil-usuario">
+      <img src="assets/logo2.png" alt="Foto del usuario" class="foto-usuario-grande" />
+      <div class="info-usuario">
+        <h2>Tonaxe</h2>
+        <p>{{ productos.length }} productos publicados</p>
+      </div>
+    </div>
+  
+    <div class="seccion-productos-usuario">
+      <h3>Mis productos</h3>
+      <div class="grid-productos">
+        <div *ngFor="let producto of productos" class="producto-usuario">
+          {{ producto }}
+        </div>
+      </div>
+    </div>
+  </div>
+  

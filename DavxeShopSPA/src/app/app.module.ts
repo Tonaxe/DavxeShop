@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { RecuperarContrasenaComponent } from './login/recuperar-contrasena/recuperar-contrasena.component';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 import { SliderComponent } from './slider/slider.component';
+import { MyProductsComponent } from './my-products/my-products.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { SliderComponent } from './slider/slider.component';
     LoginComponent,
     RecuperarContrasenaComponent,
     ResetPasswordComponent,
-    SliderComponent
+    SliderComponent,
+    MyProductsComponent
   ],
   imports: [
     BrowserModule,
