@@ -12,6 +12,8 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { RecuperarContrasenaComponent } from './login/recuperar-contrasena/recuperar-contrasena.component';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
+import { SliderComponent } from './slider/slider.component';
+
 
 @NgModule({
   declarations: [
@@ -22,13 +24,14 @@ import { ResetPasswordComponent } from './login/reset-password/reset-password.co
     LoginComponent,
     RecuperarContrasenaComponent,
     ResetPasswordComponent,
+    SliderComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule 
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

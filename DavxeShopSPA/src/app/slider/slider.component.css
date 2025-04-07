@@ -1,0 +1,17 @@
+/* Limitar el tamaño máximo de las imágenes dentro del carrusel */
+.carousel-inner .carousel-item img.max-size {
+    max-width: 300px;      /* No debe superar el ancho del contenedor */
+    max-height: 400px;     /* Ajusta la altura máxima a lo que prefieras */
+    justify-self: center;
+    object-fit: cover;     /* Mantiene la relación de aspecto sin distorsionar la imagen */
+    padding-bottom: 80px;
+}
+
+/* Mover el texto más abajo para que no se sobreponga */
+.carousel-caption {
+    bottom: 0;
+    left: 0;
+    right: 0;  
+    background: rgba(0, 0, 0, 0.5); 
+    color: #fff;
+}

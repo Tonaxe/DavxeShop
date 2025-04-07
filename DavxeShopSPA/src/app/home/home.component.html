@@ -1,46 +1,57 @@
 <div>
   <div class="menu-categorias">
-      <div class="dropdown">
-        <button class="dropbtn" onclick="toggleDropdown()">
-          Categorías <span class="arrow">&#9662;</span>
+    <div class="dropdown">
+      <button class="dropbtn" onclick="toggleDropdown()">
+        Categorías <span class="arrow">&#9662;</span>
       </button>
-        <div class="dropdown-content">
-          <a href="#">Coche</a>
-          <a href="#">Moto</a>
-          <a href="#">Motor</a>
-          <a href="#">Hogar</a>
-        </div>
-      </div>
-    
-      <div class="categorias-laterales">
+      <div class="dropdown-content">
         <a href="#">Coche</a>
         <a href="#">Moto</a>
         <a href="#">Motor</a>
-        <a href="#">Accesorios</a>
-        <a href="#">Moda</a>
-        <a href="#">Inmobiliaria</a>
-        <a href="#">Gym</a>
+        <a href="#">Hogar</a>
       </div>
     </div>
-    <div class="titulo-novedades">
-      <h1>NOVEDADES</h1>
-  </div>
-  <div class="contenedor-scroll">
-    <button class="scroll-btn left" onclick="scrollLeft()">&#10094;</button>
-    <div class="contenedor-productos">
-        <div class="producto">Producto 1</div>
-        <div class="producto">Producto 2</div>
-        <div class="producto">Producto 3</div>
-        <div class="producto">Producto 4</div>
-        <div class="producto">Producto 5</div>
-        <div class="producto">Producto 6</div>
-        <div class="producto">Producto 7</div>
-        <div class="producto">Producto 8</div>
-        <div class="producto">Producto 9</div>
-        <div class="producto">Producto 10</div>
-    </div>
-    <button class="scroll-btn right" onclick="scrollRight()">&#10095;</button>
-</div>
 
-    
+    <div class="categorias-laterales">
+      <a href="#">Coche</a>
+      <a href="#">Moto</a>
+      <a href="#">Motor</a>
+      <a href="#">Accesorios</a>
+      <a href="#">Moda</a>
+      <a href="#">Inmobiliaria</a>
+      <a href="#">Gym</a>
+    </div>
+  </div>
+
+  <div class="titulo-novedades">
+    <h1>NOVEDADES</h1>
+  </div>
+
+  <app-slider [productos]="productos"></app-slider>
+  <div class="contenedor-principal">
+  <div class="seccion-usuario">
+    <div class="usuario-valoracion">
+      <img src="assets/logo.png" class="foto-usuario" alt="Foto de Tonaxe">
+      <div class="info-usuario">
+        <h3>Tonaxe</h3>
+        <div class="estrellas">★★★★☆ 5</div>
+      </div>
+    </div>
+
+    <h2 class="titulo-seccion">Productos de Tonaxe</h2>
+    <div class="contenedor-productos-estaticos">
+      <div *ngFor="let producto of productos.slice(0, 5)" class="producto">
+        {{ producto }}
+      </div>
+    </div>
+  </div>
+  <div class="seccion-random">
+    <h2 class="titulo-seccion">Otros Productos Recomendados</h2>
+    <div class="contenedor-productos-estaticos">
+      <div *ngFor="let producto of productos.slice(5)" class="producto">
+        {{ producto }}
+      </div>
+    </div>
+  </div>
+  </div>
 </div>
