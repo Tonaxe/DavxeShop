@@ -1,6 +1,6 @@
 .contenedor-principal {
-  margin: 0 160px; /* Añade 20px de margen en los lados (izquierda y derecha) */
-  padding: 0 80px; /* Añade un pequeño padding interno en los lados */
+  margin: 0 160px;
+  padding: 0 80px;
 }
 
 .menu-categorias {
@@ -12,10 +12,9 @@
   color: #000000;
   border-bottom: 2px solid #000000;
   padding: 10px;
-  justify-content: center; /* Centra los elementos en pantallas pequeñas */
+  justify-content: center;
 }
 
-/* Dropdown */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -58,12 +57,11 @@
   background-color: #beb2c8;
 }
 
-/* Estilo para las categorías laterales */
 .categorias-laterales {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Alinea los elementos en el centro */
-  gap: 10px; /* Espaciado entre categorías */
+  justify-content: center;
+  gap: 10px;
 }
 
 .categorias-laterales a {
@@ -79,7 +77,6 @@
   color: #0056b3;
 }
 
-/* Flecha de dropdown */
 .arrow {
   display: inline-block;
   transition: transform 0.3s ease;
@@ -93,7 +90,6 @@
   display: block; 
 }
 
-/* Título de novedades */
 .titulo-novedades {
   text-align: center; 
   margin-top: 10px; 
@@ -105,7 +101,7 @@
   font-family: Porter Sans Block, sans-serif; 
   letter-spacing: 2px; 
 }
-/* Contenedor general con botones */
+
 .contenedor-scroll {
   display: flex;
   align-items: center;
@@ -113,7 +109,6 @@
   width: 100%;
 }
 
-/* Centrar los productos dentro del contenedor */
 .contenedor-productos {
   width: 100%;
   min-height: 400px;
@@ -127,11 +122,9 @@
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   margin-top: auto;
-  justify-content: center; /* 🔹 Alinea los productos en el centro */
+  justify-content: center;
 }
 
-
-/* Estilo de los productos */
 .producto {
   flex: 0 0 auto;
   width: 200px; 
@@ -149,7 +142,6 @@
   margin-top: 29px;
 }
 
-/* Botones de navegación */
 .scroll-btn {
   position: absolute;
   top: 50%;
@@ -167,7 +159,6 @@
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-/* Posición de los botones */
 .left {
   left: 10px;
 }
@@ -176,14 +167,13 @@
   right: 10px;
 }
 
-/* Ocultar la barra de desplazamiento */
 .contenedor-productos::-webkit-scrollbar {
   display: none;
 }
-/* 🔹 Sección de productos debajo en formato GRID */
+
 .contenedor-productos-estaticos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 🔹 Auto-ajustable */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   margin-top: 20px;
   justify-content: center;
@@ -191,10 +181,6 @@
   background-color: #f5f5f5;
 }
 
-
-/* Media Queries para hacer el diseño responsive */
-
-/* Tablets */
 @media (max-width: 768px) {
   .menu-categorias {
     flex-direction: column;
@@ -217,7 +203,6 @@
   }
 }
 
-/* Móviles */
 @media (max-width: 480px) {
   .titulo-novedades h1 {
     font-size: 30px;
