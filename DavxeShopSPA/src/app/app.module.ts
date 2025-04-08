@@ -14,6 +14,7 @@ import { RecuperarContrasenaComponent } from './login/recuperar-contrasena/recup
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 import { SliderComponent } from './slider/slider.component';
 import { MyProductsComponent } from './my-products/my-products.component';
+import { AddProductComponent } from './add-product/add-product.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { MyProductsComponent } from './my-products/my-products.component';
     RecuperarContrasenaComponent,
     ResetPasswordComponent,
     SliderComponent,
-    MyProductsComponent
+    MyProductsComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,

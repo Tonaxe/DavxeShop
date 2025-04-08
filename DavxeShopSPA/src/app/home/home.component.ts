@@ -6,7 +6,7 @@ import { Component, OnInit,  ViewChild, ElementRef } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-//hola
+//holagit
 
 export class HomeComponent implements OnInit {
 

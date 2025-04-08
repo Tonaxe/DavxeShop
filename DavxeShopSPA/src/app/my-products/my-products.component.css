@@ -64,3 +64,68 @@
     font-size: 14px;
     color: #444;
 }
+.btn-anadir-producto {
+    width: 60px;
+    height: 60px;
+    margin-left: 50%;
+    border-radius: 50%;
+    background-color: #beb2c8;
+    color: white;
+    font-size: 32px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .btn-anadir-producto:hover {
+    background-color: #926eb6;
+    transform: scale(1.1);
+  }
+  /* Responsive para móviles */
+@media (max-width: 600px) {
+    .perfil-usuario {
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: center;
+    }
+  
+    .foto-usuario-grande {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto;
+    }
+  
+    .info-usuario h2 {
+      font-size: 20px;
+    }
+  
+    .info-usuario p {
+      font-size: 14px;
+    }
+  
+    .seccion-productos-usuario h3 {
+      font-size: 18px;
+      text-align: center;
+    }
+  
+    .grid-productos {
+      grid-template-columns: 1fr; /* Una columna en móvil */
+      gap: 15px;
+    }
+  
+    .producto-usuario {
+      height: 200px;
+      font-size: 13px;
+    }
+  
+    .btn-anadir-producto {
+      width: 50px;
+      height: 50px;
+      font-size: 28px;
+      margin: 20px auto 0 auto;
+      display: block;
+    }
+  }
+  
