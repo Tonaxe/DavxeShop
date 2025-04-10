@@ -1,42 +1,48 @@
 <div class="add-product-container">
-  <h2>🛍️ Añadir nuevo producto</h2>
+  <h2 class="titulo-formulario">Añadir nuevo producto</h2>
 
   <form class="formulario-producto" (submit)="guardarProducto($event)">
+    <!-- Sección de Información -->
     <div class="seccion-form">
-      <h3>📦 Información</h3>
+      <h3 class="subtitulo">Información del Producto</h3>
 
       <div class="campo-doble">
-        <div>
-          <label for="nombre">Nombre</label>
-          <input type="text" id="nombre" placeholder="Nombre del producto" />
+        <div class="campo">
+          <label for="nombre">Nombre del Producto</label>
+          <input type="text" id="nombre" placeholder="Ej: Camiseta Moderna" />
         </div>
 
-        <div>
+        <div class="campo">
           <label for="precio">Precio (€)</label>
           <input type="number" id="precio" placeholder="0.00" />
         </div>
       </div>
 
-      <label for="descripcion">Descripción</label>
-      <textarea id="descripcion" rows="3" placeholder="Describe tu producto..."></textarea>
+      <div class="campo">
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" rows="3" placeholder="Describe tu producto..."></textarea>
+      </div>
 
-      <label for="categoria">Categoría</label>
-      <select id="categoria">
-        <option value="">Selecciona una categoría</option>
-        <option value="coche">🚗 Coche</option>
-        <option value="moto">🏍️ Moto</option>
-        <option value="hogar">🏠 Hogar</option>
-        <option value="moda">👕 Moda</option>
-        <option value="tecnologia">💻 Tecnología</option>
-      </select>
+      <div class="campo">
+        <label for="categoria">Categoría</label>
+        <select id="categoria">
+          <option value="" disabled selected>Selecciona una categoría</option>
+          <option value="coche">Coche</option>
+          <option value="moto">Moto</option>
+          <option value="hogar">Hogar</option>
+          <option value="moda">Moda</option>
+          <option value="tecnologia">Tecnología</option>
+        </select>
+      </div>
     </div>
 
+    <!-- Sección de Imagen -->
     <div class="seccion-form">
-      <h3>🖼️ Imagen</h3>
+      <h3 class="subtitulo">Subir Imagen</h3>
 
       <div class="custom-file-upload">
         <input type="file" id="imagen" (change)="mostrarVistaPrevia($event)" />
-        <span>Seleccionar imagen</span>
+        <span>Seleccionar archivo</span>
       </div>
 
       <div class="preview-img" *ngIf="imagenPreview">
@@ -44,6 +50,9 @@
       </div>
     </div>
 
-    <button type="submit" class="btn-guardar">Guardar</button>
+    <!-- Botón Guardar -->
+    <button type="submit" class="btn-guardar">
+      Guardar Producto
+    </button>
   </form>
 </div>
