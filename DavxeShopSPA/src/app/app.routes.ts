@@ -6,6 +6,8 @@ import { RecuperarContrasenaComponent } from './login/recuperar-contrasena/recup
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 import { MyProductsComponent } from './my-products/my-products.component';
 import { AddProductComponent } from './add-product/add-product.component';
+import { ChatComponent } from './chat/chat.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -15,5 +17,7 @@ export const routes: Routes = [
     { path: 'my-products', component: MyProductsComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'add-product', component: AddProductComponent },
+    { path: 'chat', component: ChatComponent },
+    { path: 'perfil', component: PerfilComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

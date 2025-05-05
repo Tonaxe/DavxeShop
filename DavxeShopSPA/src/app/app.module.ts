@@ -15,6 +15,8 @@ import { ResetPasswordComponent } from './login/reset-password/reset-password.co
 import { SliderComponent } from './slider/slider.component';
 import { MyProductsComponent } from './my-products/my-products.component';
 import { AddProductComponent } from './add-product/add-product.component';
+import { ChatComponent } from './chat/chat.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { AddProductComponent } from './add-product/add-product.component';
     ResetPasswordComponent,
     SliderComponent,
     MyProductsComponent,
-    AddProductComponent
+    AddProductComponent,
+    ChatComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,

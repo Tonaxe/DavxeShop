@@ -1,0 +1,34 @@
+<body>
+    <div class="main-container">
+      <aside class="user-list">
+        <h2>Usuarios</h2>
+        <ul>
+          <!-- Iteramos sobre los usuarios usando *ngFor -->
+          <li *ngFor="let user of users" [class.active]="user.isActive">
+            <img [src]="user.avatar" [alt]="user.name" />
+            <span>{{ user.name }}</span>
+          </li>
+        </ul>
+      </aside>
+  
+      <div class="chat-wrapper">
+        <div class="chat-container">
+          <div class="chat-header">
+            <h2>Chat con {{ activeUser.name }}</h2>
+          </div>
+  
+          <div class="chat-messages">
+            <div class="message user" *ngFor="let msg of messages">
+              <div class="message-content">{{ msg.content }}</div>
+            </div>
+          </div>
+  
+          <div class="chat-input">
+            <input type="text" placeholder="Escribe un mensaje..." [(ngModel)]="messageInput" />
+            <button (click)="sendMessage()" [disabled]="!messageInput">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  

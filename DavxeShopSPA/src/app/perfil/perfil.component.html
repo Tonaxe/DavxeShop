@@ -1,0 +1,22 @@
+<div class="profile-container">
+    <div class="profile-header">
+      <!-- Cambié 'assets/avatar' por profile.avatar -->
+      <img [src]="profile.avatar" alt="Foto de perfil" class="profile-pic">
+      <h2>{{ profile.name }}</h2>
+      <p>{{ profile.email }}</p>
+    </div>
+  
+    <div class="profile-details">
+      <h3>Información adicional</h3>
+      <ul>
+        <li><strong>Teléfono:</strong> {{ profile.phone }}</li>
+        <li><strong>Dirección:</strong> {{ profile.address }}</li>
+      </ul>
+    </div>
+  
+    <div class="actions">
+      <button (click)="onEditProfile()">Editar perfil</button>
+      <button (click)="onLogout()">Cerrar sesión</button>
+    </div>
+  </div>
+  
