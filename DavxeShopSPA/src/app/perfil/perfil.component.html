@@ -1,22 +1,61 @@
 <div class="profile-container">
-    <div class="profile-header">
-      <!-- Cambié 'assets/avatar' por profile.avatar -->
-      <img [src]="profile.avatar" alt="Foto de perfil" class="profile-pic">
-      <h2>{{ profile.name }}</h2>
-      <p>{{ profile.email }}</p>
-    </div>
-  
-    <div class="profile-details">
-      <h3>Información adicional</h3>
-      <ul>
-        <li><strong>Teléfono:</strong> {{ profile.phone }}</li>
-        <li><strong>Dirección:</strong> {{ profile.address }}</li>
-      </ul>
-    </div>
-  
-    <div class="actions">
-      <button (click)="onEditProfile()">Editar perfil</button>
-      <button (click)="onLogout()">Cerrar sesión</button>
-    </div>
+  <div class="profile-header">
+    <!-- Imagen editable -->
+    <ng-container *ngIf="!isEditing; else editAvatar">
+      <img [src]="profile.avatar" alt="Foto de perfil" class="profile-pic" />
+    </ng-container>
+
+    <ng-template #editAvatar>
+      <label for="avatarInput">
+        <img [src]="profile.avatar" alt="Foto de perfil" class="profile-pic" style="cursor: pointer;" />
+      </label>
+      <input id="avatarInput" type="file" (change)="onImageSelected($event)" accept="image/*" hidden />
+    </ng-template>
+
+   <!-- Nombre -->
+<ng-container *ngIf="!isEditing; else editName">
+  <h2>{{ profile.name }}</h2>
+</ng-container>
+<ng-template #editName>
+  <input [(ngModel)]="profile.name" type="text" placeholder="Nombre completo" />
+</ng-template>
+
+<!-- Email -->
+<ng-container *ngIf="!isEditing; else editEmail">
+  <p>{{ profile.email }}</p>
+</ng-container>
+<ng-template #editEmail>
+  <input [(ngModel)]="profile.email" type="email" placeholder="Correo electrónico" />
+</ng-template>
+
   </div>
-  
+
+  <div class="profile-details">
+    <h3>Información adicional</h3>
+    <ul>
+      <li>
+        <strong>Teléfono:</strong>
+        <span *ngIf="!isEditing">{{ profile.phone }}</span>
+        <input *ngIf="isEditing" [(ngModel)]="profile.phone" type="text" />
+      </li>
+      <li>
+        <strong>Dirección:</strong>
+        <span *ngIf="!isEditing">{{ profile.address }}</span>
+        <input *ngIf="isEditing" [(ngModel)]="profile.address" type="text" />
+      </li>
+    </ul>
+  </div>
+
+  <div class="actions">
+    <ng-container *ngIf="!isEditing; else editingButtons">
+      <button class="edit-btn" (click)="onEditProfile()">Editar perfil</button>
+    </ng-container>
+
+    <ng-template #editingButtons>
+      <button class="save-btn" (click)="onSaveChanges()">Guardar cambios</button>
+      <button class="cancel-btn" (click)="onCancel()">Cancelar</button>
+    </ng-template>
+
+    <button class="logout-btn" (click)="onLogout()">Cerrar sesión</button>
+  </div>
+</div>

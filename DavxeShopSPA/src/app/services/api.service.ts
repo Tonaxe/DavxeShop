@@ -38,4 +38,5 @@ export class ApiService {
   changePassword(resetPasswordComponentRequest: ResetPasswordComponentRequest): Observable<string> {
     return this.http.patch<string>(`${this.baseUrl}reset-password`, resetPasswordComponentRequest);
   }
+
 }
