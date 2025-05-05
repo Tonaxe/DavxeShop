@@ -13,8 +13,16 @@ export class PerfilComponent {
     email: 'tun tun tun sahurz@example.com',
     phone: '123-456-7890',
     address: 'Calle Ficticia 123',
-    avatar: 'assets/avatar.png'
+    avatar: 'assets/avatar.png',
+    password: '',
+    birthDate: '',
+    card: {
+      number: '',
+      expiry: '',
+      cvv: ''
+    }
   };
+  
 
   isEditing = false; // Controla si se está editando o no
   originalProfile: any = {}; // Guarda una copia para cancelar cambios

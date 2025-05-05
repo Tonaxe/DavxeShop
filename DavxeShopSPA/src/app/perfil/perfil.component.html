@@ -12,36 +12,49 @@
       <input id="avatarInput" type="file" (change)="onImageSelected($event)" accept="image/*" hidden />
     </ng-template>
 
-   <!-- Nombre -->
-<ng-container *ngIf="!isEditing; else editName">
-  <h2>{{ profile.name }}</h2>
-</ng-container>
-<ng-template #editName>
-  <input [(ngModel)]="profile.name" type="text" placeholder="Nombre completo" />
-</ng-template>
+    <!-- Nombre -->
+    <ng-container *ngIf="!isEditing; else editName">
+      <h2>{{ profile.name }}</h2>
+    </ng-container>
+    <ng-template #editName>
+      <input [(ngModel)]="profile.name" type="text" placeholder="Nombre completo" />
+    </ng-template>
 
-<!-- Email -->
-<ng-container *ngIf="!isEditing; else editEmail">
-  <p>{{ profile.email }}</p>
-</ng-container>
-<ng-template #editEmail>
-  <input [(ngModel)]="profile.email" type="email" placeholder="Correo electrónico" />
-</ng-template>
-
+    <!-- Email -->
+    <ng-container *ngIf="!isEditing; else editEmail">
+      <p>{{ profile.email }}</p>
+    </ng-container>
+    <ng-template #editEmail>
+      <input [(ngModel)]="profile.email" type="email" placeholder="Correo electrónico" />
+    </ng-template>
   </div>
 
   <div class="profile-details">
     <h3>Información adicional</h3>
     <ul>
       <li>
-        <strong>Teléfono:</strong>
-        <span *ngIf="!isEditing">{{ profile.phone }}</span>
-        <input *ngIf="isEditing" [(ngModel)]="profile.phone" type="text" />
+        <strong>Contraseña:</strong>
+        <span *ngIf="!isEditing">••••••••</span>
+        <input *ngIf="isEditing" [(ngModel)]="profile.password" type="password" placeholder="Nueva contraseña" />
       </li>
+
       <li>
-        <strong>Dirección:</strong>
-        <span *ngIf="!isEditing">{{ profile.address }}</span>
-        <input *ngIf="isEditing" [(ngModel)]="profile.address" type="text" />
+        <strong>Fecha de nacimiento:</strong>
+        <span *ngIf="!isEditing">{{ profile.birthDate }}</span>
+        <input *ngIf="isEditing" [(ngModel)]="profile.birthDate" type="date" />
+      </li>
+
+      <li>
+        <strong>Tarjeta de pago:</strong>
+        <div *ngIf="!isEditing">
+          **** **** **** {{ profile.card.number.slice(-4) }}<br>
+          Vence: {{ profile.card.expiry }}
+        </div>
+        <div *ngIf="isEditing" class="card-inputs">
+          <input [(ngModel)]="profile.card.number" type="text" placeholder="Número de tarjeta" />
+          <input [(ngModel)]="profile.card.expiry" type="text" placeholder="MM/AA" />
+          <input [(ngModel)]="profile.card.cvv" type="text" placeholder="CVV" />
+        </div>
       </li>
     </ul>
   </div>

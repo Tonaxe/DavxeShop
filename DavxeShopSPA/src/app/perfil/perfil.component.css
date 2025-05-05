@@ -1,7 +1,7 @@
 body, html {
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: calc(100vh - 106px); /* Ajuste por el header */
   background: linear-gradient(to right, #ece9f1, #f2f3f7);
   font-family: 'Segoe UI', 'Arial', sans-serif;
 }
@@ -205,4 +205,9 @@ button:hover {
     min-width: 120px;
     font-size: 14px;
   }
+}
+.card-inputs input {
+  display: block;
+  margin: 6px auto;
+  width: 80%;
 }

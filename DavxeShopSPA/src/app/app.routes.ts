@@ -8,6 +8,8 @@ import { MyProductsComponent } from './my-products/my-products.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ChatComponent } from './chat/chat.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { FiltroComponent} from './filtro/filtro.component';
+
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -19,5 +21,6 @@ export const routes: Routes = [
     { path: 'add-product', component: AddProductComponent },
     { path: 'chat', component: ChatComponent },
     { path: 'perfil', component: PerfilComponent },
+    { path: 'filtro', component: FiltroComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

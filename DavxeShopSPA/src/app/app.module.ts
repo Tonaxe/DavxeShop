@@ -17,6 +17,8 @@ import { MyProductsComponent } from './my-products/my-products.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ChatComponent } from './chat/chat.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { FiltroComponent} from './filtro/filtro.component';
+
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { PerfilComponent } from './perfil/perfil.component';
     MyProductsComponent,
     AddProductComponent,
     ChatComponent,
-    PerfilComponent
+    PerfilComponent,
+    FiltroComponent
   ],
   imports: [
     BrowserModule,
