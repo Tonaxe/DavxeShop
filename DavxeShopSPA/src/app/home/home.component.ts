@@ -1,4 +1,5 @@
 import { Component, OnInit,  ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: false,
@@ -11,6 +12,7 @@ import { Component, OnInit,  ViewChild, ElementRef } from '@angular/core';
 export class HomeComponent implements OnInit {
   nombreUsuario: string = "Tonaxea marica"; // <-- Nueva propiedad
 
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
   } 
@@ -40,4 +42,8 @@ export class HomeComponent implements OnInit {
     const maxScroll = this.contenedor.nativeElement.scrollWidth - this.contenedor.nativeElement.clientWidth;
     this.contenedor.nativeElement.scrollTo({ left: maxScroll, behavior: 'smooth' });
   }
+  verDetalle(productos: string) {
+    this.router.navigate(['/detalle']);
+  }
+  
 }

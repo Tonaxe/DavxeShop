@@ -9,12 +9,13 @@
       </div>
       <button (click)="navigate()" class="btn-anadir-producto" aria-label="Añadir producto">+</button>
     </div>
-  
+    <div class="subtitulo">
+     <h3>Mis productos</h3>
+    </div>
     <div class="seccion-productos-usuario">
-      <h3>Mis productos</h3>
-      <div class="grid-productos">
-        <div *ngFor="let producto of productos" class="producto-usuario">
-          {{ producto }}
+      <div *ngFor="let producto of productos" class="producto-usuario" (click)="verDetalle(producto)">
+        <div class="producto-info">
+          <h4>{{ producto }}</h4>
         </div>
       </div>
     </div>

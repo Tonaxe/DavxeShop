@@ -1,1 +1,59 @@
-<p>detalle works!</p>
+<div class="atras">
+    <div class="product-detail-container">
+      <div class="header-detail">
+        <button class="btn-volver" (click)="volverAtras()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <h1 class="titulo-detalle">{{producto.nombre}}</h1>
+      </div>
+  
+      <div class="producto-imagen-container">
+        <img [src]="producto.imagen" alt="Imagen del producto" class="producto-imagen" />
+      </div>
+  
+      <div class="seccion-detalle">
+        <div class="info-basica">
+          <h2 class="nombre-producto">{{ producto.nombre }}</h2>
+          <p class="precio-producto">{{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</p>
+        </div>
+  
+        <div class="categoria-producto">
+          <span class="categoria-badge">{{ getCategoriaNombre(producto.categoria) }}</span>
+        </div>
+      </div>
+  
+      <div class="seccion-detalle">
+        <h3 class="subtitulo-detalle">Descripción</h3>
+        <p class="descripcion-producto">{{ producto.descripcion }}</p>
+      </div>
+  
+      <div class="seccion-detalle">
+        <h3 class="subtitulo-detalle">Detalles adicionales</h3>
+        <div class="detalles-adicionales">
+          <div class="detalle-item">
+            <span class="detalle-label">Estado:</span>
+            <span class="detalle-valor">Nuevo</span>
+          </div>
+          <div class="detalle-item">
+            <span class="detalle-label">Publicado:</span>
+            <span class="detalle-valor">Hace 3 días</span>
+          </div>
+          <div class="detalle-item">
+            <span class="detalle-label">Ubicación:</span>
+            <span class="detalle-valor">Madrid, España</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="acciones-producto">
+        <button class="btn-contactar" (click)="Chat()">Contactar al vendedor</button>
+        <button class="btn-favorito" [class.active]="esFavorito" (click)="toggleFavorito()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path class="corazon" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>

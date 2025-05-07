@@ -24,4 +24,7 @@ export class MyProductsComponent {
   navigate() {
     this.router.navigate(['/add-product']);
   }
+  verDetalle(producto: string) {
+    this.router.navigate(['/detalle']);
+  }
 }
