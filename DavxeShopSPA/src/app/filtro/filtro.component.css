@@ -18,6 +18,11 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+    cursor: pointer;
   }
   
   .producto-usuario::before {
@@ -41,48 +46,12 @@
     opacity: 1;
   }
   
-  .producto-info {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
   .producto-info h4 {
     margin: 0;
     font-size: 20px;
     color: #1a202c;
     font-weight: 700;
     letter-spacing: -0.5px;
-  }
-  
-  .descripcion {
-    font-size: 15px;
-    color: #718096;
-    line-height: 1.6;
-    margin: 0;
-  }
-  
-  .ver-detalle {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    margin-top: 10px;
-    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
-  }
-  
-  .ver-detalle:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
-  }
-  
-  .ver-detalle:active {
-    transform: translateY(0);
   }
   
   @keyframes fadeIn {
@@ -106,19 +75,11 @@
   
     .producto-usuario {
       padding: 20px;
+      min-height: 120px;
     }
   
     .producto-info h4 {
       font-size: 18px;
-    }
-  
-    .descripcion {
-      font-size: 14px;
-    }
-  
-    .ver-detalle {
-      padding: 10px 20px;
-      font-size: 14px;
     }
   }
   

@@ -30,11 +30,13 @@
   <app-slider [productos]="productos"></app-slider>
   <div class="contenedor-principal">
     <div class="seccion-usuario">
-      <h2 class="titulo-seccion">Productos de Tonaxe</h2>
+      <h2 class="titulo-seccion">Productos de {{ nombreUsuario }}</h2>
       <div class="usuario-valoracion">
-        <img src="assets/logo.png" class="foto-usuario" alt="Foto de Tonaxe">
+        <a href="/perfil">
+        <img src="assets/avatar.png" class="foto-usuario" alt="Foto de Tonaxe">
+        </a>
         <div class="info-usuario">
-          <h3>Tonaxe</h3>
+          <h3>{{ nombreUsuario }}</h3>
           <div class="estrellas">★★★★☆ 5</div>
         </div>
       </div>

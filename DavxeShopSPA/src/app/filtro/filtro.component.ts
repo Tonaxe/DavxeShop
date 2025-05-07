@@ -21,7 +21,7 @@ export class FiltroComponent {
     'Producto 8',
   ];
   verDetalle(producto: string) {
-    console.log('Ver detalles de:', producto);
+    this.router.navigate(['/detalle']);
   }
   
 }

@@ -9,6 +9,8 @@ import { Component, OnInit,  ViewChild, ElementRef } from '@angular/core';
 //holagit
 
 export class HomeComponent implements OnInit {
+  nombreUsuario: string = "Tonaxea marica"; // <-- Nueva propiedad
+
 
   ngOnInit(): void {
   } 

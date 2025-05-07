@@ -9,6 +9,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { ChatComponent } from './chat/chat.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { FiltroComponent} from './filtro/filtro.component';
+import { DetalleComponent } from './detalle/detalle.component';
 
 
 export const routes: Routes = [
@@ -22,5 +23,6 @@ export const routes: Routes = [
     { path: 'chat', component: ChatComponent },
     { path: 'perfil', component: PerfilComponent },
     { path: 'filtro', component: FiltroComponent },
+    { path: 'detalle', component: DetalleComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

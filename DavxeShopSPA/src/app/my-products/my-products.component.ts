@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class MyProductsComponent {
   constructor(private router: Router) {}
+  nombreUsuario: string = "Tonaxea"; // <-- Nueva propiedad
   productos = [
     'Producto 1',
     'Producto 2',
