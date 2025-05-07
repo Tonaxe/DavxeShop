@@ -1,7 +1,7 @@
 <body>
     <div class="main-container">
       <aside class="user-list">
-        <h2>Usuarios</h2>
+        <h2>Conversaciones</h2>
         <ul>
           <!-- Iteramos sobre los usuarios usando *ngFor -->
           <li *ngFor="let user of users" [class.active]="user.isActive">
@@ -24,8 +24,15 @@
           </div>
   
           <div class="chat-input">
-            <input type="text" placeholder="Escribe un mensaje..." [(ngModel)]="messageInput" />
-            <button (click)="sendMessage()" [disabled]="!messageInput">Enviar</button>
+            <input 
+              type="text" 
+              placeholder="Escribe un mensaje..." 
+              [(ngModel)]="messageInput"
+              (keyup.enter)="sendMessage()"
+            />
+            <button (click)="sendMessage()" [disabled]="!messageInput">
+              Enviar
+            </button>
           </div>
         </div>
       </div>
