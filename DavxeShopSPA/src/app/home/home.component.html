@@ -1,60 +1,81 @@
-<div>
-  <div class="menu-categorias">
-    <div class="dropdown">
-      <button class="dropbtn" onclick="toggleDropdown()">
-        Categorías <span class="arrow">&#9662;</span>
+<div class="home-container">
+  <!-- Menú de categorías mejorado -->
+  <div class="categorias-container">
+    <div class="dropdown-categorias">
+      <button class="dropdown-btn" (click)="toggleDropdown()">
+        Todas las categorías
+        <span class="dropdown-icon" [class.rotated]="dropdownAbierto">›</span>
       </button>
-      <div class="dropdown-content">
-        <a href="/filtro">Coche</a>
-        <a href="/filtro">Moto</a>
-        <a href="/filtro">Motor</a>
-        <a href="/filtro">Hogar</a>
-      </div>
-    </div>
-
-    <div class="categorias-laterales">
-      <a href="/filtro">Coche</a>
-      <a href="/filtro">Moto</a>
-      <a href="/filtro">Motor</a>
-      <a href="/filtro">Accesorios</a>
-      <a href="/filtro">Moda</a>
-      <a href="/filtro">Inmobiliaria</a>
-      <a href="/filtro">Gym</a>
-    </div>
-  </div>
-
-  <div class="titulo-novedades">
-    <h1>NOVEDADES</h1>
-  </div>
-
-  <app-slider [productos]="productos"></app-slider>
-  <div class="contenedor-principal">
-    <div class="seccion-usuario">
-      <h2 class="titulo-seccion">Productos de {{ nombreUsuario }}</h2>
-      <div class="usuario-valoracion">
-        <a href="/perfil">
-        <img src="assets/avatar.png" class="foto-usuario" alt="Foto de Tonaxe">
+      <div class="dropdown-menu" [class.show]="dropdownAbierto">
+        <a *ngFor="let categoria of categoriasPrincipales" 
+           [routerLink]="['/filtro']" 
+           [queryParams]="{categoria: categoria.id}">
+          {{ categoria.nombre }}
         </a>
-        <div class="info-usuario">
-          <h3>{{ nombreUsuario }}</h3>
-          <div class="estrellas">★★★★☆ 5</div>
-        </div>
-      </div>
-
-
-      <div class="contenedor-productos-estaticos">
-        <div *ngFor="let producto of productos.slice(0, 5)" class="producto">
-          {{ producto }}
-        </div>
       </div>
     </div>
-    <div class="seccion-random">
-      <h2 class="titulo-seccion">Otros Productos Recomendados</h2>
-      <div class="contenedor-productos-estaticos">
-        <div *ngFor="let producto of productosRandom.slice(0, 30)" class="producto">
-          {{ producto }}
-        </div>
-      </div>
+    
+    <div class="categorias-rapidas">
+      <a *ngFor="let categoria of categoriasSecundarias" 
+         [routerLink]="['/filtro']" 
+         [queryParams]="{categoria: categoria.id}" 
+         class="categoria-link">
+        {{ categoria.nombre }}
+      </a>
     </div>
   </div>
+
+  <!-- Sección de novedades -->
+  <div class="seccion-titulo">
+    <h2 class="titulo-destacado">NOVEDADES</h2>
+    <div class="linea-decorativa"></div>
+  </div>
+  
+  <app-slider [productos]="productos"></app-slider>
+
+  <!-- Sección del usuario -->
+  <div class="seccion-usuario">
+    <div class="encabezado-seccion">
+      <h3 class="titulo-seccion">Productos de {{ nombreUsuario }}</h3>    
+    </div>
+    
+    <div class="tarjeta-usuario">
+      <a [routerLink]="['/perfil']" class="enlace-usuario">
+        <img src="assets/avatar.png" class="foto-perfil" alt="Foto de perfil">
+      </a>
+      <div class="info-usuario">
+        <h4 class="nombre-usuario">{{ nombreUsuario }}</h4>
+        <div class="valoracion">
+          <span class="estrellas">★★★★☆</span>
+          <span class="puntuacion">4.5</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="contenedor-scroll">
+      <button class="scroll-btn left" (click)="scrollLeft()">‹</button>
+      <div #contenedor class="contenedor-productos">
+        <div *ngFor="let producto of productos" class="producto" (click)="verDetalle(producto)">
+          <img [src]="producto.imagen" alt="{{producto.nombre}}" class="producto-imagen">
+          <div class="producto-nombre">{{ producto.nombre }}</div>
+        </div>
+      </div>
+      <button class="scroll-btn right" (click)="scrollRight()">›</button>
+    </div>
+  </div>
+  
+  <!-- Sección de recomendados -->
+  <div class="seccion-recomendados">
+    <div class="encabezado-seccion">
+      <h3 class="titulo-seccion">Productos recomendados</h3>
+    </div>
+    
+    <div class="grid-productos">
+      <div *ngFor="let producto of productosRandom.slice(0, 8)" class="producto-card">
+        <div class="producto-contenido">
+          {{ producto }}
+        </div>
+      </div>
+    </div>
+  </div>  
 </div>
