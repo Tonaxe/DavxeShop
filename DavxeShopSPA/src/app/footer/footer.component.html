@@ -1,0 +1,42 @@
+<footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4 class="footer-title">DavxeShop</h4>
+        <p class="footer-text">La mejor plataforma para comprar y vender productos de segunda mano.</p>
+        <div class="footer-social">
+          <a href="https://github.com/Tonaxe/DavxeShop"  class="social-link">
+            <img class="imgF" src="assets/logotipo-de-github.png">
+          </a>
+          <a href="https://www.linkedin.com/in/said-el-morabiti/" class="social-link">
+            <img src="assets/linkedin.png" class="imgF">
+          </a>
+          <a href="https://www.linkedin.com/in/yassin-mennana/" class="social-link">
+            <img src="assets/linkedin.png" class="imgF">
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h4 class="footer-title">Enlaces rápidos</h4>
+        <ul class="footer-links">
+          <li><a [routerLink]="['/home']">Inicio</a></li>
+          <li><a [routerLink]="['/chat']">Chat</a></li>
+          <li><a [routerLink]="['/my-products']">Mis productos</a></li>
+          <li><a [routerLink]="['/add-product']">Vender</a></li>
+        </ul>
+      </div>
+       
+      <div class="footer-section">
+        <h4 class="footer-title">Contacto</h4>
+        <ul class="footer-contact">
+          <li><i class="fas fa-map-marker-alt"></i> Puig Castellar</li>
+          <li><i class="fas fa-phone"></i> +34 123 456 789</li>
+          <li><i class="fas fa-envelope"></i> {{ 'selmorabiti@elpuig.xeill.net  ymennana@elpuig.xeill.net ' }}</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; {{ currentYear }} DavxeShop. Todos los derechos reservados.</p>
+    </div>
+  </footer>

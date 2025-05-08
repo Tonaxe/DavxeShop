@@ -15,4 +15,7 @@ export class AppComponent{
   shouldShowHeader(): boolean {
     return !['/login', '/register', '/recover-password', '/reset-password'].some(route => this.router.url.startsWith(route));
   }
+  shouldShowFooter(): boolean {
+    return !['/login', '/register', '/recover-password', '/reset-password','/chat'].some(route => this.router.url.startsWith(route));
+  }
 }

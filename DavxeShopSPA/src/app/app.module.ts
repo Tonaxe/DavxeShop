@@ -19,6 +19,7 @@ import { ChatComponent } from './chat/chat.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { FiltroComponent} from './filtro/filtro.component';
 import { DetalleComponent } from './detalle/detalle.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -39,7 +40,8 @@ import { DetalleComponent } from './detalle/detalle.component';
     ChatComponent,
     PerfilComponent,
     FiltroComponent,
-    DetalleComponent
+    DetalleComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
