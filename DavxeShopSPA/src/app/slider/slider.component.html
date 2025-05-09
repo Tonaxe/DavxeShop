@@ -8,9 +8,6 @@
     <div class="carousel-inner">
         <div *ngFor="let producto of productos; let i = index" class="carousel-item" [class.active]="i === 0">
             <img [src]="producto.imagen" class="d-block w-100 max-size" [alt]="producto.nombre">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>{{ producto.nombre }}</h5>
-            </div>
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
