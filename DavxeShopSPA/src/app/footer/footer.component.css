@@ -1,4 +1,9 @@
 /* styles.css o tu archivo CSS principal */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -21,6 +26,7 @@ body {
   
   /* Footer */
   .footer {
+    margin-top: auto;
     background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
     color: white;
     padding: 50px 0 0;

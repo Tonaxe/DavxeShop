@@ -1,13 +1,54 @@
-/* Contenedor principal */
+/* Fondo elegante con gradiente y patrón sutil */
+body {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Patrón de ondas sutiles en el fondo */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234f46e5' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+  z-index: -1;
+}
+
+/* Contenedor principal mejorado */
 .add-product-container {
   max-width: 900px;
   margin: 40px auto;
   padding: 40px;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.95) 100%);
   border-radius: 24px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
   font-family: 'Inter', 'Segoe UI', sans-serif;
   animation: fadeSlideIn 0.8s ease-out;
+  backdrop-filter: blur(4px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de borde decorativo */
+.add-product-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #4f46e5, #7c3aed, #4f46e5);
+  background-size: 200% 100%;
+  animation: gradientFlow 4s ease infinite;
 }
 
 .titulo-formulario {
@@ -18,6 +59,7 @@
   font-weight: 800;
   letter-spacing: -0.5px;
   position: relative;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .titulo-formulario::after {
@@ -33,17 +75,23 @@
 
 .seccion-form {
   margin-bottom: 40px;
-  background: white;
+  background: rgba(255, 255, 255, 0.8);
   padding: 35px;
   border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(226, 232, 240, 0.3) inset;
   border: 1px solid rgba(226, 232, 240, 0.8);
   transition: all 0.3s ease;
+  backdrop-filter: blur(2px);
 }
 
 .seccion-form:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 
+    0 12px 25px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(226, 232, 240, 0.4) inset;
+  background: white;
 }
 
 .subtitulo {
@@ -90,7 +138,7 @@
   border: 2px solid #e5e7eb;
   border-radius: 14px;
   font-size: 16px;
-  background-color: #f9fafb;
+  background-color: rgba(249, 250, 251, 0.7);
   transition: all 0.3s ease;
   color: #1f2937;
 }
@@ -109,7 +157,7 @@
   resize: vertical;
 }
 
-/* Custom File Upload */
+/* Custom File Upload mejorado */
 .custom-file-upload {
   position: relative;
   overflow: hidden;
@@ -122,13 +170,14 @@
   text-align: center;
   color: #4b5563;
   cursor: pointer;
-  background-color: #f9fafb;
+  background-color: rgba(249, 250, 251, 0.5);
   transition: all 0.3s ease;
 }
 
 .custom-file-upload:hover {
   border-color: #4f46e5;
-  background-color: #f3f4f6;
+  background-color: rgba(243, 244, 246, 0.7);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.1);
 }
 
 .custom-file-upload input[type="file"] {
@@ -146,6 +195,8 @@
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .preview-img img {
@@ -159,7 +210,7 @@
   transform: scale(1.03);
 }
 
-/* Botón Guardar */
+/* Botón Guardar mejorado */
 .btn-guardar {
   background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
   color: white;
@@ -170,25 +221,46 @@
   cursor: pointer;
   font-weight: 600;
   margin-top: 30px;
-  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.2);
+  box-shadow: 
+    0 8px 20px rgba(79, 70, 229, 0.2),
+    0 0 0 1px rgba(79, 70, 229, 0.1) inset;
   transition: all 0.3s ease;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-guardar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
 }
 
 .btn-guardar:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 25px rgba(79, 70, 229, 0.3);
+  box-shadow: 
+    0 12px 25px rgba(79, 70, 229, 0.3),
+    0 0 0 1px rgba(79, 70, 229, 0.2) inset;
+}
+
+.btn-guardar:hover::before {
+  left: 100%;
 }
 
 .btn-guardar:active {
   transform: translateY(-1px);
 }
 
-/* Animaciones */
+/* Animaciones mejoradas */
 @keyframes fadeSlideIn {
   0% {
     opacity: 0;
@@ -206,6 +278,18 @@
   }
   100% {
     width: 100px;
+  }
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
