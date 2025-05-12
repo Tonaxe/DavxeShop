@@ -14,12 +14,12 @@
   /* Contenedor del logo */
   .logo-container {
     flex: 0 0 auto;
-    height: 50px;
-    width: 50px;
+    height: 100px;
+    width: 100px;
   }
   
   .logo {
-    height: 50px;
+    height: 100px;
     transition: transform 0.3s ease;
   }
   

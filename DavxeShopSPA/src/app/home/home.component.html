@@ -41,7 +41,7 @@
     
     <div class="tarjeta-usuario">
       <a [routerLink]="['/perfil']" class="enlace-usuario">
-        <img src="assets/avatar.png" class="foto-perfil" alt="Foto de perfil">
+        <img src="assets/said_pf.jpeg" class="foto-perfil" alt="Foto de perfil">
       </a>
       <div class="info-usuario">
         <h4 class="nombre-usuario">{{ nombreUsuario }}</h4>
@@ -53,12 +53,14 @@
     </div>
     
     <div class="contenedor-scroll">
+      <button class="arrow left" (click)="scrollLeft()">&#10094;</button>
         <div #contenedor class="contenedor-productos">
-        <div *ngFor="let producto of productos" class="producto" (click)="verDetalle(producto)">
+      <div *ngFor="let producto of productos" class="producto" (click)="verDetalle(producto)">
           <img [src]="producto.imagen" alt="{{producto.nombre}}" class="producto-imagen">
           <div class="producto-nombre">{{ producto.nombre }}</div>
         </div>
       </div>
+      <button class="arrow right" (click)="scrollRight()">&#10095;</button>
     </div>
   </div>
   

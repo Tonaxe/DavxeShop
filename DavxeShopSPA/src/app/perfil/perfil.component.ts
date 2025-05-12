@@ -13,7 +13,7 @@ export class PerfilComponent {
     email: 'tun tun tun sahurz@example.com',
     phone: '123-456-7890',
     address: 'Calle Ficticia 123',
-    avatar: 'assets/avatar.png',
+    avatar: 'assets/said_pf.jpeg',
     password: '',
     birthDate: '',
     card: {

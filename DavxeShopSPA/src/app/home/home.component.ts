@@ -33,11 +33,21 @@ export class HomeComponent implements OnInit {
   @ViewChild('contenedor', { static: false }) contenedor!: ElementRef;
   
   productos = [
-    { nombre: 'Producto 1', imagen: 'assets/logo.png' },
-    { nombre: 'Producto 2', imagen: 'assets/logo.png' },
-    { nombre: 'Producto 3', imagen: 'assets/logo.png' },
-    { nombre: 'Producto 4', imagen: 'assets/logo.png' },
-    { nombre: 'Producto 5', imagen: 'assets/logo.png' }
+    { nombre: 'Producto 1', imagen: 'assets/1.png' },
+    { nombre: 'Producto 2', imagen: 'assets/1.png' },
+    { nombre: 'Producto 3', imagen: 'assets/1.png' },
+    { nombre: 'Producto 4', imagen: 'assets/1.png' },
+    { nombre: 'Producto 5', imagen: 'assets/1.png' },
+    { nombre: 'Producto 6', imagen: 'assets/1.png' },
+    { nombre: 'Producto 7', imagen: 'assets/1.png' },
+    { nombre: 'Producto 8', imagen: 'assets/1.png' },
+    { nombre: 'Producto 9', imagen: 'assets/1.png' },
+    { nombre: 'Producto 10', imagen: 'assets/1.png' },
+    { nombre: 'Producto 11', imagen: 'assets/1.png' },
+    { nombre: 'Producto 12', imagen: 'assets/1.png' },
+    { nombre: 'Producto 13', imagen: 'assets/1.png' },
+    { nombre: 'Producto 14', imagen: 'assets/1.png' },
+    { nombre: 'Producto 15', imagen: 'assets/1.png' },
   ];
 
   productosRandom = [
