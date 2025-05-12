@@ -2,15 +2,17 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden; /* Sin scroll global */
+    width: 100%;
+    overflow: hidden; /* Evita scroll en toda la página */
     font-family: 'Inter', 'Segoe UI', sans-serif;
     background-color: #f8f9fa;
-}
+    box-sizing: border-box;
+  }  
 
 /* Este debe ser tu contenedor principal debajo del header */
 .main-container {
     display: flex;
-    height: calc(100vh - 106px); /* Ajuste por el header */
+    height: calc(100vh - 140px); /* Ajuste por el header */
     overflow: hidden;
     width: 100%;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);

@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { routes } from './app.routes';
+import { routerOptions, routes } from './app.routes';
 import { FormsModule } from '@angular/forms'; 
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
@@ -20,10 +20,6 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { FiltroComponent} from './filtro/filtro.component';
 import { DetalleComponent } from './detalle/detalle.component';
 import { FooterComponent } from './footer/footer.component';
-
-
-
-
 
 @NgModule({
   declarations: [
@@ -45,7 +41,7 @@ import { FooterComponent } from './footer/footer.component';
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, routerOptions),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule

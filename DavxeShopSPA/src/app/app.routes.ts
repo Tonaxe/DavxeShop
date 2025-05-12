@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { ExtraOptions, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -10,6 +10,7 @@ import { ChatComponent } from './chat/chat.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { FiltroComponent} from './filtro/filtro.component';
 import { DetalleComponent } from './detalle/detalle.component';
+import { NgModule } from '@angular/core';
 
 
 export const routes: Routes = [
@@ -26,3 +27,9 @@ export const routes: Routes = [
     { path: 'detalle', component: DetalleComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
+
+export const routerOptions: ExtraOptions = {
+    scrollPositionRestoration: 'enabled',
+    anchorScrolling: 'enabled',
+    scrollOffset: [0, 0]
+  };
