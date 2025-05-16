@@ -1,4 +1,4 @@
-﻿using DavxeShop.Models;
+﻿using DavxeShop.Models.Response;
 
 namespace DavxeShop.Library.Services.Interfaces
 {

@@ -1,6 +1,6 @@
 ﻿using Azure.Core;
 using DavxeShop.Library.Services.Interfaces;
-using DavxeShop.Models;
+using DavxeShop.Models.Response;
 using DavxeShop.Persistance.Interfaces;
 using System.Text.RegularExpressions;
 

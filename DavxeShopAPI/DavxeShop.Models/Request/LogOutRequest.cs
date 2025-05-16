@@ -1,4 +1,4 @@
-﻿namespace DavxeShop.Models
+﻿namespace DavxeShop.Models.Request
 {
     public class LogOutRequest
     {

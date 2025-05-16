@@ -7,7 +7,7 @@
         public required string Name { get; set; }
         public required string Email { get; set; }
         public DateTime BirthDate { get; set; }
-        public string ?City { get; set; }
+        public string? City { get; set; }
         public required string Password { get; set; }
     }
 }
