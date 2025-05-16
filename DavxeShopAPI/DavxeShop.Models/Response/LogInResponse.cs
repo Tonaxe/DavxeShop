@@ -1,4 +1,4 @@
-﻿namespace DavxeShop.Models
+﻿namespace DavxeShop.Models.Response
 {
     public class LogInResponse
     {
