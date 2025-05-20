@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using DavxeShop.Library.Services.Interfaces;
+﻿using DavxeShop.Library.Services.Interfaces;
 using DavxeShop.Models;
 using DavxeShop.Models.Request;
 using Microsoft.AspNetCore.Mvc;

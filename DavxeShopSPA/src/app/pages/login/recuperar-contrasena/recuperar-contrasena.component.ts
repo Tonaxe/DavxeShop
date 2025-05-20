@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-recuperar-contrasena',

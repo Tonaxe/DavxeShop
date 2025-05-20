@@ -1,10 +1,7 @@
-﻿using Azure.Core;
-using DavxeShop.Models;
+﻿using DavxeShop.Models;
+using DavxeShop.Models.dbModels;
 using DavxeShop.Models.Request;
 using DavxeShop.Persistance.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System.Net;
-using System.Reflection.Metadata.Ecma335;
 
 namespace DavxeShop.Persistance
 {
@@ -81,10 +78,10 @@ namespace DavxeShop.Persistance
             }
         }
 
-        public bool LogOut(string token) 
+        public bool LogOut(string token)
         {
             var user = _context.Sessions.FirstOrDefault(x => x.Token == token);
-            if (user == null) 
+            if (user == null)
                 return false;
 
             user.Ended = DateTime.Now;
@@ -102,7 +99,7 @@ namespace DavxeShop.Persistance
         {
             try
             {
-                _context.RecoverCodes.Add(new RecoverCodes
+                _context.RecoverCodes.Add(new RecoverCode
                 {
                     UserId = userId,
                     RecoveryCode = code,
@@ -129,7 +126,7 @@ namespace DavxeShop.Persistance
             try
             {
                 var user = _context.Users.SingleOrDefault(x => x.Email == request.Email);
-                
+
                 if (user == null) return false;
 
                 user.Password = request.Password;

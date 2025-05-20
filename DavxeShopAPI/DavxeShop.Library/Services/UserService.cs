@@ -1,5 +1,6 @@
 ﻿using DavxeShop.Library.Services.Interfaces;
 using DavxeShop.Models;
+using DavxeShop.Models.dbModels;
 using DavxeShop.Models.Request;
 using DavxeShop.Persistance.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -12,8 +13,8 @@ namespace DavxeShop.Library.Services
 {
     public class UserService : IUserService
     {
-        private readonly IDavxeShopDboHelper _davxeShopDboHelper; 
-        private readonly IEmailService _emailService;        
+        private readonly IDavxeShopDboHelper _davxeShopDboHelper;
+        private readonly IEmailService _emailService;
         private readonly string _secretKey;
 
         public UserService(IDavxeShopDboHelper davxeShopDboHelper, IConfiguration configuration, IEmailService emailService)
@@ -48,7 +49,7 @@ namespace DavxeShop.Library.Services
             return requestHashed;
         }
 
-        public bool SaveUser(User request) 
+        public bool SaveUser(User request)
         {
             return _davxeShopDboHelper.SaveUser(request);
         }
@@ -61,7 +62,7 @@ namespace DavxeShop.Library.Services
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));
-            
+
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(

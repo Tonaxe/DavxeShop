@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using DavxeShop.Library.Services.Interfaces;
+﻿using DavxeShop.Library.Services.Interfaces;
 using DavxeShop.Models.Response;
 using DavxeShop.Persistance.Interfaces;
 using System.Text.RegularExpressions;
@@ -36,12 +35,12 @@ namespace DavxeShop.Library.Services
             return letterPart.Equals(correctLetter.ToString(), StringComparison.OrdinalIgnoreCase);
         }
 
-        public bool UserExists(string Name, string Email, string DNI) 
+        public bool UserExists(string Name, string Email, string DNI)
         {
             return _davxeShopDboHelper.UserExists(Name, Email, DNI);
         }
 
-        public bool ValidateToken(LogInResponse userAndToken) 
+        public bool ValidateToken(LogInResponse userAndToken)
         {
             var token = _davxeShopDboHelper.GetTokenById(userAndToken.UserId ?? 0);
 

@@ -1,24 +1,25 @@
-﻿using DavxeShop.Models;
+﻿using DavxeShop.Models.dbModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DavxeShop.Persistance.Configuration
 {
     public class ProductosConfig : IEntityTypeConfiguration<Productos>
     {
-        public void Configure(EntityTypeBuilder<Productos> builder) {
-            builder.ToTable("Productos");
-            builder.HasKey(e => e.ProductId);
+        public void Configure(EntityTypeBuilder<Productos> builder)
+        {
+            builder.HasKey(p => p.ProductoId);
+            builder.Property(p => p.Nombre).IsRequired().HasMaxLength(100);
+            builder.Property(p => p.Descripcion).HasMaxLength(500);
+            builder.Property(p => p.Precio).HasColumnType("decimal(10,2)");
+            builder.Property(p => p.FechaPublicacion).HasDefaultValueSql("getdate()");
+            builder.Property(p => p.Categoria).HasMaxLength(50);
+            builder.Property(p => p.ImagenUrl).HasColumnType("nvarchar(max)");
 
-            builder.Property(e => e.ProductId).HasColumnName("ProductoId").ValueGeneratedOnAdd();
-            builder.Property(e => e.Nombre).HasColumnName("Nombre").HasMaxLength(50).IsRequired();
-            builder.Property(e => e.Descripcion).HasColumnName("Descripcion").HasMaxLength(500);
-            builder.Property(e => e.Precio).HasColumnName("Precio").HasColumnType("decimal(10,2)").IsRequired();
-            builder.Property(e => e.FechaPublicacion).HasColumnName("FechaPublicacion").HasColumnType("datetime").IsRequired();
-            builder.Property(e => e.Categoria).HasColumnName("Categoria").HasMaxLength(100);
-            builder.Property(e => e.ImagenUrl).HasColumnName("ImagenUrl").HasMaxLength(255);
-            builder.Property(e => e.UserId).HasColumnName("UserId").IsRequired();
+            builder.HasOne(p => p.User)
+                   .WithMany(u => u.Productos)
+                   .HasForeignKey(p => p.UserId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

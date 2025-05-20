@@ -1,16 +1,16 @@
 import { ExtraOptions, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { RecuperarContrasenaComponent } from './login/recuperar-contrasena/recuperar-contrasena.component';
-import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
-import { MyProductsComponent } from './my-products/my-products.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ChatComponent } from './chat/chat.component';
-import { PerfilComponent } from './perfil/perfil.component';
 import { FiltroComponent} from './filtro/filtro.component';
 import { DetalleComponent } from './detalle/detalle.component';
 import { NgModule } from '@angular/core';
+import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RecuperarContrasenaComponent } from './pages/login/recuperar-contrasena/recuperar-contrasena.component';
+import { ResetPasswordComponent } from './pages/login/reset-password/reset-password.component';
+import { MyProductsComponent } from './pages/my-products/my-products.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 
 export const routes: Routes = [

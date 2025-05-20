@@ -1,4 +1,5 @@
 ﻿using DavxeShop.Models;
+using DavxeShop.Models.dbModels;
 using DavxeShop.Models.Request;
 
 namespace DavxeShop.Persistance.Interfaces

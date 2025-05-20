@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ResetPasswordComponentRequest } from '../../models/resetPasswordRequest.model';
+import { ApiService } from '../../../services/api.service';
+import { ResetPasswordComponentRequest } from '../../../models/resetPasswordRequest.model';
 
 @Component({
   selector: 'app-reset-password',
@@ -22,12 +22,9 @@ export class ResetPasswordComponent implements OnInit  {
   }
 
   ngOnInit(): void {
-    const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { email?: string };
-    
-    if (state?.email) {
-      this.email = state.email;
-    }
+    this.route.queryParams.subscribe(params => {
+    this.email = params['email'] ?? null;
+    });
   }
 
   passwordMatchValidator(form: FormGroup) {
@@ -36,6 +33,8 @@ export class ResetPasswordComponent implements OnInit  {
   }
 
   onSubmit() {
+    console.log(this.resetPassword);
+    console.log(this.email);
     if (this.resetPassword.valid && this.email) {
       const form: ResetPasswordComponentRequest = {
         email: this.email,
