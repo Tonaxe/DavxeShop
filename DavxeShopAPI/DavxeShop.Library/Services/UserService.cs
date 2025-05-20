@@ -1,6 +1,6 @@
 ﻿using DavxeShop.Library.Services.Interfaces;
 using DavxeShop.Models.dbModels;
-using DavxeShop.Models.Request;
+using DavxeShop.Models.Request.User;
 using DavxeShop.Models.Response;
 using DavxeShop.Persistance.Interfaces;
 using Microsoft.Extensions.Configuration;

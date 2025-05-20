@@ -35,6 +35,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IProductoService, ProductoService>();
 builder.Services.AddTransient<IValidations, Validations>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddTransient<IDavxeShopDboHelper, DavxeShopDboHelper>();

@@ -1,11 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { RegisterRequest } from '../models/register.model';
-import { LogInRequest, LoginResponse } from '../models/logIn.model';
-import { VerifyRecoveryCode } from '../models/verifyRecoveryCode.model';
-import { ResetPasswordComponentRequest } from '../models/resetPasswordRequest.model';
-import { UserResponse } from '../models/user.model';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { LogInRequest, LoginResponse } from "../models/logIn.model";
+import { RegisterRequest } from "../models/register.model";
+import { ResetPasswordComponentRequest } from "../models/resetPasswordRequest.model";
+import { UserResponse } from "../models/user.model";
+import { VerifyRecoveryCode } from "../models/verifyRecoveryCode.model";
+import { Producto } from "../models/product.model";
+
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +47,10 @@ export class ApiService {
   }
 
   getUserById(userId: number): Observable<UserResponse> {
-    return this.http.get<any>(`${this.baseUrl}users/${userId}`, { headers : this.headers });
+    return this.http.get<UserResponse>(`${this.baseUrl}users/${userId}`, { headers : this.headers });
+  }
+
+  addProduct(producto: Producto): Observable<Producto> {
+    return this.http.post<Producto>(`${this.baseUrl}producto`, producto, { headers : this.headers });
   }
 }

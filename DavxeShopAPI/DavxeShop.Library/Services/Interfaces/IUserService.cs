@@ -1,5 +1,5 @@
 ﻿using DavxeShop.Models.dbModels;
-using DavxeShop.Models.Request;
+using DavxeShop.Models.Request.User;
 using DavxeShop.Models.Response;
 
 namespace DavxeShop.Library.Services.Interfaces

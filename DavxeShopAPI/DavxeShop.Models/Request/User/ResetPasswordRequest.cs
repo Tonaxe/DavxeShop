@@ -1,4 +1,4 @@
-﻿namespace DavxeShop.Models.Request
+﻿namespace DavxeShop.Models.Request.User
 {
     public class ResetPasswordRequest
     {

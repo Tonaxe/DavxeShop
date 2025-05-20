@@ -53,5 +53,10 @@ namespace DavxeShop.Library.Services
         {
             return _davxeShopDboHelper.ValidToken(token);
         }
+
+        public bool UserExistsById(int userId)
+        {
+            return _davxeShopDboHelper.UserExistsById(userId);
+        }
     }
 }

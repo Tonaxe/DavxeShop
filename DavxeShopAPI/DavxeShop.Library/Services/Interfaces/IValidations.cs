@@ -9,5 +9,6 @@ namespace DavxeShop.Library.Services.Interfaces
         bool UserExists(string Name, string Email, string DNI);
         bool ValidateToken(LogInResponse userAndToken);
         bool ValidToken(string token);
+        bool UserExistsById(int userId);
     }
 }

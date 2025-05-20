@@ -1,5 +1,6 @@
 ﻿using DavxeShop.Models.dbModels;
-using DavxeShop.Models.Request;
+using DavxeShop.Models.Request.Producto;
+using DavxeShop.Models.Request.User;
 using DavxeShop.Models.Response;
 
 namespace DavxeShop.Persistance.Interfaces
@@ -21,5 +22,7 @@ namespace DavxeShop.Persistance.Interfaces
         bool VerifyRecoveryCode(VerifyRecoverPasswordRequest request);
         bool ResetPassword(ResetPasswordRequest request);
         bool ValidToken(string token);
+        bool UserExistsById(int userId);
+        bool AddProduct(ProductoDto producto);
     }
 }

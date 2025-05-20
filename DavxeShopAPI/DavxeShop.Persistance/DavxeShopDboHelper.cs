@@ -1,5 +1,6 @@
 ﻿using DavxeShop.Models.dbModels;
-using DavxeShop.Models.Request;
+using DavxeShop.Models.Request.Producto;
+using DavxeShop.Models.Request.User;
 using DavxeShop.Models.Response;
 using DavxeShop.Persistance.Interfaces;
 
@@ -160,6 +161,43 @@ namespace DavxeShop.Persistance
             try
             {
                 return _context.Sessions.Any(s => s.Token == token && s.Ended == null);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool UserExistsById(int userId)
+        {
+            try
+            {
+                return _context.Users.Any(s => s.UserId == userId);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool AddProduct(ProductoDto producto)
+        {
+            try
+            {
+                var productoMap = new Productos
+                {
+                    Nombre = producto.Nombre,
+                    Descripcion = producto.Descripcion,
+                    Precio = producto.Precio,
+                    FechaPublicacion = producto.FechaPublicacion,
+                    UserId = producto.UserId,
+                    Categoria = producto.Categoria,
+                    ImagenUrl = producto.ImagenUrl,
+                };
+                _context.Productos.Add(productoMap);
+                int result = _context.SaveChanges();
+
+                return result > 0;
             }
             catch (Exception)
             {
