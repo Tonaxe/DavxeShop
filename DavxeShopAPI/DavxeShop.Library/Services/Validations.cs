@@ -48,5 +48,10 @@ namespace DavxeShop.Library.Services
 
             return true;
         }
+
+        public bool ValidToken(string token)
+        {
+            return _davxeShopDboHelper.ValidToken(token);
+        }
     }
 }

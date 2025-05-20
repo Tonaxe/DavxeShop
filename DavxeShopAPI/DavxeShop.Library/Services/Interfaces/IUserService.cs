@@ -1,13 +1,13 @@
-﻿using DavxeShop.Models;
-using DavxeShop.Models.dbModels;
+﻿using DavxeShop.Models.dbModels;
 using DavxeShop.Models.Request;
+using DavxeShop.Models.Response;
 
 namespace DavxeShop.Library.Services.Interfaces
 {
     public interface IUserService
     {
         List<User> GetUsers();
-        User? GetUser(int UserId);
+        UserBasicDto GetUser(int UserId);
         User RequestHashed(RegisterRequest request);
         bool SaveUser(User request);
         string GenerateToken(string email);

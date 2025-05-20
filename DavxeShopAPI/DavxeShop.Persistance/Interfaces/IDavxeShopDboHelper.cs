@@ -1,13 +1,13 @@
-﻿using DavxeShop.Models;
-using DavxeShop.Models.dbModels;
+﻿using DavxeShop.Models.dbModels;
 using DavxeShop.Models.Request;
+using DavxeShop.Models.Response;
 
 namespace DavxeShop.Persistance.Interfaces
 {
     public interface IDavxeShopDboHelper
     {
         List<User> GetUsers();
-        User? GetUser(int UserId);
+        UserBasicDto GetUser(int UserId);
         User? GetUserByEmail(string email);
         bool UserExists(string Name, string Email, string DNI);
         bool SaveUser(User requestHashed);
@@ -20,5 +20,6 @@ namespace DavxeShop.Persistance.Interfaces
         bool SaveRecoveryCode(int Userid, string code, string email);
         bool VerifyRecoveryCode(VerifyRecoverPasswordRequest request);
         bool ResetPassword(ResetPasswordRequest request);
+        bool ValidToken(string token);
     }
 }

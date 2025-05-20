@@ -1,7 +1,7 @@
 ﻿using DavxeShop.Library.Services.Interfaces;
-using DavxeShop.Models;
 using DavxeShop.Models.dbModels;
 using DavxeShop.Models.Request;
+using DavxeShop.Models.Response;
 using DavxeShop.Persistance.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -29,7 +29,7 @@ namespace DavxeShop.Library.Services
             return _davxeShopDboHelper.GetUsers();
         }
 
-        public User? GetUser(int UserId)
+        public UserBasicDto GetUser(int UserId)
         {
             return _davxeShopDboHelper.GetUser(UserId);
         }
@@ -43,7 +43,8 @@ namespace DavxeShop.Library.Services
                 Email = request.Email,
                 BirthDate = request.BirthDate,
                 City = request.City,
-                Password = BCrypt.Net.BCrypt.HashPassword(request.Password, BCrypt.Net.BCrypt.GenerateSalt(5))
+                Password = BCrypt.Net.BCrypt.HashPassword(request.Password, BCrypt.Net.BCrypt.GenerateSalt(5)),
+                RolId = 2
             };
 
             return requestHashed;
@@ -56,13 +57,15 @@ namespace DavxeShop.Library.Services
 
         public string GenerateToken(string email)
         {
+            var userId = GetUserIdByEmail(email);
+
             var claims = new[]
             {
-                new Claim(ClaimTypes.Email, email)
+                new Claim(ClaimTypes.Email, email),
+                new Claim("userId", userId.ToString())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));
-
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(

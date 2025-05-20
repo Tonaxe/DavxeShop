@@ -1,5 +1,4 @@
 ﻿using DavxeShop.Library.Services.Interfaces;
-using DavxeShop.Models;
 using DavxeShop.Models.Request;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +33,20 @@ namespace DavxeShop.Api.Controller
         [HttpGet("users/{UserId}")]
         public IActionResult GetUser(int UserId)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(new { message = "No se ha enviado el token." });
+            }
+
+            var tokenIsValid = _validations.ValidToken(token);
+
+            if (!tokenIsValid)
+            {
+                return Unauthorized(new { message = "El token es incorrecto." });
+            }
+
             if (UserId <= 0)
             {
                 return BadRequest(new { message = "El contenido de la petición está incompleto." });

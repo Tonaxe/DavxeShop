@@ -1,6 +1,6 @@
-﻿using DavxeShop.Models;
-using DavxeShop.Models.dbModels;
+﻿using DavxeShop.Models.dbModels;
 using DavxeShop.Models.Request;
+using DavxeShop.Models.Response;
 using DavxeShop.Persistance.Interfaces;
 
 namespace DavxeShop.Persistance
@@ -18,9 +18,23 @@ namespace DavxeShop.Persistance
             return _context.Users.ToList();
         }
 
-        public User? GetUser(int UserId)
+        public UserBasicDto GetUser(int userId)
         {
-            return _context.Users.FirstOrDefault(x => x.UserId.Equals(UserId));
+            var user = _context.Users.FirstOrDefault(x => x.UserId == userId);
+
+            if (user == null) return null;
+
+            return new UserBasicDto
+            {
+                UserId = user.UserId,
+                DNI = user.DNI,
+                Name = user.Name,
+                Email = user.Email,
+                BirthDate = user.BirthDate,
+                City = user.City,
+                RolId = user.RolId,
+                ImageBase64 = user.ImageBase64
+            };
         }
 
         public User? GetUserByEmail(string email)
@@ -134,6 +148,18 @@ namespace DavxeShop.Persistance
                 int result = _context.SaveChanges();
 
                 return result > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool ValidToken(string token)
+        {
+            try
+            {
+                return _context.Sessions.Any(s => s.Token == token && s.Ended == null);
             }
             catch (Exception)
             {

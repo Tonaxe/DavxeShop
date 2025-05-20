@@ -6,7 +6,7 @@ namespace DavxeShop.Persistance
 {
     public class DavxeShopContext : DbContext
     {
-        public DavxeShopContext(DbContextOptions<DavxeShopContext> options) : base(options) {}
+        public DavxeShopContext(DbContextOptions<DavxeShopContext> options) : base(options) { }
 
         public DbSet<Productos> Productos { get; set; } = null!;
         public DbSet<RecoverCode> RecoverCodes { get; set; } = null!;
