@@ -1,23 +1,30 @@
 <div class="perfil-contenedor">
-    <div class="perfil-usuario">
-      <a href="/perfil">
-      <img src="assets/said_pf.jpeg" alt="Foto del usuario" class="foto-usuario-grande" />
-      </a>
-      <div class="info-usuario">
-        <h2>{{ nombreUsuario }}</h2>
-        <p>{{ productos.length }} productos publicados</p>
+  <div class="perfil-usuario">
+    <img src="assets/user-avatar.jpg" alt="Foto de perfil" class="foto-usuario-grande">
+    <div class="info-usuario">
+      <h2>Productos de {{ nombreUsuario }}</h2>
+      <p>{{ productos.length }} productos publicados</p>
+    </div>
+    <button class="btn-anadir-producto" (click)="navigateToAddProduct()">+</button>
+  </div>
+
+  <h3 class="subtitulo">Mis productos publicados</h3>
+
+  <div class="grid-productos">
+    <div *ngFor="let producto of productos" class="producto-usuario" (click)="verDetalle(producto)">
+      <div class="producto-imagen-container">
+        <img [src]="producto.imagen" [alt]="producto.nombre" class="producto-imagen">
+        <span class="estado-badge" [class]="getEstadoClass(producto.estado)">
+          {{ producto.estado }}
+        </span>
       </div>
-      <button (click)="navigate()" class="btn-anadir-producto" aria-label="Añadir producto">+</button>
-    </div>
-    <div class="subtitulo">
-     <h3>Mis productos</h3>
-    </div>
-    <div class="seccion-productos-usuario">
-      <div *ngFor="let producto of productos" class="producto-usuario" (click)="verDetalle(producto)">
-        <div class="producto-info">
-          <h4>{{ producto }}</h4>
+      <div class="producto-info">
+        <h4 class="producto-nombre">{{ producto.nombre }}</h4>
+        <div class="producto-meta">
+          <p class="producto-precio">{{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</p>
+          <p class="producto-fecha">{{ calcularTiempoPublicacion(producto.fechaPublicacion) }}</p>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
