@@ -6,10 +6,8 @@ import { AppComponent } from './app.component';
 import { routerOptions, routes } from './app.routes';
 import { FormsModule } from '@angular/forms'; 
 import { HttpClientModule } from '@angular/common/http';
-import { AddProductComponent } from './add-product/add-product.component';
-import { ChatComponent } from './chat/chat.component';
+import { ChatComponent } from './pages/chat/chat.component';
 import { FiltroComponent} from './filtro/filtro.component';
-import { DetalleComponent } from './detalle/detalle.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RecuperarContrasenaComponent } from './pages/login/recuperar-contrasena/recuperar-contrasena.component';
@@ -20,6 +18,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { SliderComponent } from './shared/slider/slider.component';
+import { AddProductComponent } from './pages/my-products/add-product/add-product.component';
+import { DetalleComponent } from './pages/my-products/detalle/detalle.component';
 
 @NgModule({
   declarations: [

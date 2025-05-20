@@ -1,8 +1,6 @@
 import { ExtraOptions, Routes } from '@angular/router';
-import { AddProductComponent } from './add-product/add-product.component';
-import { ChatComponent } from './chat/chat.component';
+import { ChatComponent } from './pages/chat/chat.component';
 import { FiltroComponent} from './filtro/filtro.component';
-import { DetalleComponent } from './detalle/detalle.component';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -11,6 +9,8 @@ import { ResetPasswordComponent } from './pages/login/reset-password/reset-passw
 import { MyProductsComponent } from './pages/my-products/my-products.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { DetalleComponent } from './pages/my-products/detalle/detalle.component';
+import { AddProductComponent } from './pages/my-products/add-product/add-product.component';
 
 
 export const routes: Routes = [

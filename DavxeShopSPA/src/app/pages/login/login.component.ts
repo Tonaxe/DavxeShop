@@ -30,10 +30,10 @@ export class LoginComponent {
 
       this.apiService.logIn(form).subscribe(
         (res) => {
+          sessionStorage.setItem('token', res.token);
           this.router.navigate(["/home"]);
         },
         (error) => {
-          console.log("gg?");
         }
       );
     } else {

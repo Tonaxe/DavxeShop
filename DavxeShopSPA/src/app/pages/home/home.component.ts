@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from '../../services/api.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-home',
@@ -11,10 +13,26 @@ export class HomeComponent implements OnInit {
   nombreUsuario: string = "Tonaxe";
   dropdownAbierto: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private apiService: ApiService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      const decoded: any = jwtDecode(token);
 
+      this.apiService.getUserById(decoded.userId).subscribe(
+        (res) => {
+          sessionStorage.setItem('user', JSON.stringify(res));
+          console.log(sessionStorage.getItem("user"));
+          this.router.navigate(["/home"]);
+        },
+        (error) => {
+        }
+      );
+    }
+  }
+
+  
   categoriasPrincipales = [
     { id: 'coche', nombre: 'Coche' },
     { id: 'moto', nombre: 'Moto' },
@@ -80,4 +98,8 @@ export class HomeComponent implements OnInit {
   toggleDropdown() {
     this.dropdownAbierto = !this.dropdownAbierto;
   }
+}
+
+function jwt_decode(token: string): any {
+  throw new Error('Function not implemented.');
 }
