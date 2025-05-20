@@ -1,55 +1,64 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router'; // Asegúrate de importar Router
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
   standalone: false,
   templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.css']  // Cambié 'styleUrl' por 'styleUrls' ya que es la forma correcta
+  styleUrls: ['./perfil.component.css'] 
 })
-export class PerfilComponent {
+export class PerfilComponent implements OnInit {
   profile = {
-    name: 'tun tun tun sahur',
-    email: 'tun tun tun sahurz@example.com',
-    phone: '123-456-7890',
-    address: 'Calle Ficticia 123',
-    avatar: 'assets/said_pf.jpeg',
-    password: '',
+    name: '',
+    email: '',
     birthDate: '',
+    dni: '',
+    city: '',
+    avatar: '',
+    password: '',
     card: {
       number: '',
       expiry: '',
       cvv: ''
     }
   };
-  
 
-  isEditing = false; // Controla si se está editando o no
-  originalProfile: any = {}; // Guarda una copia para cancelar cambios
+  isEditing = false;
+  originalProfile: any = {};
 
-  constructor(private router: Router) {} // Inyectamos el Router para manejar la navegación
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    const sessionUser = sessionStorage.getItem('user');
+    if (sessionUser) {
+      const parsed = JSON.parse(sessionUser).user;
+      this.profile.name = parsed.name;
+      this.profile.email = parsed.email;
+      this.profile.birthDate = parsed.birthDate?.split('T')[0];
+      this.profile.dni = parsed.dni;
+      this.profile.city = parsed.city;
+      this.profile.avatar = parsed.imageBase64.startsWith('data:image') 
+        ? parsed.imageBase64 
+        : 'data:image/jpeg;base64,' + parsed.imageBase64;
+    }
+  }
 
   onEditProfile() {
-    console.log('Editando perfil');
-    this.originalProfile = { ...this.profile }; // Guardamos copia del perfil actual
+    this.originalProfile = { ...this.profile };
     this.isEditing = true;
   }
 
   onSaveChanges() {
-    console.log('Guardando cambios:', this.profile);
-    // Aquí podrías validar datos o enviar a un servicio
     this.isEditing = false;
   }
 
   onCancel() {
-    this.profile = { ...this.originalProfile }; // Restauramos datos originales
+    this.profile = { ...this.originalProfile };
     this.isEditing = false;
-    console.log('Edición cancelada');
   }
 
   onLogout() {
-    console.log('Cerrando sesión');
-    this.router.navigate(['/login']); // Navegamos a la página de login
+    this.router.navigate(['/login']);
   }
 
   onImageSelected(event: any) {

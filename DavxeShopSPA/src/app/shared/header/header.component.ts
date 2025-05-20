@@ -1,4 +1,4 @@
-import { Component, HostListener  } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,16 +6,21 @@ import { Component, HostListener  } from '@angular/core';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   isDropdownOpen = false;
+
+  imageSrc: string = '';
+
+  ngOnInit() {
+    const userJson = sessionStorage.getItem('user');
+    if (userJson) {
+      const user = JSON.parse(userJson);
+      this.imageSrc = 'data:image/jpeg;base64,' + user.user.imageBase64;
+    }
+  }
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
-  }
-
-  logout() {
-    // Lógica para cerrar sesión
-    console.log('Cerrar sesión');
   }
 
   @HostListener('document:click', ['$event'])

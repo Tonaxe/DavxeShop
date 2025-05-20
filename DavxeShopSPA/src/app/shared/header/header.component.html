@@ -19,7 +19,7 @@
     </div>
 
     <div class="profile-container" (click)="toggleDropdown()">
-        <img src="assets/said_pf.jpeg" alt="Perfil" class="profile-pic" />
+        <img [src]="imageSrc" alt="Perfil" class="profile-pic" />
         <div class="dropdown-menu" [class.show]="isDropdownOpen">
           <a href="/perfil">Perfil</a>
           <a href="/login">Cerrar sesión</a>

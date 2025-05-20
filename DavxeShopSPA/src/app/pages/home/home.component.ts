@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
       this.apiService.getUserById(decoded.userId).subscribe(
         (res) => {
           sessionStorage.setItem('user', JSON.stringify(res));
-          console.log(sessionStorage.getItem("user"));
           this.router.navigate(["/home"]);
         },
         (error) => {
