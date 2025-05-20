@@ -53,4 +53,10 @@ export class ApiService {
   addProduct(producto: Producto): Observable<Producto> {
     return this.http.post<Producto>(`${this.baseUrl}producto`, producto, { headers : this.headers });
   }
+  getProductosPorUsuario(userId: number): Observable<Producto[]> {
+  return this.http.get<Producto[]>(`${this.baseUrl}productos/usuario/${userId}`, {
+    headers: this.headers
+  });
+}
+
 }

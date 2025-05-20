@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from '../../services/api.service';
 
 interface Producto {
   id: number;
@@ -8,69 +9,46 @@ interface Producto {
   imagen: string;
   categoria: string;
   descripcion: string;
-  estado: 'nuevo' | 'usado' | 'como nuevo';
   fechaPublicacion: Date;
 }
 
 @Component({
   selector: 'app-my-products',
-  standalone: false,
+  standalone: true,
   templateUrl: './my-products.component.html',
   styleUrls: ['./my-products.component.css']
 })
-export class MyProductsComponent {
-  constructor(private router: Router) {}
+export class MyProductsComponent implements OnInit {
+productos: Producto[] = [];
+  userId: number = Number(sessionStorage.getItem('userId'));
+  nombreUsuario: string = 'Tonaxea';
 
-  nombreUsuario: string = "Tonaxea";
+  constructor(private router: Router, private apiService: ApiService) {}
 
-  productos: Producto[] = [
-    {
-      id: 1,
-      nombre: 'iPhone 13 Pro',
-      precio: 799,
-      imagen: 'assets/iphone13.jpg',
-      categoria: 'Tecnología',
-      descripcion: 'iPhone 13 Pro en perfecto estado con 256GB de almacenamiento',
-      estado: 'como nuevo',
-      fechaPublicacion: new Date('2023-05-15')
-    },
-    {
-      id: 2,
-      nombre: 'Sofá de piel',
-      precio: 450,
-      imagen: 'assets/sofa.jpg',
-      categoria: 'Hogar',
-      descripcion: 'Sofá de piel color negro, tres plazas, excelente estado',
-      estado: 'usado',
-      fechaPublicacion: new Date('2023-06-20')
-    },
-    {
-      id: 3,
-      nombre: 'Bicicleta de montaña',
-      precio: 350,
-      imagen: 'assets/bicicleta.jpg',
-      categoria: 'Deportes',
-      descripcion: 'Bicicleta Trek Marlin 5, talla M, usada solo 3 meses',
-      estado: 'como nuevo',
-      fechaPublicacion: new Date('2023-07-10')
-    },
-    {
-      id: 4,
-      nombre: 'Libros de programación',
-      precio: 120,
-      imagen: 'assets/libros.jpg',
-      categoria: 'Libros',
-      descripcion: 'Colección de 5 libros sobre Angular, TypeScript y JavaScript',
-      estado: 'usado',
-      fechaPublicacion: new Date('2023-08-05')
-    }
-  ];
+  ngOnInit(): void {
+    this.apiService.getProductosPorUsuario(this.userId).subscribe({
+      next: (productos: ProductoResponse[]) => {
+        this.productos = productos.map(p => ({
+          id: p.productoId,
+          nombre: p.nombre,
+          precio: p.precio,
+          imagen: p.imagenUrl,
+          categoria: p.categoria,
+          descripcion: p.descripcion,
+          fechaPublicacion: new Date(p.fechaPublicacion),
+        }));
+      },
+      error: (err: any) => {
+        console.error('Error al cargar productos del usuario:', err);
+      }
+    });
+  }
 
-  navigateToAddProduct() {
+  navigateToAddProduct(): void {
     this.router.navigate(['/add-product']);
   }
 
-  verDetalle(producto: Producto) {
+  verDetalle(producto: Producto): void {
     this.router.navigate(['/product-detail', producto.id], {
       state: { producto }
     });
@@ -79,14 +57,5 @@ export class MyProductsComponent {
   calcularTiempoPublicacion(fecha: Date): string {
     const diff = Math.floor((Date.now() - fecha.getTime()) / (1000 * 60 * 60 * 24));
     return 'Hace ' + diff + ' días';
-  }
-
-  getEstadoClass(estado: string): string {
-    const clases = {
-      'nuevo': 'estado-nuevo',
-      'usado': 'estado-usado',
-      'como nuevo': 'estado-como-nuevo'
-    };
-    return clases[estado as keyof typeof clases] || '';
   }
 }

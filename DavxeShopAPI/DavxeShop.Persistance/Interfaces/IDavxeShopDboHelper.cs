@@ -24,5 +24,8 @@ namespace DavxeShop.Persistance.Interfaces
         bool ValidToken(string token);
         bool UserExistsById(int userId);
         bool AddProduct(ProductoDto producto);
+        List<Productos> GetProductosByUserId(int userId);
+
+
     }
 }

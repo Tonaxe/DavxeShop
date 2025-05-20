@@ -62,5 +62,23 @@ namespace DavxeShop.Api.Controller
         {
             return obj.GetType().GetProperties().Any(p => p.GetValue(obj) == null || (p.PropertyType == typeof(string) && string.IsNullOrWhiteSpace(p.GetValue(obj) as string)));
         }
+        [HttpGet("productos/usuario/{userId}")]
+        public IActionResult GetProductosByUserId(int userId)
+        {
+            if (!_validations.UserExistsById(userId))
+            {
+                return NotFound(new { message = "El usuario no existe." });
+            }
+
+            var productos = _productoService.GetProductosByUserId(userId);
+
+            if (productos == null || !productos.Any())
+            {
+                return NotFound(new { message = "El usuario no tiene productos." });
+            }
+
+            return Ok(productos);
+        }
+
     }
 }

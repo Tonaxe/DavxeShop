@@ -204,5 +204,17 @@ namespace DavxeShop.Persistance
                 return false;
             }
         }
+        public List<Productos> GetProductosByUserId(int userId)
+        {
+            try
+            {
+                return _context.Productos.Where(p => p.UserId == userId).ToList();
+            }
+            catch (Exception)
+            {
+                return new List<Productos>();
+            }
+        }
+
     }
 }

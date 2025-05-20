@@ -14,9 +14,6 @@
     <div *ngFor="let producto of productos" class="producto-usuario" (click)="verDetalle(producto)">
       <div class="producto-imagen-container">
         <img [src]="producto.imagen" [alt]="producto.nombre" class="producto-imagen">
-        <span class="estado-badge" [class]="getEstadoClass(producto.estado)">
-          {{ producto.estado }}
-        </span>
       </div>
       <div class="producto-info">
         <h4 class="producto-nombre">{{ producto.nombre }}</h4>

@@ -1,4 +1,5 @@
 ﻿using DavxeShop.Library.Services.Interfaces;
+using DavxeShop.Models.dbModels;
 using DavxeShop.Models.Request.Producto;
 using DavxeShop.Persistance.Interfaces;
 
@@ -17,5 +18,10 @@ namespace DavxeShop.Library.Services
         {
             return _davxeShopDboHelper.AddProduct(producto);
         }
+        public List<Productos> GetProductosByUserId(int userId)
+        {
+            return _davxeShopDboHelper.GetProductosByUserId(userId);
+        }
+
     }
 }

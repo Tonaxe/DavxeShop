@@ -7,3 +7,13 @@ export interface Producto{
     ImagenUrl: string;
     UserId: number;  
 }
+
+// interface Producto {
+//   id: number;
+//   nombre: string;
+//   precio: number;
+//   imagen: string;
+//   categoria: string;
+//   descripcion: string;
+//   fechaPublicacion: Date;
+// }
