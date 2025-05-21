@@ -1,8 +1,13 @@
 <div class="perfil-contenedor">
   <div class="perfil-usuario">
-    <img src="assets/user-avatar.jpg" alt="Foto de perfil" class="foto-usuario-grande">
+    <img
+      *ngIf="user.imageBase64"
+      [src]="'data:image/webp;base64,' + user.imageBase64"
+      alt="Foto de perfil"
+      class="foto-usuario-grande"
+    />
     <div class="info-usuario">
-      <h2>Productos de {{ nombreUsuario }}</h2>
+      <h2>Productos de {{ user.name }}</h2>
       <p>{{ productos.length }} productos publicados</p>
     </div>
     <button class="btn-anadir-producto" (click)="navigateToAddProduct()">+</button>
@@ -11,12 +16,22 @@
   <h3 class="subtitulo">Mis productos publicados</h3>
 
   <div class="grid-productos">
-    <div *ngFor="let producto of productos" class="producto-usuario" (click)="verDetalle(producto)">
+    <div
+      *ngFor="let producto of productos"
+      class="producto-usuario"
+      (click)="verDetalle(producto)"
+    >
       <div class="producto-imagen-container">
-        <img [src]="producto.imagen" [alt]="producto.nombre" class="producto-imagen">
+        <img
+          [src]="producto.imagenUrl"
+          [alt]="producto.nombre"
+          class="producto-imagen"
+        />
       </div>
       <div class="producto-info">
         <h4 class="producto-nombre">{{ producto.nombre }}</h4>
+        <p class="producto-descripcion">{{ producto.descripcion }}</p>
+        <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
         <div class="producto-meta">
           <p class="producto-precio">{{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</p>
           <p class="producto-fecha">{{ calcularTiempoPublicacion(producto.fechaPublicacion) }}</p>

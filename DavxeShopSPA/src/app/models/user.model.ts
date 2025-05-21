@@ -1,10 +1,10 @@
-export interface UserResponse {
-    UserId: number,
-    DNI: string,
-    Name: string,
-    Email: string,
-    BirthDate: string,
-    City: string,
-    RolId: number,
-    ImageBase64: string,
+export interface User {
+    userId: number,
+    dni: string,
+    name: string,
+    email: string,
+    birthDate: string,
+    city: string,
+    rolId: number,
+    imageBase64: string,
 }

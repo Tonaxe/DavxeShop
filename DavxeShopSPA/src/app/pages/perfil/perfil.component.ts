@@ -32,6 +32,7 @@ export class PerfilComponent implements OnInit {
     const sessionUser = sessionStorage.getItem('user');
     if (sessionUser) {
       const parsed = JSON.parse(sessionUser).user;
+      console.log(parsed.userId);
       this.profile.name = parsed.name;
       this.profile.email = parsed.email;
       this.profile.birthDate = parsed.birthDate?.split('T')[0];

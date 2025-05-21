@@ -1,4 +1,5 @@
 ﻿using DavxeShop.Models.dbModels;
+using DavxeShop.Models.models;
 using DavxeShop.Models.Request.Producto;
 
 namespace DavxeShop.Library.Services.Interfaces
@@ -6,7 +7,6 @@ namespace DavxeShop.Library.Services.Interfaces
     public interface IProductoService
     {
         bool AddProduct(ProductoDto producto);
-        List<Productos> GetProductosByUserId(int userId);
-
+        List<ProductoDTO> GetProductosByUserId(int userId);
     }
 }

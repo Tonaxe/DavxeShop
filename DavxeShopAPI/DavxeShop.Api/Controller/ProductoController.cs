@@ -58,13 +58,23 @@ namespace DavxeShop.Api.Controller
             return Ok(new { message = "El producto se ha añadido correctamente" });
         }
 
-        private bool HasNullOrEmptyProperties(object obj)
-        {
-            return obj.GetType().GetProperties().Any(p => p.GetValue(obj) == null || (p.PropertyType == typeof(string) && string.IsNullOrWhiteSpace(p.GetValue(obj) as string)));
-        }
-        [HttpGet("productos/usuario/{userId}")]
+        [HttpGet("productos/users/{userId}")]
         public IActionResult GetProductosByUserId(int userId)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(new { message = "No se ha enviado el token." });
+            }
+
+            var tokenIsValid = _validations.ValidToken(token);
+
+            if (!tokenIsValid)
+            {
+                return Unauthorized(new { message = "El token es incorrecto." });
+            }
+
             if (!_validations.UserExistsById(userId))
             {
                 return NotFound(new { message = "El usuario no existe." });
@@ -77,8 +87,12 @@ namespace DavxeShop.Api.Controller
                 return NotFound(new { message = "El usuario no tiene productos." });
             }
 
-            return Ok(productos);
+            return Ok(new { productos = productos });
         }
 
+        private bool HasNullOrEmptyProperties(object obj)
+        {
+            return obj.GetType().GetProperties().Any(p => p.GetValue(obj) == null || (p.PropertyType == typeof(string) && string.IsNullOrWhiteSpace(p.GetValue(obj) as string)));
+        }
     }
 }

@@ -1,19 +1,14 @@
-export interface Producto{
-    Nombre: string;
-    Descripcion: string;
-    Precio: number;
-    FechaPublicacion: string;
-    Categoria: string;
-    ImagenUrl: string;
-    UserId: number;  
+export interface Producto {
+  productoId: number;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  fechaPublicacion: string;
+  categoria: string;
+  imagenUrl: string;
+  userId: number;
 }
 
-// interface Producto {
-//   id: number;
-//   nombre: string;
-//   precio: number;
-//   imagen: string;
-//   categoria: string;
-//   descripcion: string;
-//   fechaPublicacion: Date;
-// }
+export interface ProductosResponse {
+  productos: Producto[];
+}

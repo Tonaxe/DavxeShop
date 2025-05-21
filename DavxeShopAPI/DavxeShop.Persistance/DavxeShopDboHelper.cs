@@ -1,4 +1,5 @@
 ﻿using DavxeShop.Models.dbModels;
+using DavxeShop.Models.models;
 using DavxeShop.Models.Request.Producto;
 using DavxeShop.Models.Request.User;
 using DavxeShop.Models.Response;
@@ -204,17 +205,29 @@ namespace DavxeShop.Persistance
                 return false;
             }
         }
-        public List<Productos> GetProductosByUserId(int userId)
+        public List<ProductoDTO> GetProductosByUserId(int userId)
         {
             try
             {
-                return _context.Productos.Where(p => p.UserId == userId).ToList();
+                return _context.Productos
+                    .Where(p => p.UserId == userId)
+                    .Select(p => new ProductoDTO
+                    {
+                        ProductoId = p.ProductoId,
+                        Nombre = p.Nombre,
+                        Descripcion = p.Descripcion,
+                        Precio = p.Precio,
+                        FechaPublicacion = p.FechaPublicacion,
+                        Categoria = p.Categoria,
+                        ImagenUrl = p.ImagenUrl,
+                        UserId = p.UserId
+                    })
+                    .ToList();
             }
             catch (Exception)
             {
-                return new List<Productos>();
+                return new List<ProductoDTO>();
             }
         }
-
     }
 }

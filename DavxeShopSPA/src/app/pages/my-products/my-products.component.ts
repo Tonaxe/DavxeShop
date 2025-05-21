@@ -1,47 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
-
-interface Producto {
-  id: number;
-  nombre: string;
-  precio: number;
-  imagen: string;
-  categoria: string;
-  descripcion: string;
-  fechaPublicacion: Date;
-}
+import { User } from '../../models/user.model';
+import { Producto, ProductosResponse } from '../../models/product.model';
 
 @Component({
   selector: 'app-my-products',
-  standalone: true,
+  standalone: false,
   templateUrl: './my-products.component.html',
   styleUrls: ['./my-products.component.css']
 })
 export class MyProductsComponent implements OnInit {
-productos: Producto[] = [];
-  userId: number = Number(sessionStorage.getItem('userId'));
-  nombreUsuario: string = 'Tonaxea';
+  user!: User;
+  productos: Producto[] = [];
 
   constructor(private router: Router, private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.apiService.getProductosPorUsuario(this.userId).subscribe({
-      next: (productos: ProductoResponse[]) => {
-        this.productos = productos.map(p => ({
-          id: p.productoId,
-          nombre: p.nombre,
-          precio: p.precio,
-          imagen: p.imagenUrl,
-          categoria: p.categoria,
-          descripcion: p.descripcion,
-          fechaPublicacion: new Date(p.fechaPublicacion),
-        }));
-      },
-      error: (err: any) => {
-        console.error('Error al cargar productos del usuario:', err);
-      }
-    });
+    const sessionUser = sessionStorage.getItem('user');
+    if (sessionUser) {
+      this.user = JSON.parse(sessionUser).user as User;
+      this.apiService.getProductosPorUsuario(this.user.userId).subscribe({
+        next: (res: ProductosResponse) => {
+          this.productos = res.productos;
+        },
+        error: (err) => {
+          console.error(err);
+        }
+      });
+    }
   }
 
   navigateToAddProduct(): void {
@@ -49,12 +36,13 @@ productos: Producto[] = [];
   }
 
   verDetalle(producto: Producto): void {
-    this.router.navigate(['/product-detail', producto.id], {
+    this.router.navigate(['/product-detail', producto.productoId], {
       state: { producto }
     });
   }
 
-  calcularTiempoPublicacion(fecha: Date): string {
+  calcularTiempoPublicacion(fechaStr: string): string {
+    const fecha = new Date(fechaStr);
     const diff = Math.floor((Date.now() - fecha.getTime()) / (1000 * 60 * 60 * 24));
     return 'Hace ' + diff + ' días';
   }

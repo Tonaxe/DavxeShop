@@ -1,4 +1,5 @@
 ﻿using DavxeShop.Models.dbModels;
+using DavxeShop.Models.models;
 using DavxeShop.Models.Request.Producto;
 using DavxeShop.Models.Request.User;
 using DavxeShop.Models.Response;
@@ -24,8 +25,6 @@ namespace DavxeShop.Persistance.Interfaces
         bool ValidToken(string token);
         bool UserExistsById(int userId);
         bool AddProduct(ProductoDto producto);
-        List<Productos> GetProductosByUserId(int userId);
-
-
+        List<ProductoDTO> GetProductosByUserId(int userId);
     }
 }

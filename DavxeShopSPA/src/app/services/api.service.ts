@@ -4,9 +4,9 @@ import { Observable } from "rxjs";
 import { LogInRequest, LoginResponse } from "../models/logIn.model";
 import { RegisterRequest } from "../models/register.model";
 import { ResetPasswordComponentRequest } from "../models/resetPasswordRequest.model";
-import { UserResponse } from "../models/user.model";
+import { User } from "../models/user.model";
 import { VerifyRecoveryCode } from "../models/verifyRecoveryCode.model";
-import { Producto } from "../models/product.model";
+import { Producto, ProductosResponse } from "../models/product.model";
 
 
 @Injectable({
@@ -46,17 +46,15 @@ export class ApiService {
     return this.http.patch<string>(`${this.baseUrl}reset-password`, resetPasswordComponentRequest);
   }
 
-  getUserById(userId: number): Observable<UserResponse> {
-    return this.http.get<UserResponse>(`${this.baseUrl}users/${userId}`, { headers : this.headers });
+  getUserById(userId: number): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}users/${userId}`, { headers : this.headers });
   }
 
   addProduct(producto: Producto): Observable<Producto> {
     return this.http.post<Producto>(`${this.baseUrl}producto`, producto, { headers : this.headers });
   }
-  getProductosPorUsuario(userId: number): Observable<Producto[]> {
-  return this.http.get<Producto[]>(`${this.baseUrl}productos/usuario/${userId}`, {
-    headers: this.headers
-  });
-}
 
+  getProductosPorUsuario(userId: number): Observable<ProductosResponse> {
+    return this.http.get<ProductosResponse>(`${this.baseUrl}productos/users/${userId}`, { headers: this.headers });
+  }
 }
