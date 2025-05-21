@@ -13,7 +13,7 @@ namespace DavxeShop.Library.Services
             _davxeShopDboHelper = davxeShopDboHelper;
         }
 
-        public bool AddProduct(ProductoDTO producto) 
+        public bool AddProduct(ProductoDTO producto)
         {
             return _davxeShopDboHelper.AddProduct(producto);
         }

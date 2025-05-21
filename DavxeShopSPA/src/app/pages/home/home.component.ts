@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
-import { jwtDecode } from 'jwt-decode';
 import { Producto } from '../../models/product.model';
 
 @Component({
@@ -15,32 +14,18 @@ export class HomeComponent implements OnInit {
   dropdownAbierto: boolean = false;
   productosAleatorios: Producto[] = [];
 
-  constructor(private router: Router, private apiService: ApiService) {}
+  constructor(private router: Router, private apiService: ApiService) { }
 
   ngOnInit(): void {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-      const decoded: any = jwtDecode(token);
-
-      this.apiService.getUserById(decoded.userId).subscribe(
-        (res) => {
-          sessionStorage.setItem('user', JSON.stringify(res));
-          this.router.navigate(["/home"]);
-        },
-        (error) => {
-        }
-      );
-
-      this.apiService.getRandomProductos().subscribe(
-        (res) => {
-          this.productosAleatorios = res.productos;
-        },
-        (error) => {}
-      );
-    }
+    this.apiService.getRandomProductos().subscribe(
+      (res) => {
+        this.productosAleatorios = res.productos;
+      },
+      (error) => { }
+    );
   }
 
-  
+
   categoriasPrincipales = [
     { id: 'coche', nombre: 'Coche' },
     { id: 'moto', nombre: 'Moto' },
@@ -57,7 +42,7 @@ export class HomeComponent implements OnInit {
   ];
 
   @ViewChild('contenedor', { static: false }) contenedor!: ElementRef;
-  
+
   productos = [
     { nombre: 'Producto 1', imagen: 'assets/1.png' },
     { nombre: 'Producto 2', imagen: 'assets/1.png' },
@@ -78,21 +63,21 @@ export class HomeComponent implements OnInit {
 
 
   scrollLeft() {
-    this.contenedor.nativeElement.scrollBy({ 
-      left: -300, 
-      behavior: 'smooth' 
+    this.contenedor.nativeElement.scrollBy({
+      left: -300,
+      behavior: 'smooth'
     });
   }
 
   scrollRight() {
-    this.contenedor.nativeElement.scrollBy({ 
-      left: 300, 
-      behavior: 'smooth' 
+    this.contenedor.nativeElement.scrollBy({
+      left: 300,
+      behavior: 'smooth'
     });
   }
 
   verDetalle(producto: any) {
-    this.router.navigate(['/detalle'], { 
+    this.router.navigate(['/detalle'], {
       state: { producto: producto }
     });
   }

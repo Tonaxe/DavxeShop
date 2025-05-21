@@ -42,7 +42,7 @@
         <img [src]="imageSrc" alt="Perfil" class="profile-pic" />
         <div class="dropdown-menu" [class.show]="isDropdownOpen">
             <a href="/perfil">Perfil</a>
-            <a href="/login">Cerrar sesión</a>
+            <a (click)="logout()">Cerrar sesión</a>
         </div>
     </div>
 </header>

@@ -191,7 +191,7 @@ namespace DavxeShop.Persistance
                     Precio = producto.Precio,
                     FechaPublicacion = producto.FechaPublicacion,
                     UserId = producto.UserId,
-                    Categoria = producto.Categoria,
+                    CategoriaId = producto.Categoria,
                     ImagenUrl = producto.ImagenUrl,
                 };
                 _context.Productos.Add(productoMap);
@@ -217,7 +217,7 @@ namespace DavxeShop.Persistance
                         Descripcion = p.Descripcion,
                         Precio = p.Precio,
                         FechaPublicacion = p.FechaPublicacion,
-                        Categoria = p.Categoria,
+                        Categoria = p.CategoriaId,
                         ImagenUrl = p.ImagenUrl,
                         UserId = p.UserId
                     })
@@ -229,7 +229,7 @@ namespace DavxeShop.Persistance
             }
         }
 
-        public List<CategoriaDTO> GetRandomProductos()
+        public List<ProductoDTO> GetRandomProductos()
         {
             try
             {
@@ -243,7 +243,7 @@ namespace DavxeShop.Persistance
                         Descripcion = p.Descripcion,
                         Precio = p.Precio,
                         FechaPublicacion = p.FechaPublicacion,
-                        Categoria = p.Categoria,
+                        Categoria = p.CategoriaId,
                         ImagenUrl = p.ImagenUrl,
                         UserId = p.UserId
                     })
@@ -253,6 +253,15 @@ namespace DavxeShop.Persistance
             {
                 return new List<ProductoDTO>();
             }
+        }
+
+        public List<CategoriaDTO> GetAllCategorias()
+        {
+            return _context.Categorias.Select(p => new CategoriaDTO
+            {
+                CategoriaId = p.Id,
+                Nombre = p.Categoriaa,
+            }).ToList();
         }
     }
 }

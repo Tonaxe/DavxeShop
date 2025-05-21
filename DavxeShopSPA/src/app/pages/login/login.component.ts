@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LogInRequest } from '../../models/logIn.model';
 import { ApiService } from '../../services/api.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -28,14 +29,24 @@ export class LoginComponent {
         password: this.loginForm.value.password
       };
 
-      this.apiService.logIn(form).subscribe(
-        (res) => {
+      this.apiService.logIn(form).subscribe({
+        next: (res) => {
           sessionStorage.setItem('token', res.token);
-          this.router.navigate(["/home"]);
+          const decoded: any = jwtDecode(res.token);
+          this.apiService.getUserById(decoded.userId).subscribe({
+            next: (user) => {
+              sessionStorage.setItem('user', JSON.stringify(user));
+              this.router.navigate(['/home']);
+            },
+            error: (err) => {
+              console.error('Error al obtener usuario:', err);
+            }
+          });
         },
-        (error) => {
+        error: (err) => {
+          console.error('Error en login:', err);
         }
-      );
+      });
     } else {
       console.log('Formulario inválido');
     }

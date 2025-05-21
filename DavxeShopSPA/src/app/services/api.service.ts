@@ -14,13 +14,16 @@ import { Producto, ProductosResponse } from "../models/product.model";
 })
 export class ApiService {
   private baseUrl = 'https://localhost:44355/api/DavxeShop/';
-  private token = sessionStorage.getItem('token');
-  private headers = {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${this.token}`
-  };
 
   constructor(private http: HttpClient) { }
+
+  private getHeaders() {
+    const token = sessionStorage.getItem('token');
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+  }
 
   register(registerRequest: RegisterRequest): Observable<string> {
     return this.http.post<string>(`${this.baseUrl}register`, registerRequest);
@@ -30,8 +33,8 @@ export class ApiService {
     return this.http.post<LoginResponse>(`${this.baseUrl}login`, logInRequest);
   }
 
-  logOut(logOutRequest: string): Observable<string> {
-    return this.http.post<string>(`${this.baseUrl}logout`, JSON.stringify(logOutRequest), { headers : this.headers });
+  logOut(): Observable<string> {
+    return this.http.post<string>(`${this.baseUrl}logout`, null, { headers : this.getHeaders() });
   }
 
   recoverPassword(email: string): Observable<string> {
@@ -47,18 +50,18 @@ export class ApiService {
   }
 
   getUserById(userId: number): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}users/${userId}`, { headers : this.headers });
+    return this.http.get<User>(`${this.baseUrl}users/${userId}`, { headers : this.getHeaders() });
   }
 
   addProduct(producto: Producto): Observable<Producto> {
-    return this.http.post<Producto>(`${this.baseUrl}producto`, producto, { headers : this.headers });
+    return this.http.post<Producto>(`${this.baseUrl}producto`, producto, { headers : this.getHeaders() });
   }
 
   getProductosPorUsuario(userId: number): Observable<ProductosResponse> {
-    return this.http.get<ProductosResponse>(`${this.baseUrl}productos/users/${userId}`, { headers: this.headers });
+    return this.http.get<ProductosResponse>(`${this.baseUrl}productos/users/${userId}`, { headers: this.getHeaders() });
   }
 
   getRandomProductos(): Observable<ProductosResponse> {
-    return this.http.get<ProductosResponse>(`${this.baseUrl}productos/random`, { headers: this.headers });
+    return this.http.get<ProductosResponse>(`${this.baseUrl}productos/random`, { headers: this.getHeaders() });
   }
 }

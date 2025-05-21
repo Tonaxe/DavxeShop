@@ -1,4 +1,6 @@
 import { Component, HostListener, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +13,7 @@ export class HeaderComponent implements OnInit {
   imageSrc: string = '';
   searchQuery: string = '';
   showSearchResults: boolean = false;
-  
+
   searchResults: string[] = [
     'Resultado 1',
     'Resultado 2',
@@ -19,10 +21,12 @@ export class HeaderComponent implements OnInit {
     'Ejemplo de búsqueda',
     'Otra opción'
   ];
-  
+
   filteredResults: string[] = [];
 
   @ViewChild('searchBar') searchBar!: ElementRef;
+
+  constructor(private router: Router, private apiService : ApiService) {}
 
   ngOnInit() {
     const userJson = sessionStorage.getItem('user');
@@ -37,30 +41,43 @@ export class HeaderComponent implements OnInit {
   }
 
 
-onSearchInput() {
-  if (this.searchQuery.length > 1) {
-    this.filteredResults = this.searchResults.filter(item =>
-      item.toLowerCase().includes(this.searchQuery.toLowerCase())
-    );
-    this.showSearchResults = true;
-  } else {
-    this.filteredResults = [];
-    this.showSearchResults = false;
+  onSearchInput() {
+    if (this.searchQuery.length > 1) {
+      this.filteredResults = this.searchResults.filter(item =>
+        item.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+      this.showSearchResults = true;
+    } else {
+      this.filteredResults = [];
+      this.showSearchResults = false;
+    }
   }
-}
 
-selectResult(result: string) {
-  this.searchQuery = result;
-  this.showSearchResults = false;
-  // Lógica adicional al seleccionar un resultado
-}
-
-@HostListener('document:click', ['$event'])
-onClickOutside(event: MouseEvent) {
-  const target = event.target as HTMLElement;
-  
-  if (!target.closest('.search-container')) {
+  selectResult(result: string) {
+    this.searchQuery = result;
     this.showSearchResults = false;
+    // Lógica adicional al seleccionar un resultado
   }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+
+    if (!target.closest('.search-container')) {
+      this.showSearchResults = false;
+    }
+  }
+
+  logout() {
+  this.apiService.logOut().subscribe({
+    next: () => {
+      sessionStorage.clear();
+      this.router.navigate(['/login']);
+    },
+    error: () => {
+      sessionStorage.clear();
+      this.router.navigate(['/login']);
+    }
+  });
 }
 }

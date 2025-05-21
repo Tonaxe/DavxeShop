@@ -145,11 +145,20 @@ namespace DavxeShop.Api.Controller
         }
 
         [HttpPost("logout")]
-        public IActionResult LogOut([FromBody] string token)
+        public IActionResult LogOut()
         {
-            if (token == null)
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(token))
             {
-                return BadRequest(new { message = "El contenido de la petición está incompleto." });
+                return Unauthorized(new { message = "No se ha enviado el token." });
+            }
+
+            var tokenIsValid = _validations.ValidToken(token);
+
+            if (!tokenIsValid)
+            {
+                return Unauthorized(new { message = "El token es incorrecto." });
             }
 
             var loggedOut = _userService.LogOut(token);
