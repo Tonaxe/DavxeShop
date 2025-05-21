@@ -1,7 +1,5 @@
 ﻿using DavxeShop.Library.Services.Interfaces;
-using DavxeShop.Models.dbModels;
 using DavxeShop.Models.models;
-using DavxeShop.Models.Request.Producto;
 using DavxeShop.Persistance.Interfaces;
 
 namespace DavxeShop.Library.Services
@@ -15,7 +13,7 @@ namespace DavxeShop.Library.Services
             _davxeShopDboHelper = davxeShopDboHelper;
         }
 
-        public bool AddProduct(ProductoDto producto) 
+        public bool AddProduct(ProductoDTO producto) 
         {
             return _davxeShopDboHelper.AddProduct(producto);
         }

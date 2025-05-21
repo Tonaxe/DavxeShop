@@ -1,6 +1,5 @@
 ﻿using DavxeShop.Models.dbModels;
 using DavxeShop.Models.models;
-using DavxeShop.Models.Request.Producto;
 using DavxeShop.Models.Request.User;
 using DavxeShop.Models.Response;
 using DavxeShop.Persistance.Interfaces;
@@ -181,7 +180,7 @@ namespace DavxeShop.Persistance
             }
         }
 
-        public bool AddProduct(ProductoDto producto)
+        public bool AddProduct(ProductoDTO producto)
         {
             try
             {
@@ -230,7 +229,7 @@ namespace DavxeShop.Persistance
             }
         }
 
-        public List<ProductoDTO> GetRandomProductos()
+        public List<CategoriaDTO> GetRandomProductos()
         {
             try
             {

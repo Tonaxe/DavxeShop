@@ -1,5 +1,5 @@
 ﻿using DavxeShop.Library.Services.Interfaces;
-using DavxeShop.Models.Request.Producto;
+using DavxeShop.Models.models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DavxeShop.Api.Controller
@@ -8,19 +8,17 @@ namespace DavxeShop.Api.Controller
     [ApiController]
     public class ProductoController : ControllerBase
     {
-        private readonly IUserService _userService;
         private readonly IValidations _validations;
         private readonly IProductoService _productoService;
 
-        public ProductoController(IUserService userService, IValidations validations, IProductoService productoService)
+        public ProductoController(IValidations validations, IProductoService productoService)
         {
-            _userService = userService;
             _validations = validations;
             _productoService = productoService;
         }
 
         [HttpPost("producto")]
-        public IActionResult AddProduct([FromBody] ProductoDto request)
+        public IActionResult AddProduct([FromBody] ProductoDTO request)
         {
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
