@@ -6,24 +6,43 @@
     </div>
 
     <div class="header-content">
-        
-
         <nav class="nav-links">
             <a href="/my-products" class="nav-item">Mis productos</a>
             <a href="/add-product" class="nav-item">Vender</a>
             <a href="/chat" class="nav-item">Chat</a>
+            <a href="/dashboard" class="nav-item">Dashboard</a>
         </nav>
+        
         <div class="search-container">
-            <input type="text" placeholder="Buscar..." class="search-bar">
+            <input #searchBar type="text" 
+                   placeholder="Buscar..." 
+                   class="search-bar"
+                   [(ngModel)]="searchQuery"
+                   (input)="onSearchInput()"
+                   (focus)="onSearchInput()">
+            
+            <div class="search-dropdown" [class.show]="showSearchResults">
+                <div *ngIf="filteredResults.length > 0; else noResults">
+                    <div class="search-dropdown-item" 
+                         *ngFor="let result of filteredResults"
+                         (click)="selectResult(result)">
+                        {{ result }}
+                    </div>
+                </div>
+                <ng-template #noResults>
+                    <div class="search-dropdown-empty" *ngIf="searchQuery.length > 0">
+                        No se encontraron resultados para "{{searchQuery}}"
+                    </div>
+                </ng-template>
+            </div>
         </div>
     </div>
 
     <div class="profile-container" (click)="toggleDropdown()">
         <img [src]="imageSrc" alt="Perfil" class="profile-pic" />
         <div class="dropdown-menu" [class.show]="isDropdownOpen">
-          <a href="/perfil">Perfil</a>
-          <a href="/login">Cerrar sesión</a>
+            <a href="/perfil">Perfil</a>
+            <a href="/login">Cerrar sesión</a>
         </div>
-      </div>      
-      
+    </div>
 </header>

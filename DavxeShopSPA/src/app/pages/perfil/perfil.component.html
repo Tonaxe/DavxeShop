@@ -1,5 +1,7 @@
 <div class="profile-container">
+
   <div class="profile-header">
+    
     <ng-container *ngIf="!isEditing; else editAvatar">
       <img [src]="profile.avatar" alt="Foto de perfil" class="profile-pic" />
     </ng-container>
