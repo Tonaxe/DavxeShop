@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
     const userJson = sessionStorage.getItem('user');
     if (userJson) {
       const user = JSON.parse(userJson);
-      this.imageSrc = 'data:image/jpeg;base64,' + user.user.imageBase64;
+      this.imageSrc = user.user.imageBase64;
     }
   }
 

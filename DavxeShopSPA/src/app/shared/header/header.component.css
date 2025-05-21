@@ -1,4 +1,3 @@
-/* Estilo base del header */
 .app-header {
     display: flex;
     justify-content: space-between;
@@ -11,7 +10,6 @@
     z-index: 1000;
   }
   
-  /* Contenedor del logo */
   .logo-container {
     flex: 0 0 auto;
     height: 100px;
@@ -27,7 +25,6 @@
     transform: scale(1.05);
   }
   
-  /* Contenido central (buscador y navegación) */
   .header-content {
     display: flex;
     flex-direction: column;
@@ -38,7 +35,6 @@
     padding: 0 2rem;
   }
   
-  /* Barra de búsqueda */
   .search-container {
     width: 100%;
     max-width: 600px;
@@ -65,7 +61,6 @@
     background-color: white;
   }
   
-  /* Navegación */
   .nav-links {
     display: flex;
     gap: 2rem;
@@ -100,7 +95,6 @@
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
   }
   
-  /* Perfil y dropdown */
   .profile-container {
     position: relative;
     flex: 0 0 auto;
@@ -113,6 +107,7 @@
     border-radius: 50%;
     border: 2px solid white;
     transition: all 0.3s ease;
+    object-fit: cover;
   }
   
   .profile-pic:hover {
@@ -161,7 +156,6 @@
     border-bottom: none;
   }
   
-  /* Responsive Design */
   @media (max-width: 992px) {
     .header-content {
       padding: 0 1rem;
