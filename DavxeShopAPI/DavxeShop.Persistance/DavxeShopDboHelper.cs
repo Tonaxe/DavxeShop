@@ -229,5 +229,31 @@ namespace DavxeShop.Persistance
                 return new List<ProductoDTO>();
             }
         }
+
+        public List<ProductoDTO> GetRandomProductos()
+        {
+            try
+            {
+                return _context.Productos
+                    .OrderBy(p => Guid.NewGuid())
+                    .Take(12)
+                    .Select(p => new ProductoDTO
+                    {
+                        ProductoId = p.ProductoId,
+                        Nombre = p.Nombre,
+                        Descripcion = p.Descripcion,
+                        Precio = p.Precio,
+                        FechaPublicacion = p.FechaPublicacion,
+                        Categoria = p.Categoria,
+                        ImagenUrl = p.ImagenUrl,
+                        UserId = p.UserId
+                    })
+                    .ToList();
+            }
+            catch (Exception)
+            {
+                return new List<ProductoDTO>();
+            }
+        }
     }
 }

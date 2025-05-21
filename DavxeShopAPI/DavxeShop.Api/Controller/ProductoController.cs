@@ -90,6 +90,33 @@ namespace DavxeShop.Api.Controller
             return Ok(new { productos = productos });
         }
 
+        [HttpGet("productos/random")]
+        public IActionResult GetRandomProductos()
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(new { message = "No se ha enviado el token." });
+            }
+
+            var tokenIsValid = _validations.ValidToken(token);
+
+            if (!tokenIsValid)
+            {
+                return Unauthorized(new { message = "El token es incorrecto." });
+            }
+
+            var productos = _productoService.GetRandomProductos();
+
+            if (productos == null || !productos.Any())
+            {
+                return NotFound(new { message = "El usuario no tiene productos." });
+            }
+
+            return Ok(new { productos = productos });
+        }
+
         private bool HasNullOrEmptyProperties(object obj)
         {
             return obj.GetType().GetProperties().Any(p => p.GetValue(obj) == null || (p.PropertyType == typeof(string) && string.IsNullOrWhiteSpace(p.GetValue(obj) as string)));

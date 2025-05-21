@@ -8,5 +8,6 @@ namespace DavxeShop.Library.Services.Interfaces
     {
         bool AddProduct(ProductoDto producto);
         List<ProductoDTO> GetProductosByUserId(int userId);
+        List<ProductoDTO> GetRandomProductos();
     }
 }

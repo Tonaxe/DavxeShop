@@ -57,4 +57,8 @@ export class ApiService {
   getProductosPorUsuario(userId: number): Observable<ProductosResponse> {
     return this.http.get<ProductosResponse>(`${this.baseUrl}productos/users/${userId}`, { headers: this.headers });
   }
+
+  getRandomProductos(): Observable<ProductosResponse> {
+    return this.http.get<ProductosResponse>(`${this.baseUrl}productos/random`, { headers: this.headers });
+  }
 }

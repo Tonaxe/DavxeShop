@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { jwtDecode } from 'jwt-decode';
+import { Producto } from '../../models/product.model';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ import { jwtDecode } from 'jwt-decode';
 export class HomeComponent implements OnInit {
   nombreUsuario: string = "Tonaxe";
   dropdownAbierto: boolean = false;
+  productosAleatorios: Producto[] = [];
 
   constructor(private router: Router, private apiService: ApiService) {}
 
@@ -27,6 +29,13 @@ export class HomeComponent implements OnInit {
         },
         (error) => {
         }
+      );
+
+      this.apiService.getRandomProductos().subscribe(
+        (res) => {
+          this.productosAleatorios = res.productos;
+        },
+        (error) => {}
       );
     }
   }
@@ -67,12 +76,6 @@ export class HomeComponent implements OnInit {
     { nombre: 'Producto 15', imagen: 'assets/1.png' },
   ];
 
-  productosRandom = [
-    "Producto 1", "Producto 2", "Producto 3", "Producto 4", "Producto 5",
-    "Producto 6", "Producto 7", "Producto 8", "Producto 9", "Producto 10",
-    "Producto 11", "Producto 12", "Producto 13", "Producto 14", "Producto 15",
-    "Producto 16", "Producto 17", "Producto 18", "Producto 19", "Producto 20"
-  ];
 
   scrollLeft() {
     this.contenedor.nativeElement.scrollBy({ 
@@ -97,8 +100,10 @@ export class HomeComponent implements OnInit {
   toggleDropdown() {
     this.dropdownAbierto = !this.dropdownAbierto;
   }
-}
 
-function jwt_decode(token: string): any {
-  throw new Error('Function not implemented.');
+  calcularTiempoPublicacion(fechaStr: string): string {
+    const fecha = new Date(fechaStr);
+    const diff = Math.floor((Date.now() - fecha.getTime()) / (1000 * 60 * 60 * 24));
+    return 'Hace ' + diff + ' días';
+  }
 }

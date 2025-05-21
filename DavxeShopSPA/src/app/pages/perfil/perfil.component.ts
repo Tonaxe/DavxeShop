@@ -38,9 +38,7 @@ export class PerfilComponent implements OnInit {
       this.profile.birthDate = parsed.birthDate?.split('T')[0];
       this.profile.dni = parsed.dni;
       this.profile.city = parsed.city;
-      this.profile.avatar = parsed.imageBase64.startsWith('data:image') 
-        ? parsed.imageBase64 
-        : 'data:image/jpeg;base64,' + parsed.imageBase64;
+      this.profile.avatar = parsed.imageBase64
     }
   }
 
