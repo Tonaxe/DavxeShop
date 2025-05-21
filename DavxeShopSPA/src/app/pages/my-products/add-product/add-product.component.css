@@ -19,13 +19,6 @@ body::before {
   z-index: -1;
 }
 
-body {
-  min-height: 100vh;
-  margin: 0;
-  padding: 20px;
-  font-family: 'Inter', 'Segoe UI', sans-serif;
-}
-
 .add-product-container {
   max-width: 900px;
   margin: 40px auto;
@@ -37,7 +30,7 @@ body {
     0 0 0 1px rgba(255, 255, 255, 0.6) inset,
     0 0 30px rgba(255, 255, 255, 0.3) inset;
   font-family: 'Inter', 'Segoe UI', sans-serif;
-  animation: fadeSlideIn 0.8s ease-out;
+  /* animation: fadeSlideInSmooth 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;  Eliminada */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -69,8 +62,6 @@ body {
   background-size: 200% auto;
   animation: gradientFlow 3s linear infinite;
 }
-
-
 
 .titulo-formulario {
   text-align: center;
@@ -108,7 +99,6 @@ body {
 }
 
 .seccion-form:hover {
- 
   box-shadow: 
     0 12px 25px rgba(0, 0, 0, 0.1),
     0 0 0 1px rgba(226, 232, 240, 0.4) inset;
@@ -238,55 +228,25 @@ body {
   border: none;
   border-radius: 14px;
   cursor: pointer;
-  font-weight: 600;
-  margin-top: 30px;
-  box-shadow: 
-    0 8px 20px rgba(79, 70, 229, 0.2),
-    0 0 0 1px rgba(79, 70, 229, 0.1) inset;
-  transition: all 0.3s ease;
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  display: block;       /* Cambiado para centrar */
+  margin: 20px auto 0;  /* Centrado horizontal */
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-guardar::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: 0.5s;
+  max-width: 320px;
 }
 
 .btn-guardar:hover {
-  transform: translateY(-3px);
-  box-shadow: 
-    0 12px 25px rgba(79, 70, 229, 0.3),
-    0 0 0 1px rgba(79, 70, 229, 0.2) inset;
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+  box-shadow: 0 10px 40px rgba(79, 70, 229, 0.5);
 }
 
-.btn-guardar:hover::before {
-  left: 100%;
-}
-
-.btn-guardar:active {
-  transform: translateY(-1px);
-}
-
-@keyframes fadeSlideIn {
+@keyframes gradientFlow {
   0% {
-    opacity: 0;
-    transform: translateY(40px);
+    background-position: 0% 50%;
   }
   100% {
-    opacity: 1;
-    transform: translateY(0);
+    background-position: 200% 50%;
   }
 }
 
@@ -296,30 +256,5 @@ body {
   }
   100% {
     width: 100px;
-  }
-}
-
-@media (max-width: 768px) {
-  .add-product-container {
-    margin: 20px;
-    padding: 25px;
-  }
-
-  .campo-doble {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .seccion-form {
-    padding: 25px;
-  }
-  
-  .titulo-formulario {
-    font-size: 28px;
-  }
-
-  .btn-guardar {
-    padding: 16px 28px;
-    font-size: 16px;
   }
 }
