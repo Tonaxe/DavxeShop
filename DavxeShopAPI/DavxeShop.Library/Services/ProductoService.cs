@@ -24,5 +24,9 @@ namespace DavxeShop.Library.Services
             return _davxeShopDboHelper.GetProductosByUserId(userId);
         }
 
+        public List<ProductoDTO> GetRandomProductos()
+        {
+            return _davxeShopDboHelper.GetRandomProductos();
+        }
     }
 }

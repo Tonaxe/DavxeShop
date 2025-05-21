@@ -7,19 +7,16 @@
         <span class="dropdown-icon" [class.rotated]="dropdownAbierto">›</span>
       </button>
       <div class="dropdown-menu" [class.show]="dropdownAbierto">
-        <a *ngFor="let categoria of categoriasPrincipales" 
-           [routerLink]="['/filtro']" 
-           [queryParams]="{categoria: categoria.id}">
+        <a *ngFor="let categoria of categoriasPrincipales" [routerLink]="['/filtro']"
+          [queryParams]="{categoria: categoria.id}">
           {{ categoria.nombre }}
         </a>
       </div>
     </div>
-    
+
     <div class="categorias-rapidas">
-      <a *ngFor="let categoria of categoriasSecundarias" 
-         [routerLink]="['/filtro']" 
-         [queryParams]="{categoria: categoria.id}" 
-         class="categoria-link">
+      <a *ngFor="let categoria of categoriasSecundarias" [routerLink]="['/filtro']"
+        [queryParams]="{categoria: categoria.id}" class="categoria-link">
         {{ categoria.nombre }}
       </a>
     </div>
@@ -30,15 +27,15 @@
     <h2 class="titulo-destacado">NOVEDADES</h2>
     <div class="linea-decorativa"></div>
   </div>
-  
-  <app-slider [productos]="productos"></app-slider>
+
+  <app-slider [productos]="productosAleatorios"></app-slider>
 
   <!-- Sección del usuario -->
   <div class="seccion-usuario">
     <div class="encabezado-seccion">
-      <h3 class="titulo-seccion">Productos de {{ nombreUsuario }}</h3>    
+      <h3 class="titulo-seccion">Productos de {{ nombreUsuario }}</h3>
     </div>
-    
+
     <div class="tarjeta-usuario">
       <a [routerLink]="['/perfil']" class="enlace-usuario">
         <img src="assets/said_pf.jpeg" class="foto-perfil" alt="Foto de perfil">
@@ -51,11 +48,11 @@
         </div>
       </div>
     </div>
-    
+
     <div class="contenedor-scroll">
       <button class="arrow left" (click)="scrollLeft()">&#10094;</button>
-        <div #contenedor class="contenedor-productos">
-      <div *ngFor="let producto of productos" class="producto" (click)="verDetalle(producto)">
+      <div #contenedor class="contenedor-productos">
+        <div *ngFor="let producto of productos" class="producto" (click)="verDetalle(producto)">
           <img [src]="producto.imagen" alt="{{producto.nombre}}" class="producto-imagen">
           <div class="producto-nombre">{{ producto.nombre }}</div>
         </div>
@@ -63,19 +60,28 @@
       <button class="arrow right" (click)="scrollRight()">&#10095;</button>
     </div>
   </div>
-  
-  <!-- Sección de recomendados -->
+
   <div class="seccion-recomendados">
     <div class="encabezado-seccion">
       <h3 class="titulo-seccion">Productos recomendados</h3>
     </div>
-    
+
     <div class="grid-productos">
-      <div *ngFor="let producto of productosRandom.slice(0, 8)" class="producto-card">
-        <div class="producto-contenido">
-          {{ producto }}
+      <div *ngFor="let producto of productosAleatorios.slice(0, 8)" class="producto-usuario"
+        (click)="verDetalle(producto)">
+        <div class="producto-imagen-container">
+          <img [src]="producto.imagenUrl" [alt]="producto.nombre" class="producto-imagen" />
+        </div>
+        <div class="producto-info">
+          <h4 class="producto-nombre">{{ producto.nombre }}</h4>
+          <p class="producto-descripcion">{{ producto.descripcion }}</p>
+          <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
+          <div class="producto-meta">
+            <p class="producto-precio">{{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</p>
+            <p class="producto-fecha">{{ calcularTiempoPublicacion(producto.fechaPublicacion) }}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>  
+  </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Producto } from '../../models/product.model';
 
 @Component({
   selector: 'app-slider',
@@ -7,5 +8,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './slider.component.css'
 })
 export class SliderComponent {
-  @Input() productos: { nombre: string, imagen: string }[] = [];
+  @Input() productos: Producto[] = [];
 }

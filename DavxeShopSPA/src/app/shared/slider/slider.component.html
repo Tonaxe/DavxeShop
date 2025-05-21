@@ -1,23 +1,23 @@
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-        <button *ngFor="let producto of productos; let i = index" type="button"
-            [attr.data-bs-target]="'#carouselExampleIndicators'" [attr.data-bs-slide-to]="i" [class.active]="i === 0"
-            aria-current="true" [attr.aria-label]="'Slide ' + (i + 1)">
-        </button>
-    </div>
-    <div class="carousel-inner">
-        <div *ngFor="let producto of productos; let i = index" class="carousel-item" [class.active]="i === 0">
-            <img [src]="producto.imagen" class="d-block w-100 max-size" [alt]="producto.nombre">
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
+  <div class="carousel-indicators">
+    <button *ngFor="let producto of productos; let i = index" type="button"
+      [attr.data-bs-target]="'#carouselExampleIndicators'" [attr.data-bs-slide-to]="i" [class.active]="i === 0"
+      aria-current="true" [attr.aria-label]="'Slide ' + (i + 1)">
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
+  </div>
+  <div class="carousel-inner">
+    <div *ngFor="let producto of productos; let i = index" class="carousel-item" [class.active]="i === 0">
+      <img [src]="producto.imagenUrl" class="d-block w-100 max-size" [alt]="producto.nombre">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+    data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+    data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
