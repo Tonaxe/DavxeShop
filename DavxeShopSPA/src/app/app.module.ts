@@ -21,6 +21,7 @@ import { SliderComponent } from './shared/slider/slider.component';
 import { AddProductComponent } from './pages/my-products/add-product/add-product.component';
 import { DetalleComponent } from './pages/my-products/detalle/detalle.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { SearchBarComponent } from './shared/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     FiltroComponent,
     DetalleComponent,
     FooterComponent,
-    DashboardComponent
+    DashboardComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,

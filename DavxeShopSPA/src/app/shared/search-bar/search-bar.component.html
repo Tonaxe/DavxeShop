@@ -1,0 +1,16 @@
+<div class="search-bar-wrapper">
+  <input
+    type="text"
+    [(ngModel)]="query"
+    (input)="onInputChange()"
+    (focus)="onInputChange()"
+    placeholder="Buscar productos..."
+    class="search-bar"
+  />
+
+  <div class="search-dropdown" [class.show]="resultados.length">
+    <div class="search-dropdown-item" *ngFor="let producto of resultados" (click)="selectResult(producto)">
+      {{ producto.nombre }} <small>({{ producto.categoria }})</small>
+    </div>
+  </div>
+</div>

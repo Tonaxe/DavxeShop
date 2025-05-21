@@ -12,6 +12,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { DetalleComponent } from './pages/my-products/detalle/detalle.component';
 import { AddProductComponent } from './pages/my-products/add-product/add-product.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { SearchBarComponent } from './shared/search-bar/search-bar.component';
 
 
 export const routes: Routes = [
@@ -26,7 +27,8 @@ export const routes: Routes = [
     { path: 'perfil', component: PerfilComponent },
     { path: 'filtro', component: FiltroComponent },
     { path: 'detalle', component: DetalleComponent },
-    {path: 'dashboard', component: DashboardComponent},
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'search', component: SearchBarComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 
