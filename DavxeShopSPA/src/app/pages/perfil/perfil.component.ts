@@ -70,4 +70,5 @@ export class PerfilComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
+  
 }

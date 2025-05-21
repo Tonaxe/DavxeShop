@@ -20,6 +20,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { SliderComponent } from './shared/slider/slider.component';
 import { AddProductComponent } from './pages/my-products/add-product/add-product.component';
 import { DetalleComponent } from './pages/my-products/detalle/detalle.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { DetalleComponent } from './pages/my-products/detalle/detalle.component'
     PerfilComponent,
     FiltroComponent,
     DetalleComponent,
-    FooterComponent
+    FooterComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,7 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { DetalleComponent } from './pages/my-products/detalle/detalle.component';
 import { AddProductComponent } from './pages/my-products/add-product/add-product.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 
 export const routes: Routes = [
@@ -25,7 +26,8 @@ export const routes: Routes = [
     { path: 'perfil', component: PerfilComponent },
     { path: 'filtro', component: FiltroComponent },
     { path: 'detalle', component: DetalleComponent },
-    { path: '', redirectTo: 'login', pathMatch: 'full' }
+    {path: 'dashboard', component: DashboardComponent},
+    { path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 
 export const routerOptions: ExtraOptions = {
