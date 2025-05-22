@@ -24,6 +24,11 @@ namespace DavxeShop.Persistance.Configuration
                    .WithMany(c => c.Productos)
                    .HasForeignKey(p => p.CategoriaId)
                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(p => p.Estado)
+                   .WithMany(e => e.Productos)
+                   .HasForeignKey(p => p.EstadoId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

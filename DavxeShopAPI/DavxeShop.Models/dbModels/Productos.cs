@@ -10,8 +10,10 @@
         public string? ImagenUrl { get; set; }
         public int CategoriaId { get; set; }
         public virtual Categoria Categoria { get; set; } = null!;
-
+        public int EstadoId { get; set; }
         public int UserId { get; set; }
+
+        public virtual Estado Estado { get; set; } = null!;
         public virtual User User { get; set; } = null!;
     }
 }

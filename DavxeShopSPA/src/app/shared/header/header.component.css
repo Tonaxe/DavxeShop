@@ -103,8 +103,8 @@
     }
     
     .profile-pic {
-      width: 45px;
-      height: 45px;
+      width: 65px;
+      height: 65px;
       border-radius: 50%;
       border: 2px solid white;
       transition: all 0.3s ease;

@@ -9,6 +9,7 @@ export interface Producto {
   userId: number;
   userNombre: string;
   userCiudad: string;
+  estado: string;
 }
 
 export interface ProductosResponse {

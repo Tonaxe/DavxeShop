@@ -322,7 +322,8 @@ namespace DavxeShop.Persistance
                         ImagenUrl = p.ImagenUrl,
                         UserId = p.UserId,
                         UserNombre = p.User.Name,
-                        UserCiudad = p.User.City
+                        UserCiudad = p.User.City,
+                        Estado = p.Estado.Nombre
                     })
                     .FirstOrDefault();
             }

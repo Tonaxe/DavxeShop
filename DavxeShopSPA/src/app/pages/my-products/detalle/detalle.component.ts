@@ -21,7 +21,8 @@ export class DetalleComponent implements OnInit {
     imagenUrl: '',
     userId: 0,
     userNombre: '',
-    userCiudad: ''
+    userCiudad: '',
+    estado: ''
   };
   categorias: { categoriaId: number; nombre: string }[] = [];
 
