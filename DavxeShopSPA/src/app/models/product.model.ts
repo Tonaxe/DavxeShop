@@ -17,7 +17,7 @@ export interface UsuarioConProductos {
   userId: number;
   nombre: string;
   foto: string;
-  productos: Producto[];
+  productos: { productoId: number; nombre: string; imagenUrl: string }[];
 }
 
 export interface UserProductsResponse {

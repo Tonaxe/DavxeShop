@@ -270,11 +270,12 @@ namespace DavxeShop.Persistance
                 .Where(u => u.Productos.Count >= 8)
                 .ToList();
 
-            if (usuariosValidos.Count < 2) return new List<UserProductsDTO>();
+            if (usuariosValidos.Count < 2)
+                return new List<UserProductsDTO>();
 
             var random = new Random();
             var usuariosSeleccionados = usuariosValidos
-                .OrderBy(x => random.Next())
+                .OrderBy(_ => random.Next())
                 .Take(2)
                 .ToList();
 
@@ -284,14 +285,11 @@ namespace DavxeShop.Persistance
             {
                 var productos = _context.Productos
                     .Where(p => p.UserId == user.UserId)
-                    .Select(p => new ProductoDTO
+                    .Select(p => new ProductoResumenDTO
                     {
                         ProductoId = p.ProductoId,
                         Nombre = p.Nombre,
-                        Descripcion = p.Descripcion,
-                        Precio = p.Precio,
-                        ImagenUrl = p.ImagenUrl,
-                        FechaPublicacion = p.FechaPublicacion
+                        ImagenUrl = p.ImagenUrl
                     })
                     .ToList();
 
