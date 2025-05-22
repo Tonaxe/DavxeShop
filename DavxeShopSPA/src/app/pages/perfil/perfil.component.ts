@@ -15,12 +15,7 @@ export class PerfilComponent implements OnInit {
     dni: '',
     city: '',
     avatar: '',
-    password: '',
-    card: {
-      number: '',
-      expiry: '',
-      cvv: ''
-    }
+    password: ''
   };
 
   isEditing = false;

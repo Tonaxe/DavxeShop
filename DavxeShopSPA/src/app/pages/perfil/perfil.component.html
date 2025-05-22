@@ -54,19 +54,6 @@
         <span *ngIf="!isEditing">{{ profile.city }}</span>
         <input *ngIf="isEditing" [(ngModel)]="profile.city" type="text" />
       </li>
-
-      <li>
-        <strong>Tarjeta de pago:</strong>
-        <div *ngIf="!isEditing">
-          **** **** **** {{ profile.card.number.slice(-4) }}<br>
-          Vence: {{ profile.card.expiry }}
-        </div>
-        <div *ngIf="isEditing" class="card-inputs">
-          <input [(ngModel)]="profile.card.number" type="text" placeholder="Número de tarjeta" />
-          <input [(ngModel)]="profile.card.expiry" type="text" placeholder="MM/AA" />
-          <input [(ngModel)]="profile.card.cvv" type="text" placeholder="CVV" />
-        </div>
-      </li>
     </ul>
   </div>
 
