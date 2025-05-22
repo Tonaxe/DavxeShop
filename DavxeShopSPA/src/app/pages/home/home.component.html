@@ -58,27 +58,36 @@
     </div>
   </div>
 
-  <div class="seccion-recomendados">
-    <div class="encabezado-seccion">
-      <h3 class="titulo-seccion">Productos recomendados</h3>
-    </div>
+ <div class="seccion-recomendados">
+  <div class="encabezado-seccion">
+    <h3 class="subtitulo">
+      <span class="subtitulo-linea"></span>
+      Productos recomendados
+    </h3>
+  </div>
 
+  <div class="grid-container">
     <div class="grid-productos">
-      <div *ngFor="let producto of productosAleatorios.slice(0, 8)" class="producto-usuario"
-        (click)="verDetalle(producto)">
-        <div class="producto-imagen-container">
-          <img [src]="producto.imagenUrl" [alt]="producto.nombre" class="producto-imagen" />
-        </div>
-        <div class="producto-info">
-          <h4 class="producto-nombre">{{ producto.nombre }}</h4>
-          <p class="producto-descripcion">{{ producto.descripcion }}</p>
-          <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
-          <div class="producto-meta">
-            <p class="producto-precio">{{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</p>
-            <p class="producto-fecha">{{ calcularTiempoPublicacion(producto.fechaPublicacion) }}</p>
+      <div *ngFor="let producto of productosAleatorios" class="producto-card">
+        <div class="producto-contenido" (click)="verDetalle(producto)">
+          <div class="producto-imagen-container">
+            <img [src]="producto.imagenUrl" [alt]="producto.nombre" class="producto-imagen"/>
+          </div>
+          <div class="producto-info">
+            <h4 class="producto-nombre">{{ producto.nombre }}</h4>
+            <p class="producto-descripcion">{{ producto.descripcion }}</p>
+            <div class="producto-detalles">
+              <span class="producto-categoria">{{ producto.categoria }}</span>
+              <div class="producto-meta">
+                <span class="producto-precio">{{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</span>
+                <span class="producto-fecha">{{ calcularTiempoPublicacion(producto.fechaPublicacion) }}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
 </div>

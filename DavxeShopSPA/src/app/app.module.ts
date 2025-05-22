@@ -41,7 +41,8 @@ import { SearchBarComponent } from './shared/search-bar/search-bar.component';
     DetalleComponent,
     FooterComponent,
     DashboardComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    
   ],
   imports: [
     BrowserModule,

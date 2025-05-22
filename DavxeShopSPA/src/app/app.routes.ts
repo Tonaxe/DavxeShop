@@ -13,6 +13,8 @@ import { DetalleComponent } from './pages/my-products/detalle/detalle.component'
 import { AddProductComponent } from './pages/my-products/add-product/add-product.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SearchBarComponent } from './shared/search-bar/search-bar.component';
+import { ComprarComponent } from './pages/comprar/comprar.component';
+
 
 
 export const routes: Routes = [
@@ -29,6 +31,7 @@ export const routes: Routes = [
     { path: 'detalle/:id', component: DetalleComponent },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'search', component: SearchBarComponent },
+    { path: 'comprar', component: ComprarComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 
