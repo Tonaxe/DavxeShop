@@ -1,54 +1,32 @@
 body {
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+  background: linear-gradient(135deg, #f5f7fa, #e4e8f0);
   min-height: 100vh;
   margin: 0;
   padding: 20px;
   font-family: 'Inter', 'Segoe UI', sans-serif;
-  position: relative;
   overflow-x: hidden;
 }
 
 body::before {
   content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234f46e5' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg...%3E");
+  background-size: cover;
+  opacity: 0.2;
   z-index: -1;
 }
 
 .add-product-container {
-  max-width: 900px;
+  max-width: 860px;
   margin: 40px auto;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.75);
-  border-radius: 24px;
-  box-shadow: 
-    0 8px 32px rgba(31, 38, 135, 0.15),
-    0 0 0 1px rgba(255, 255, 255, 0.6) inset,
-    0 0 30px rgba(255, 255, 255, 0.3) inset;
-  font-family: 'Inter', 'Segoe UI', sans-serif;
-  /* animation: fadeSlideInSmooth 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;  Eliminada */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(10px);
+  transition: box-shadow 0.3s ease;
   position: relative;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.add-product-container::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at center, rgba(79, 70, 229, 0.1) 0%, transparent 70%);
-  z-index: -1;
-  pointer-events: none;
 }
 
 .add-product-container::after {
@@ -60,153 +38,127 @@ body::before {
   height: 4px;
   background: linear-gradient(90deg, #4f46e5, #7c3aed, #4f46e5);
   background-size: 200% auto;
-  animation: gradientFlow 3s linear infinite;
+  animation: gradientFlow 4s linear infinite;
 }
 
 .titulo-formulario {
   text-align: center;
-  margin-bottom: 40px;
-  font-size: 36px;
+  font-size: 32px;
+  font-weight: 700;
   color: #1a202c;
-  font-weight: 800;
-  letter-spacing: -0.5px;
+  margin-bottom: 32px;
   position: relative;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .titulo-formulario::after {
   content: '';
+  width: 80px;
+  height: 3px;
+  margin: 12px auto 0;
   display: block;
-  width: 100px;
-  height: 4px;
-  background: linear-gradient(90deg, #4f46e5, #7c3aed);
-  margin: 15px auto 0;
   border-radius: 2px;
+  background: linear-gradient(to right, #4f46e5, #7c3aed);
   animation: underline 1s ease-in-out forwards;
 }
 
 .seccion-form {
-  margin-bottom: 40px;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 35px;
-  border-radius: 20px;
-  box-shadow: 
-    0 8px 20px rgba(0, 0, 0, 0.06),
-    0 0 0 1px rgba(226, 232, 240, 0.3) inset;
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  transition: all 0.3s ease;
-  backdrop-filter: blur(2px);
-}
-
-.seccion-form:hover {
-  box-shadow: 
-    0 12px 25px rgba(0, 0, 0, 0.1),
-    0 0 0 1px rgba(226, 232, 240, 0.4) inset;
   background: white;
+  padding: 28px;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03);
+  margin-bottom: 28px;
+  transition: all 0.3s ease;
 }
 
 .subtitulo {
-  font-size: 24px;
+  font-size: 20px;
+  font-weight: 600;
   color: #1a202c;
-  margin-bottom: 30px;
-  font-weight: 700;
+  margin-bottom: 24px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .subtitulo::before {
   content: '';
-  width: 5px;
-  height: 28px;
+  width: 4px;
+  height: 24px;
   background: linear-gradient(to bottom, #4f46e5, #7c3aed);
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
 .campo-doble {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  gap: 24px;
 }
 
 .campo {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
-.formulario-producto label {
-  font-weight: 600;
-  color: #374151;
-  margin-bottom: 10px;
+label {
   display: block;
-  font-size: 16px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #374151;
 }
 
-.formulario-producto input,
-.formulario-producto textarea,
-.formulario-producto select {
+input, textarea, select {
   width: 100%;
-  padding: 16px 18px;
-  border: 2px solid #e5e7eb;
-  border-radius: 14px;
-  font-size: 16px;
-  background-color: rgba(249, 250, 251, 0.7);
-  transition: all 0.3s ease;
-  color: #1f2937;
+  padding: 14px 16px;
+  font-size: 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background: #f9fafb;
+  color: #111827;
+  transition: border 0.2s ease, background-color 0.2s ease;
 }
 
-.formulario-producto input:focus,
-.formulario-producto textarea:focus,
-.formulario-producto select:focus {
+input:focus, textarea:focus, select:focus {
   outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-  background-color: white;
+  border-color: #6366f1;
+  background-color: #fff;
 }
 
-.formulario-producto textarea {
-  min-height: 140px;
+textarea {
   resize: vertical;
+  min-height: 120px;
 }
 
 .custom-file-upload {
   position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 32px;
   border: 2px dashed #d1d5db;
-  border-radius: 18px;
-  padding: 40px;
+  border-radius: 12px;
   text-align: center;
   color: #4b5563;
+  background: #f9fafb;
+  transition: border 0.3s ease, background 0.3s ease;
   cursor: pointer;
-  background-color: rgba(249, 250, 251, 0.5);
-  transition: all 0.3s ease;
 }
 
 .custom-file-upload:hover {
-  border-color: #4f46e5;
-  background-color: rgba(243, 244, 246, 0.7);
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.1);
+  border-color: #7c3aed;
+  background: #f3f4f6;
 }
 
 .custom-file-upload input[type="file"] {
   position: absolute;
-  left: 0;
-  top: 0;
+  inset: 0;
   opacity: 0;
-  height: 100%;
-  width: 100%;
   cursor: pointer;
 }
 
 .preview-img {
-  margin-top: 25px;
-  border-radius: 18px;
+  margin-top: 20px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .preview-img img {
@@ -217,44 +169,43 @@ body::before {
 }
 
 .preview-img img:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .btn-guardar {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-  color: white;
-  font-size: 18px;
-  padding: 18px 36px;
+  display: block;
+  margin: 24px auto 0;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
   border: none;
-  border-radius: 14px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.2);
   cursor: pointer;
-  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
   transition: background 0.3s ease, box-shadow 0.3s ease;
-  display: block;       /* Cambiado para centrar */
-  margin: 20px auto 0;  /* Centrado horizontal */
-  width: 100%;
-  max-width: 320px;
 }
 
 .btn-guardar:hover {
-  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
-  box-shadow: 0 10px 40px rgba(79, 70, 229, 0.5);
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
+  box-shadow: 0 10px 30px rgba(79, 70, 229, 0.4);
 }
 
 @keyframes gradientFlow {
-  0% {
+  from {
     background-position: 0% 50%;
   }
-  100% {
+  to {
     background-position: 200% 50%;
   }
 }
 
 @keyframes underline {
-  0% {
+  from {
     width: 0;
   }
-  100% {
-    width: 100px;
+  to {
+    width: 80px;
   }
 }
