@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
-import { Producto } from '../../models/product.model';
+import { Producto, UsuarioConProductos } from '../../models/product.model';
 import { Categoria } from '../../models/categoria.model';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -15,61 +16,29 @@ export class HomeComponent implements OnInit {
   dropdownAbierto: boolean = false;
   productosAleatorios: Producto[] = [];
   categorias: Categoria[] = [];
+  userProducts: UsuarioConProductos[] = [];
 
   constructor(private router: Router, private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.apiService.getRandomProductos().subscribe(
-      (res) => {
-        this.productosAleatorios = res.productos;
-      },
-      (error) => { }
-    );
+    forkJoin({
+      productosAleatorios: this.apiService.getRandomProductos(),
+      categorias: this.apiService.getAllCategorias(),
+      userProducts: this.apiService.getRandomProductosUsers()
+    }).subscribe({
+      next: ({ productosAleatorios, categorias, userProducts }) => {
+        this.productosAleatorios = productosAleatorios.productos;
+        this.categorias = categorias.categorias;
+        this.userProducts = userProducts.userProducts;
 
-    this.apiService.getAllCategorias().subscribe(
-      (res) => {
-        this.categorias = res.categorias;
         sessionStorage.setItem("categorias", JSON.stringify(this.categorias));
       },
-      (error) => { }
-    );
+      error: (err) => {
+      }
+    });
   }
 
-  categoriasPrincipales = [
-    { id: 'coche', nombre: 'Coche' },
-    { id: 'moto', nombre: 'Moto' },
-    { id: 'motor', nombre: 'Motor' },
-    { id: 'hogar', nombre: 'Hogar' }
-  ];
-
-  categoriasSecundarias = [
-    { id: 'moda', nombre: 'Moda' },
-    { id: 'inmobiliaria', nombre: 'Inmobiliaria' },
-    { id: 'gym', nombre: 'Gym' },
-    { id: 'tecnologia', nombre: 'Tecnología' },
-    { id: 'accesorios', nombre: 'Accesorios' }
-  ];
-
   @ViewChild('contenedor', { static: false }) contenedor!: ElementRef;
-
-  productos = [
-    { nombre: 'Producto 1', imagen: 'assets/1.png' },
-    { nombre: 'Producto 2', imagen: 'assets/1.png' },
-    { nombre: 'Producto 3', imagen: 'assets/1.png' },
-    { nombre: 'Producto 4', imagen: 'assets/1.png' },
-    { nombre: 'Producto 5', imagen: 'assets/1.png' },
-    { nombre: 'Producto 6', imagen: 'assets/1.png' },
-    { nombre: 'Producto 7', imagen: 'assets/1.png' },
-    { nombre: 'Producto 8', imagen: 'assets/1.png' },
-    { nombre: 'Producto 9', imagen: 'assets/1.png' },
-    { nombre: 'Producto 10', imagen: 'assets/1.png' },
-    { nombre: 'Producto 11', imagen: 'assets/1.png' },
-    { nombre: 'Producto 12', imagen: 'assets/1.png' },
-    { nombre: 'Producto 13', imagen: 'assets/1.png' },
-    { nombre: 'Producto 14', imagen: 'assets/1.png' },
-    { nombre: 'Producto 15', imagen: 'assets/1.png' },
-  ];
-
 
   scrollLeft() {
     this.contenedor.nativeElement.scrollBy({

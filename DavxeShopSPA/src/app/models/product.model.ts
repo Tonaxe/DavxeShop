@@ -12,3 +12,14 @@ export interface Producto {
 export interface ProductosResponse {
   productos: Producto[];
 }
+
+export interface UsuarioConProductos {
+  userId: number;
+  nombre: string;
+  foto: string;
+  productos: Producto[];
+}
+
+export interface UserProductsResponse {
+  userProducts: UsuarioConProductos[];
+}
