@@ -263,5 +263,48 @@ namespace DavxeShop.Persistance
                 Nombre = p.Nombre,
             }).ToList();
         }
+
+        public List<UserProductsDTO> GetRandomProductosUsers()
+        {
+            var usuariosValidos = _context.Users
+                .Where(u => u.Productos.Count >= 8)
+                .ToList();
+
+            if (usuariosValidos.Count < 2) return new List<UserProductsDTO>();
+
+            var random = new Random();
+            var usuariosSeleccionados = usuariosValidos
+                .OrderBy(x => random.Next())
+                .Take(2)
+                .ToList();
+
+            var resultado = new List<UserProductsDTO>();
+
+            foreach (var user in usuariosSeleccionados)
+            {
+                var productos = _context.Productos
+                    .Where(p => p.UserId == user.UserId)
+                    .Select(p => new ProductoDTO
+                    {
+                        ProductoId = p.ProductoId,
+                        Nombre = p.Nombre,
+                        Descripcion = p.Descripcion,
+                        Precio = p.Precio,
+                        ImagenUrl = p.ImagenUrl,
+                        FechaPublicacion = p.FechaPublicacion
+                    })
+                    .ToList();
+
+                resultado.Add(new UserProductsDTO
+                {
+                    UserId = user.UserId,
+                    Nombre = user.Name,
+                    Foto = user.ImageBase64 ?? "",
+                    Productos = productos
+                });
+            }
+
+            return resultado;
+        }
     }
 }

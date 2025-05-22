@@ -41,8 +41,12 @@ builder.Services.AddTransient<IValidations, Validations>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddTransient<IDavxeShopDboHelper, DavxeShopDboHelper>();
 builder.Services.AddDbContextFactory<DavxeShopContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), sqlOptions =>
+    {
+        sqlOptions.EnableRetryOnFailure();
+    })
 );
+
 
 var app = builder.Build();
 
