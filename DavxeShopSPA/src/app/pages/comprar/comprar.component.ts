@@ -5,8 +5,7 @@ import { Producto } from '../../models/product.model';
 
 @Component({
   selector: 'app-comprar',
-  standalone: true,
-  imports: [CommonModule],
+  standalone: false,
   templateUrl: './comprar.component.html',
   styleUrls: ['./comprar.component.css']
 })
@@ -34,8 +33,4 @@ export class ComprarComponent {
       estado: ''
     };
   }
-
-  
-
- 
 }

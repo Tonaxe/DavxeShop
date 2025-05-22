@@ -72,4 +72,8 @@ export class HomeComponent implements OnInit {
     const diff = Math.floor((Date.now() - fecha.getTime()) / (1000 * 60 * 60 * 24));
     return 'Hace ' + diff + ' días';
   }
+
+  formatEstado(estado: string): string {
+    return 'estado-' + estado.toLowerCase().replace(/\s/g, '-');
+  }
 }
