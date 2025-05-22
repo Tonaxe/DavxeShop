@@ -259,8 +259,8 @@ namespace DavxeShop.Persistance
         {
             return _context.Categorias.Select(p => new CategoriaDTO
             {
-                CategoriaId = p.Id,
-                Nombre = p.Categoriaa,
+                CategoriaId = p.CategoriaId,
+                Nombre = p.Nombre,
             }).ToList();
         }
     }

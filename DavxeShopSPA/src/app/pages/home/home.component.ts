@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { Producto } from '../../models/product.model';
+import { Categoria } from '../../models/categoria.model';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,7 @@ export class HomeComponent implements OnInit {
   nombreUsuario: string = "Tonaxe";
   dropdownAbierto: boolean = false;
   productosAleatorios: Producto[] = [];
+  categorias: Categoria[] = [];
 
   constructor(private router: Router, private apiService: ApiService) { }
 
@@ -23,8 +25,15 @@ export class HomeComponent implements OnInit {
       },
       (error) => { }
     );
-  }
 
+    this.apiService.getAllCategorias().subscribe(
+      (res) => {
+        this.categorias = res.categorias;
+        sessionStorage.setItem("categorias", JSON.stringify(this.categorias));
+      },
+      (error) => { }
+    );
+  }
 
   categoriasPrincipales = [
     { id: 'coche', nombre: 'Coche' },

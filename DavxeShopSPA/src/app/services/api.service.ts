@@ -7,6 +7,7 @@ import { ResetPasswordComponentRequest } from "../models/resetPasswordRequest.mo
 import { User } from "../models/user.model";
 import { VerifyRecoveryCode } from "../models/verifyRecoveryCode.model";
 import { Producto, ProductosResponse } from "../models/product.model";
+import { CategoriaResponse } from "../models/categoria.model";
 
 
 @Injectable({
@@ -63,5 +64,9 @@ export class ApiService {
 
   getRandomProductos(): Observable<ProductosResponse> {
     return this.http.get<ProductosResponse>(`${this.baseUrl}productos/random`, { headers: this.getHeaders() });
+  }
+
+  getAllCategorias(): Observable<CategoriaResponse> {
+    return this.http.get<CategoriaResponse>(`${this.baseUrl}categorias`, { headers: this.getHeaders() });
   }
 }

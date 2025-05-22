@@ -1,5 +1,4 @@
 <div class="home-container">
-  <!-- Menú de categorías mejorado -->
   <div class="categorias-container">
     <div class="dropdown-categorias">
       <button class="dropdown-btn" (click)="toggleDropdown()">
@@ -7,22 +6,21 @@
         <span class="dropdown-icon" [class.rotated]="dropdownAbierto">›</span>
       </button>
       <div class="dropdown-menu" [class.show]="dropdownAbierto">
-        <a *ngFor="let categoria of categoriasPrincipales" [routerLink]="['/filtro']"
-          [queryParams]="{categoria: categoria.id}">
+        <a *ngFor="let categoria of categorias" [routerLink]="['/filtro']"
+          [queryParams]="{categoria: categoria.categoriaId}">
           {{ categoria.nombre }}
         </a>
       </div>
     </div>
 
     <div class="categorias-rapidas">
-      <a *ngFor="let categoria of categoriasSecundarias" [routerLink]="['/filtro']"
-        [queryParams]="{categoria: categoria.id}" class="categoria-link">
+      <a *ngFor="let categoria of categorias" [routerLink]="['/filtro']"
+        [queryParams]="{categoria: categoria.categoriaId}" class="categoria-link">
         {{ categoria.nombre }}
       </a>
     </div>
   </div>
 
-  <!-- Sección de novedades -->
   <div class="seccion-titulo">
     <h2 class="titulo-destacado">NOVEDADES</h2>
     <div class="linea-decorativa"></div>
@@ -30,7 +28,6 @@
 
   <app-slider [productos]="productosAleatorios"></app-slider>
 
-  <!-- Sección del usuario -->
   <div class="seccion-usuario">
     <div class="encabezado-seccion">
       <h3 class="titulo-seccion">Productos de {{ nombreUsuario }}</h3>

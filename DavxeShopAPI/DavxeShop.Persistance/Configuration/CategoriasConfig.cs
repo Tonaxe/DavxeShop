@@ -8,8 +8,9 @@ namespace DavxeShop.Persistance.Configuration
     {
         public void Configure(EntityTypeBuilder<Categoria> builder)
         {
-            builder.HasKey(c => c.Id);
-            builder.Property(c => c.Categoriaa)
+            builder.ToTable("Categoria");
+            builder.HasKey(c => c.CategoriaId);
+            builder.Property(c => c.Nombre)
                    .IsRequired()
                    .HasMaxLength(50);
         }

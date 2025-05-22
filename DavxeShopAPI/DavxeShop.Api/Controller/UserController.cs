@@ -6,12 +6,12 @@ namespace DavxeShop.Api.Controller
 {
     [Route("api/DavxeShop")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly IValidations _validations;
 
-        public ValuesController(IUserService userService, IValidations validations)
+        public UserController(IUserService userService, IValidations validations)
         {
             _userService = userService;
             _validations = validations;

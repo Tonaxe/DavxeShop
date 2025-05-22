@@ -19,18 +19,17 @@
 
       <div class="campo">
         <label for="descripcion">Descripción</label>
-        <textarea id="descripcion" rows="4" placeholder="Describe tu producto..." formControlName="Descripcion" required></textarea>
+        <textarea id="descripcion" rows="4" placeholder="Describe tu producto..." formControlName="Descripcion"
+          required></textarea>
       </div>
 
       <div class="campo">
         <label for="categoria">Categoría</label>
         <select id="categoria" formControlName="Categoria" required>
           <option value="" disabled selected>Selecciona una categoría</option>
-          <option value="coche">Coche</option>
-          <option value="moto">Moto</option>
-          <option value="hogar">Hogar</option>
-          <option value="moda">Moda</option>
-          <option value="tecnologia">Tecnología</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria.categoriaId">
+            {{ categoria.nombre }}
+          </option>
         </select>
       </div>
     </div>

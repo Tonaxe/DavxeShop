@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { Producto } from '../../../models/product.model';
 import { HttpClient } from '@angular/common/http';
+import { Categoria } from '../../../models/categoria.model';
 
 @Component({
   selector: 'app-add-product',
@@ -15,6 +16,7 @@ export class AddProductComponent {
   form: FormGroup;
   imagenPreview: string | ArrayBuffer | null = null;
   selectedFile!: File;
+  categorias: Categoria[] = [];
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router, private http: HttpClient) {
     const userData = sessionStorage.getItem('user');
@@ -29,6 +31,11 @@ export class AddProductComponent {
       FechaPublicacion: [new Date().toISOString()],
       UserId: [userId, Validators.required]
     });
+    const categoriasStorage = sessionStorage.getItem('categorias');
+    if (categoriasStorage) {
+      const parsed = JSON.parse(categoriasStorage);
+      this.categorias = Array.isArray(parsed) ? parsed : parsed.categorias;
+    }
   }
 
   mostrarVistaPrevia(event: any): void {
