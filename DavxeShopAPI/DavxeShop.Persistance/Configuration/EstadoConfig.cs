@@ -1,6 +1,6 @@
 ﻿using DavxeShop.Models.dbModels;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DavxeShop.Persistance.Configuration
 {

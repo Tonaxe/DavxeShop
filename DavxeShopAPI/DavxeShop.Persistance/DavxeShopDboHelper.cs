@@ -332,5 +332,14 @@ namespace DavxeShop.Persistance
                 return null;
             }
         }
+
+        public List<EstadoDTO> GetAllEstados()
+        {
+            return _context.Estados.Select(p => new EstadoDTO
+            {
+                EstadoId = p.EstadoId,
+                Nombre = p.Nombre,
+            }).ToList();
+        }
     }
 }

@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
 import { ApiService } from '../../../services/api.service';
 import { Producto } from '../../../models/product.model';
-import { HttpClient } from '@angular/common/http';
 import { Categoria } from '../../../models/categoria.model';
+import { Estado } from '../../../models/estado.model';
 
 @Component({
   selector: 'app-add-product',
@@ -12,13 +14,19 @@ import { Categoria } from '../../../models/categoria.model';
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css'
 })
-export class AddProductComponent {
+export class AddProductComponent implements OnInit {
   form: FormGroup;
   imagenPreview: string | ArrayBuffer | null = null;
   selectedFile!: File;
   categorias: Categoria[] = [];
+  estados: Estado[] = [];
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router, private http: HttpClient) {
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private router: Router,
+    private http: HttpClient
+  ) {
     const userData = sessionStorage.getItem('user');
     const userId = userData ? JSON.parse(userData).user.userId : null;
 
@@ -27,10 +35,19 @@ export class AddProductComponent {
       Precio: [0, [Validators.required, Validators.min(0)]],
       Descripcion: ['', Validators.required],
       Categoria: ['', Validators.required],
+      Estado: ['', Validators.required],
       ImagenUrl: [''],
       FechaPublicacion: [new Date().toISOString()],
       UserId: [userId, Validators.required]
     });
+  }
+
+  ngOnInit(): void {
+    this.cargarCategoriasDesdeStorage();
+    this.cargarEstadosDesdeApi();
+  }
+
+  private cargarCategoriasDesdeStorage(): void {
     const categoriasStorage = sessionStorage.getItem('categorias');
     if (categoriasStorage) {
       const parsed = JSON.parse(categoriasStorage);
@@ -38,11 +55,21 @@ export class AddProductComponent {
     }
   }
 
+  private cargarEstadosDesdeApi(): void {
+    this.apiService.getAllEstados().subscribe({
+      next: (res) => {
+        this.estados = res.estados;
+      },
+      error: (err) => {
+        console.error('Error al cargar estados', err);
+      }
+    });
+  }
+
   mostrarVistaPrevia(event: any): void {
     const file = event.target.files[0];
     if (file) {
       this.selectedFile = file;
-
       const reader = new FileReader();
       reader.onload = () => this.imagenPreview = reader.result;
       reader.readAsDataURL(file);
@@ -57,7 +84,7 @@ export class AddProductComponent {
 
     return this.http.post<any>(url, formData).toPromise().then(res => res.secure_url);
   }
-  
+
   async guardarProducto(): Promise<void> {
     if (this.form.invalid || !this.selectedFile) {
       this.form.markAllAsTouched();
@@ -68,6 +95,7 @@ export class AddProductComponent {
       const imageUrl = await this.subirImagenACloudinary();
       this.form.patchValue({ ImagenUrl: imageUrl });
       const producto: Producto = this.form.value;
+
       this.apiService.addProduct(producto).subscribe({
         next: () => this.router.navigate(['/home']),
         error: (err) => console.error('Error al guardar producto', err)

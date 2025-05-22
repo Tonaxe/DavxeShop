@@ -32,6 +32,16 @@
           </option>
         </select>
       </div>
+
+      <div class="campo">
+        <label for="estado">Estados</label>
+        <select id="estado" formControlName="Estado" required>
+          <option value="" disabled selected>Selecciona un estado</option>
+          <option *ngFor="let estado of estados" [value]="estado.estadoId">
+            {{ estado.nombre }}
+          </option>
+        </select>
+      </div>
     </div>
 
     <div class="seccion-form">

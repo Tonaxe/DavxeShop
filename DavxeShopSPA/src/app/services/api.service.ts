@@ -8,6 +8,7 @@ import { User } from "../models/user.model";
 import { VerifyRecoveryCode } from "../models/verifyRecoveryCode.model";
 import { Producto, ProductoResponse, ProductosResponse, UserProductsResponse } from "../models/product.model";
 import { CategoriaResponse } from "../models/categoria.model";
+import { EstadoResponse } from "../models/estado.model";
 
 
 @Injectable({
@@ -76,5 +77,9 @@ export class ApiService {
 
   getProductosByProductoId(porductoId : number): Observable<ProductoResponse> {
     return this.http.get<ProductoResponse>(`${this.baseUrl}productos/${porductoId}`, { headers: this.getHeaders() });
+  }
+
+  getAllEstados(): Observable<EstadoResponse> {
+    return this.http.get<EstadoResponse>(`${this.baseUrl}estados`, { headers: this.getHeaders() });
   }
 }

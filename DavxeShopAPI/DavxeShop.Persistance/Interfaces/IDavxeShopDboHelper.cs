@@ -29,5 +29,6 @@ namespace DavxeShop.Persistance.Interfaces
         List<CategoriaDTO> GetAllCategorias();
         List<UserProductsDTO> GetRandomProductosUsers();
         ProductoDTO? GetProductosByProductoId(int productoId);
+        List<EstadoDTO> GetAllEstados();
     }
 }
