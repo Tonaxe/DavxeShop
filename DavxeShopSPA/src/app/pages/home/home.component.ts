@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { Producto, UsuarioConProductos } from '../../models/product.model';
@@ -18,7 +18,9 @@ export class HomeComponent implements OnInit {
   categorias: Categoria[] = [];
   userProducts: UsuarioConProductos[] = [];
 
-  constructor(private router: Router, private apiService: ApiService) { }
+  @ViewChildren('contenedor') contenedores!: QueryList<ElementRef>;
+
+  constructor(private router: Router, private apiService: ApiService) {}
 
   ngOnInit(): void {
     forkJoin({
@@ -34,24 +36,23 @@ export class HomeComponent implements OnInit {
         sessionStorage.setItem("categorias", JSON.stringify(this.categorias));
       },
       error: (err) => {
+        console.error("Error al cargar datos:", err);
       }
     });
   }
 
-  @ViewChild('contenedor', { static: false }) contenedor!: ElementRef;
-
-  scrollLeft() {
-    this.contenedor.nativeElement.scrollBy({
-      left: -300,
-      behavior: 'smooth'
-    });
+  scrollLeft(index: number) {
+    const contenedor = this.contenedores.toArray()[index];
+    if (contenedor) {
+      contenedor.nativeElement.scrollBy({ left: -300, behavior: 'smooth' });
+    }
   }
 
-  scrollRight() {
-    this.contenedor.nativeElement.scrollBy({
-      left: 300,
-      behavior: 'smooth'
-    });
+  scrollRight(index: number) {
+    const contenedor = this.contenedores.toArray()[index];
+    if (contenedor) {
+      contenedor.nativeElement.scrollBy({ left: 300, behavior: 'smooth' });
+    }
   }
 
   verDetalle(producto: any) {

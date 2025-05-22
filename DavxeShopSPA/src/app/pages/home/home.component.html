@@ -6,16 +6,14 @@
         <span class="dropdown-icon" [class.rotated]="dropdownAbierto">›</span>
       </button>
       <div class="dropdown-menu" [class.show]="dropdownAbierto">
-        <a *ngFor="let categoria of categorias" [routerLink]="['/filtro']"
-          [queryParams]="{categoria: categoria.categoriaId}">
+        <a *ngFor="let categoria of categorias" [routerLink]="['/filtro']" [queryParams]="{categoria: categoria.categoriaId}">
           {{ categoria.nombre }}
         </a>
       </div>
     </div>
 
     <div class="categorias-rapidas">
-      <a *ngFor="let categoria of categorias" [routerLink]="['/filtro']"
-        [queryParams]="{categoria: categoria.categoriaId}" class="categoria-link">
+      <a *ngFor="let categoria of categorias" [routerLink]="['/filtro']" [queryParams]="{categoria: categoria.categoriaId}" class="categoria-link">
         {{ categoria.nombre }}
       </a>
     </div>
@@ -28,7 +26,7 @@
 
   <app-slider [productos]="productosAleatorios"></app-slider>
 
-  <div *ngFor="let usuario of userProducts" class="seccion-usuario">
+  <div *ngFor="let usuario of userProducts; let i = index" class="seccion-usuario">
     <div class="encabezado-seccion">
       <h3 class="titulo-seccion">Productos de {{ usuario.nombre }}</h3>
     </div>
@@ -47,17 +45,16 @@
     </div>
 
     <div class="contenedor-scroll">
-      <button class="arrow left" (click)="scrollLeft()">&#10094;</button>
+      <button class="arrow left" (click)="scrollLeft(i)">&#10094;</button>
       <div #contenedor class="contenedor-productos">
         <div *ngFor="let producto of usuario.productos" class="producto" (click)="verDetalle(producto)">
           <img [src]="producto.imagenUrl" alt="{{ producto.nombre }}" class="producto-imagen">
           <div class="producto-nombre">{{ producto.nombre }}</div>
         </div>
       </div>
-      <button class="arrow right" (click)="scrollRight()">&#10095;</button>
+      <button class="arrow right" (click)="scrollRight(i)">&#10095;</button>
     </div>
   </div>
-
 
   <div class="seccion-recomendados">
     <div class="encabezado-seccion">
@@ -65,8 +62,7 @@
     </div>
 
     <div class="grid-productos">
-      <div *ngFor="let producto of productosAleatorios.slice(0, 8)" class="producto-usuario"
-        (click)="verDetalle(producto)">
+      <div *ngFor="let producto of productosAleatorios.slice(0, 8)" class="producto-usuario" (click)="verDetalle(producto)">
         <div class="producto-imagen-container">
           <img [src]="producto.imagenUrl" [alt]="producto.nombre" class="producto-imagen" />
         </div>
