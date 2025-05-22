@@ -17,5 +17,10 @@ namespace DavxeShop.Library.Services
         {
             return _davxeShopDboHelper.GetAllCategorias();
         }
+
+        public List<ProductoDTO> GetProductosByCategoria(int categoriaId)
+        {
+            return _davxeShopDboHelper.GetProductosByCategoria(categoriaId);
+        }
     }
 }

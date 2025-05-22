@@ -82,4 +82,8 @@ export class ApiService {
   getAllEstados(): Observable<EstadoResponse> {
     return this.http.get<EstadoResponse>(`${this.baseUrl}estados`, { headers: this.getHeaders() });
   }
+
+  getProductosByCategoria(categoriaId: number): Observable<ProductosResponse> {
+    return this.http.get<ProductosResponse>(`${this.baseUrl}categorias/${categoriaId}/productos`, { headers: this.getHeaders() });
+  }
 }

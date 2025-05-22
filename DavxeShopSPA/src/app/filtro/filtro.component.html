@@ -1,9 +1,32 @@
-<div class="grid-productos">
-  <div *ngFor="let producto of productos" class="producto-usuario" (click)="verDetalle(producto)">
-    <div class="producto-info">
-      <h4>{{ producto }}</h4>
+<div class="perfil-contenedor">
+  <h2>Productos filtrados de {{ categoriaNombre || '...' }}</h2>
+  <div class="grid-productos">
+    <div
+      class="producto-usuario"
+      *ngFor="let producto of productos"
+      (click)="verDetalle(producto)"
+    >
+      <div class="producto-imagen-container">
+        <img
+          class="producto-imagen"
+          [src]="producto.imagenUrl"
+          alt="{{ producto.nombre }}"
+        />
+        <span class="estado-badge" [ngClass]="formatEstado(producto.estado)">
+          {{ producto.estado }}
+        </span>
+      </div>
+      <div class="producto-info">
+        <h3 class="producto-nombre">{{ producto.nombre }}</h3>
+        <p class="producto-descripcion">{{ producto.descripcion }}</p>
+        <div class="producto-meta">
+          <p class="producto-precio">{{ producto.precio | currency:'USD' }}</p>
+          <p class="producto-fecha">{{ calcularTiempoPublicacion(producto.fechaPublicacion) }}</p>
+        </div>
+        <p class="producto-usuario-nombre">
+          <strong>Vendedor:</strong> {{ producto.userNombre }} ({{ producto.userCiudad }})
+        </p>
+      </div>
     </div>
   </div>
 </div>
-
-  

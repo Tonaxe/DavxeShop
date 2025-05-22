@@ -6,14 +6,16 @@
         <span class="dropdown-icon" [class.rotated]="dropdownAbierto">›</span>
       </button>
       <div class="dropdown-menu" [class.show]="dropdownAbierto">
-        <a *ngFor="let categoria of categorias" [routerLink]="['/filtro']" [queryParams]="{categoria: categoria.categoriaId}">
+        <a *ngFor="let categoria of categorias" [routerLink]="['/filtro']"
+          [queryParams]="{categoria: categoria.categoriaId, nombre: categoria.nombre}">
           {{ categoria.nombre }}
         </a>
       </div>
     </div>
 
     <div class="categorias-rapidas">
-      <a *ngFor="let categoria of categorias" [routerLink]="['/filtro']" [queryParams]="{categoria: categoria.categoriaId}" class="categoria-link">
+      <a *ngFor="let categoria of categorias" [routerLink]="['/filtro']"
+        [queryParams]="{categoria: categoria.categoriaId, nombre: categoria.nombre}">
         {{ categoria.nombre }}
       </a>
     </div>
@@ -62,9 +64,10 @@
     </div>
 
     <div class="grid-productos">
-      <div *ngFor="let producto of productosAleatorios.slice(0, 8)" class="producto-usuario" (click)="verDetalle(producto)">
+      <div *ngFor="let producto of productosAleatorios.slice(0, 8)" class="producto-usuario"
+        (click)="verDetalle(producto)">
         <div class="producto-imagen-container">
-          <img [src]="producto.imagenUrl" [alt]="producto.nombre" class="producto-imagen"/>
+          <img [src]="producto.imagenUrl" [alt]="producto.nombre" class="producto-imagen" />
         </div>
         <div class="producto-info">
           <h4 class="producto-nombre">{{ producto.nombre }}</h4>

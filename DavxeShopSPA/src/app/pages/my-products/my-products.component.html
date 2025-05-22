@@ -3,6 +3,7 @@
     <img
       *ngIf="user.imageBase64"
       [src]="user.imageBase64"
+      [routerLink]="['/perfil']"
       alt="Foto de perfil"
       class="foto-usuario-grande"
     />

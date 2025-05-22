@@ -219,7 +219,10 @@ namespace DavxeShop.Persistance
                         FechaPublicacion = p.FechaPublicacion,
                         Categoria = p.CategoriaId,
                         ImagenUrl = p.ImagenUrl,
-                        UserId = p.UserId
+                        UserId = p.UserId,
+                        UserNombre = p.User.Name,
+                        UserCiudad = p.User.City,
+                        Estado = p.Estado.Nombre
                     })
                     .ToList();
             }
@@ -245,7 +248,10 @@ namespace DavxeShop.Persistance
                         FechaPublicacion = p.FechaPublicacion,
                         Categoria = p.CategoriaId,
                         ImagenUrl = p.ImagenUrl,
-                        UserId = p.UserId
+                        UserId = p.UserId,
+                        UserNombre = p.User.Name,
+                        UserCiudad = p.User.City,
+                        Estado = p.Estado.Nombre
                     })
                     .ToList();
             }
@@ -340,6 +346,35 @@ namespace DavxeShop.Persistance
                 EstadoId = p.EstadoId,
                 Nombre = p.Nombre,
             }).ToList();
+        }
+
+        public List<ProductoDTO> GetProductosByCategoria(int categoriaId)
+        {
+            try
+            {
+                return _context.Productos
+                    .Where(p => p.CategoriaId == categoriaId)
+                    .OrderBy(p => Guid.NewGuid())
+                    .Take(12)
+                    .Select(p => new ProductoDTO
+                    {
+                        ProductoId = p.ProductoId,
+                        Nombre = p.Nombre,
+                        Descripcion = p.Descripcion,
+                        Precio = p.Precio,
+                        FechaPublicacion = p.FechaPublicacion,
+                        Categoria = p.CategoriaId,
+                        ImagenUrl = p.ImagenUrl,
+                        UserId = p.UserId,
+                        UserNombre = p.User.Name,
+                        UserCiudad = p.User.City,
+                        Estado = p.Estado.Nombre
+                    }).ToList();
+            }
+            catch (Exception)
+            {
+                return new List<ProductoDTO>();
+            }
         }
     }
 }
