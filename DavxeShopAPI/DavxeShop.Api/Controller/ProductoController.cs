@@ -1,4 +1,5 @@
 ﻿using DavxeShop.Library.Services.Interfaces;
+using DavxeShop.Models.dbModels;
 using DavxeShop.Models.models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -140,6 +141,33 @@ namespace DavxeShop.Api.Controller
             }
 
             return Ok(new { userProducts = userProducts });
+        }
+
+        [HttpGet("productos/{productoId}")]
+        public IActionResult GetProductosByProductoId(int productoId)
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(new { message = "No se ha enviado el token." });
+            }
+
+            var tokenIsValid = _validations.ValidToken(token);
+
+            if (!tokenIsValid)
+            {
+                return Unauthorized(new { message = "El token es incorrecto." });
+            }
+
+            var producto = _productoService.GetProductosByProductoId(productoId);
+
+            if (producto == null)
+            {
+                return NotFound(new { message = "El producto no existe." });
+            }
+
+            return Ok(new { producto = producto });
         }
 
         private bool HasNullOrEmptyProperties(object obj)

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Producto, ProductoResponse } from '../../../models/product.model';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-detalle',
@@ -7,43 +9,84 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './detalle.component.html',
   styleUrl: './detalle.component.css'
 })
-export class DetalleComponent {
+export class DetalleComponent implements OnInit {
   esFavorito: boolean = false;
-
-  producto: any = {
-    nombre: 'Producto Ejemplo',
-    precio: 49.99,
-    descripcion: 'Esta es una descripción detallada del producto...',
-    categoria: 'moda',
-    imagen: '../assets/logo.png'
+  producto: Producto = {
+    productoId: 0,
+    nombre: '',
+    descripcion: '',
+    precio: 0,
+    fechaPublicacion: '',
+    categoria: '',
+    imagenUrl: '',
+    userId: 0,
+    userNombre: '',
+    userCiudad: ''
   };
+  categorias: { categoriaId: number; nombre: string }[] = [];
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService) { }
 
-  toggleFavorito() {
+  ngOnInit(): void {
+    const categoriasJson = sessionStorage.getItem('categorias');
+    if (categoriasJson) {
+      this.categorias = JSON.parse(categoriasJson);
+    }
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.apiService.getProductosByProductoId(+id).subscribe({
+        next: (res: ProductoResponse) => {
+          this.producto = res.producto;
+        },
+        error: (err) => {
+          console.error('Error al cargar producto:', err);
+        }
+      });
+    }
+  }
+
+  toggleFavorito(): void {
     this.esFavorito = !this.esFavorito;
   }
 
-  getCategoriaNombre(categoriaKey: string): string {
-    const categorias: {[key: string]: string} = {
-      'coche': 'Coche',
-      'moto': 'Moto',
-      'hogar': 'Hogar',
-      'moda': 'Moda',
-      'tecnologia': 'Tecnología'
-    };
-    return categorias[categoriaKey] || categoriaKey;
-  }
-
-  volverAtras() {
+  volverAtras(): void {
     this.router.navigate(['/my-products']);
   }
 
-  editarProducto() {
-    this.router.navigate(['/editar-producto']);
+  Chat(): void {
+    this.router.navigate(['/chat']);
   }
 
-  Chat() {
-    this.router.navigate(['/chat']);
+  getCategoriaNombre(categoriaId: number): string {
+    const categoria = this.categorias.find(cat => cat.categoriaId === categoriaId);
+    return categoria ? categoria.nombre : 'Desconocida';
+  }
+
+  getFechaPublicacionTexto(fechaISO: string): string {
+    if (!fechaISO) return '';
+    const fecha = new Date(fechaISO);
+    const ahora = new Date();
+    const diffMs = ahora.getTime() - fecha.getTime();
+
+    const diffSegundos = Math.floor(diffMs / 1000);
+    const diffMinutos = Math.floor(diffSegundos / 60);
+    const diffHoras = Math.floor(diffMinutos / 60);
+    const diffDias = Math.floor(diffHoras / 24);
+
+    if (diffSegundos < 60) {
+      return 'Hace unos segundos';
+    } else if (diffMinutos < 60) {
+      return `Hace ${diffMinutos} minuto${diffMinutos > 1 ? 's' : ''}`;
+    } else if (diffHoras < 24) {
+      return `Hace ${diffHoras} hora${diffHoras > 1 ? 's' : ''}`;
+    } else if (diffDias < 7) {
+      return `Hace ${diffDias} día${diffDias > 1 ? 's' : ''}`;
+    } else {
+      return fecha.toLocaleDateString('es-ES', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+      });
+    }
   }
 }

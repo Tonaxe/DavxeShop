@@ -6,7 +6,7 @@ import { RegisterRequest } from "../models/register.model";
 import { ResetPasswordComponentRequest } from "../models/resetPasswordRequest.model";
 import { User } from "../models/user.model";
 import { VerifyRecoveryCode } from "../models/verifyRecoveryCode.model";
-import { Producto, ProductosResponse, UserProductsResponse } from "../models/product.model";
+import { Producto, ProductoResponse, ProductosResponse, UserProductsResponse } from "../models/product.model";
 import { CategoriaResponse } from "../models/categoria.model";
 
 
@@ -72,5 +72,9 @@ export class ApiService {
 
   getRandomProductosUsers(): Observable<UserProductsResponse> {
     return this.http.get<UserProductsResponse>(`${this.baseUrl}productos/users-random`, { headers: this.getHeaders() });
+  }
+
+  getProductosByProductoId(porductoId : number): Observable<ProductoResponse> {
+    return this.http.get<ProductoResponse>(`${this.baseUrl}productos/${porductoId}`, { headers: this.getHeaders() });
   }
 }

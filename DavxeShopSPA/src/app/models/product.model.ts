@@ -7,6 +7,8 @@ export interface Producto {
   categoria: string;
   imagenUrl: string;
   userId: number;
+  userNombre: string;
+  userCiudad: string;
 }
 
 export interface ProductosResponse {
@@ -23,3 +25,8 @@ export interface UsuarioConProductos {
 export interface UserProductsResponse {
   userProducts: UsuarioConProductos[];
 }
+
+export interface ProductoResponse {
+  producto: Producto;
+}
+

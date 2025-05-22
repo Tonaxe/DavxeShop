@@ -26,7 +26,7 @@ export const routes: Routes = [
     { path: 'chat', component: ChatComponent },
     { path: 'perfil', component: PerfilComponent },
     { path: 'filtro', component: FiltroComponent },
-    { path: 'detalle', component: DetalleComponent },
+    { path: 'detalle/:id', component: DetalleComponent },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'search', component: SearchBarComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full'}

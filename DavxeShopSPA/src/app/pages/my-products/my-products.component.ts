@@ -36,7 +36,7 @@ export class MyProductsComponent implements OnInit {
   }
 
   verDetalle(producto: Producto): void {
-    this.router.navigate(['/product-detail', producto.productoId], {
+    this.router.navigate(['/detalle', producto.productoId], {
       state: { producto }
     });
   }

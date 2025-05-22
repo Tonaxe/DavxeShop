@@ -64,7 +64,7 @@
     <div class="grid-productos">
       <div *ngFor="let producto of productosAleatorios.slice(0, 8)" class="producto-usuario" (click)="verDetalle(producto)">
         <div class="producto-imagen-container">
-          <img [src]="producto.imagenUrl" [alt]="producto.nombre" class="producto-imagen" />
+          <img [src]="producto.imagenUrl" [alt]="producto.nombre" class="producto-imagen"/>
         </div>
         <div class="producto-info">
           <h4 class="producto-nombre">{{ producto.nombre }}</h4>

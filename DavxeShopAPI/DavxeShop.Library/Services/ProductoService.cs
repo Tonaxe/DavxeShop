@@ -31,5 +31,10 @@ namespace DavxeShop.Library.Services
         {
             return _davxeShopDboHelper.GetRandomProductosUsers();
         }
+
+        public ProductoDTO? GetProductosByProductoId(int productoId)
+        {
+            return _davxeShopDboHelper.GetProductosByProductoId(productoId);
+        }
     }
 }

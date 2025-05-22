@@ -10,5 +10,7 @@
         public int Categoria { get; set; }
         public string ImagenUrl { get; set; }
         public int UserId { get; set; }
+        public string UserNombre { get; set; }
+        public string UserCiudad { get; set; }
     }
 }

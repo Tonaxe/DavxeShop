@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
-import { Producto, UsuarioConProductos } from '../../models/product.model';
+import { Producto, ProductoResponse, UsuarioConProductos } from '../../models/product.model';
 import { Categoria } from '../../models/categoria.model';
 import { forkJoin } from 'rxjs';
 
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   @ViewChildren('contenedor') contenedores!: QueryList<ElementRef>;
 
-  constructor(private router: Router, private apiService: ApiService) {}
+  constructor(private router: Router, private apiService: ApiService) { }
 
   ngOnInit(): void {
     forkJoin({
@@ -30,6 +30,9 @@ export class HomeComponent implements OnInit {
     }).subscribe({
       next: ({ productosAleatorios, categorias, userProducts }) => {
         this.productosAleatorios = productosAleatorios.productos;
+        this.productosAleatorios.forEach(producto => {
+          producto.imagenUrl = producto.imagenUrl.replace('/upload/', '/upload/w_500,f_auto,q_auto/');
+        });
         this.categorias = categorias.categorias;
         this.userProducts = userProducts.userProducts;
 
@@ -56,10 +59,9 @@ export class HomeComponent implements OnInit {
   }
 
   verDetalle(producto: any) {
-    this.router.navigate(['/detalle'], {
-      state: { producto: producto }
-    });
+    this.router.navigate(['/detalle', producto.productoId]);
   }
+
 
   toggleDropdown() {
     this.dropdownAbierto = !this.dropdownAbierto;

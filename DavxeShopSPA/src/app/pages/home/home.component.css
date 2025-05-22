@@ -325,7 +325,6 @@
   font-weight: 500;
 }
 
-/* Sección de recomendados - Estilo unificado */
 .grid-productos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -384,7 +383,6 @@
   letter-spacing: -0.5px;
 }
 
-/* Animaciones */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -396,7 +394,6 @@
   }
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .grid-productos {
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

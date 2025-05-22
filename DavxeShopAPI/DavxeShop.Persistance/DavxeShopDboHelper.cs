@@ -304,5 +304,32 @@ namespace DavxeShop.Persistance
 
             return resultado;
         }
+
+        public ProductoDTO? GetProductosByProductoId(int productoId)
+        {
+            try
+            {
+                return _context.Productos
+                    .Where(p => p.ProductoId == productoId)
+                    .Select(p => new ProductoDTO
+                    {
+                        ProductoId = p.ProductoId,
+                        Nombre = p.Nombre,
+                        Descripcion = p.Descripcion,
+                        Precio = p.Precio,
+                        FechaPublicacion = p.FechaPublicacion,
+                        Categoria = p.CategoriaId,
+                        ImagenUrl = p.ImagenUrl,
+                        UserId = p.UserId,
+                        UserNombre = p.User.Name,
+                        UserCiudad = p.User.City
+                    })
+                    .FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }
