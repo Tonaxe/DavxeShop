@@ -38,14 +38,14 @@ export class PagoComponent {
       name: 'Producto Ejemplo 1',
       price: 29.99,
       quantity: 2,
-      image: 'https://via.placeholder.com/80'
+      image: 'assets/logo.png'
     },
     {
       id: 2,
       name: 'Producto Ejemplo 2',
       price: 49.99,
       quantity: 1,
-      image: 'https://via.placeholder.com/80'
+      image: 'assets/logo.png'
     }
   ];
 

@@ -35,7 +35,7 @@ export const routes: Routes = [
     { path: 'search', component: SearchBarComponent },
     { path: 'comprar', component: ComprarComponent },
     { path: 'loading', component: LoadingComponent },
-    { path: 'pagar', component: PagoComponent },
+    { path: 'pago', component: PagoComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 
