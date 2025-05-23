@@ -36,7 +36,7 @@ export class ApiService {
   }
 
   logOut(): Observable<string> {
-    return this.http.post<string>(`${this.baseUrl}logout`, null, { headers : this.getHeaders() });
+    return this.http.post<string>(`${this.baseUrl}logout`, null, { headers: this.getHeaders() });
   }
 
   recoverPassword(email: string): Observable<string> {
@@ -46,17 +46,17 @@ export class ApiService {
   verifyRecoveryCode(verifyRecoveryCode: VerifyRecoveryCode): Observable<string> {
     return this.http.post<string>(`${this.baseUrl}verifty-recover-password`, verifyRecoveryCode);
   }
-  
+
   changePassword(resetPasswordComponentRequest: ResetPasswordComponentRequest): Observable<string> {
     return this.http.patch<string>(`${this.baseUrl}reset-password`, resetPasswordComponentRequest);
   }
 
   getUserById(userId: number): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}users/${userId}`, { headers : this.getHeaders() });
+    return this.http.get<User>(`${this.baseUrl}users/${userId}`, { headers: this.getHeaders() });
   }
 
   addProduct(producto: Producto): Observable<Producto> {
-    return this.http.post<Producto>(`${this.baseUrl}producto`, producto, { headers : this.getHeaders() });
+    return this.http.post<Producto>(`${this.baseUrl}producto`, producto, { headers: this.getHeaders() });
   }
 
   getProductosPorUsuario(userId: number): Observable<ProductosResponse> {
@@ -75,7 +75,7 @@ export class ApiService {
     return this.http.get<UserProductsResponse>(`${this.baseUrl}productos/users-random`, { headers: this.getHeaders() });
   }
 
-  getProductosByProductoId(porductoId : number): Observable<ProductoResponse> {
+  getProductosByProductoId(porductoId: number): Observable<ProductoResponse> {
     return this.http.get<ProductoResponse>(`${this.baseUrl}productos/${porductoId}`, { headers: this.getHeaders() });
   }
 
@@ -85,5 +85,9 @@ export class ApiService {
 
   getProductosByCategoria(categoriaId: number): Observable<ProductosResponse> {
     return this.http.get<ProductosResponse>(`${this.baseUrl}categorias/${categoriaId}/productos`, { headers: this.getHeaders() });
+  }
+
+  getSearchedProducts(query: string): Observable<ProductosResponse> {
+    return this.http.get<ProductosResponse>(`${this.baseUrl}search?query=${encodeURIComponent(query)}`, { headers: this.getHeaders() });
   }
 }

@@ -376,5 +376,59 @@ namespace DavxeShop.Persistance
                 return new List<ProductoDTO>();
             }
         }
+
+        public List<ProductoDTO> GetSearchedProducts(string query)
+        {
+            try
+            {
+                var queryLower = query.ToLower();
+                var resultados = _context.Productos
+                    .Where(p => p.Nombre.ToLower().StartsWith(queryLower))
+                    .Take(10)
+                    .Select(p => new ProductoDTO
+                    {
+                        ProductoId = p.ProductoId,
+                        Nombre = p.Nombre,
+                        Descripcion = p.Descripcion,
+                        Precio = p.Precio,
+                        FechaPublicacion = p.FechaPublicacion,
+                        Categoria = p.CategoriaId,
+                        ImagenUrl = p.ImagenUrl,
+                        UserId = p.UserId,
+                        UserNombre = p.User.Name,
+                        UserCiudad = p.User.City,
+                        Estado = p.Estado.Nombre
+                    })
+                    .ToList();
+
+                if (!resultados.Any())
+                {
+                    resultados = _context.Productos
+                        .Where(p => p.Nombre.ToLower().Contains(queryLower))
+                        .Take(10)
+                        .Select(p => new ProductoDTO
+                        {
+                            ProductoId = p.ProductoId,
+                            Nombre = p.Nombre,
+                            Descripcion = p.Descripcion,
+                            Precio = p.Precio,
+                            FechaPublicacion = p.FechaPublicacion,
+                            Categoria = p.CategoriaId,
+                            ImagenUrl = p.ImagenUrl,
+                            UserId = p.UserId,
+                            UserNombre = p.User.Name,
+                            UserCiudad = p.User.City,
+                            Estado = p.Estado.Nombre
+                        })
+                        .ToList();
+                }
+
+                return resultados;
+            }
+            catch (Exception)
+            {
+                return new List<ProductoDTO>();
+            }
+        }
     }
 }

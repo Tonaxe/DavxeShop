@@ -9,5 +9,6 @@ namespace DavxeShop.Library.Services.Interfaces
         List<ProductoDTO> GetRandomProductos();
         List<UserProductsDTO> GetRandomProductosUsers();
         ProductoDTO? GetProductosByProductoId(int productoId);
+        List<ProductoDTO> GetSearchedProducts(string query);
     }
 }

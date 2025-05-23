@@ -1,6 +1,8 @@
 ﻿using DavxeShop.Library.Services.Interfaces;
+using DavxeShop.Models.dbModels;
 using DavxeShop.Models.models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DavxeShop.Api.Controller
 {
@@ -167,6 +169,31 @@ namespace DavxeShop.Api.Controller
             }
 
             return Ok(new { producto = producto });
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> GetSearchedProducts([FromQuery] string query)
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(new { message = "No se ha enviado el token." });
+            }
+
+            var tokenIsValid = _validations.ValidToken(token);
+
+            if (!tokenIsValid)
+            {
+                return Unauthorized(new { message = "El token es incorrecto." });
+            }
+
+            if (string.IsNullOrWhiteSpace(query))
+                return BadRequest("Query requerida");
+
+            var productos = _productoService.GetSearchedProducts(query);
+
+            return Ok(new { productos = productos });
         }
 
         private bool HasNullOrEmptyProperties(object obj)

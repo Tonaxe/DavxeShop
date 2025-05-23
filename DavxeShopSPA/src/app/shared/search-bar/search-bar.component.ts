@@ -1,6 +1,6 @@
-// search-bar.component.ts
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, ElementRef, HostListener } from '@angular/core';
+import { ApiService } from '../../services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -12,25 +12,48 @@ export class SearchBarComponent {
   query: string = '';
   resultados: any[] = [];
 
-  productosSimulados = [
-    { productoId: 1, nombre: 'Camiseta Nike', descripcion: 'Camiseta deportiva', categoria: 'Ropa', precio: 25, fechaPublicacion: '2023-12-01', imagenUrl: 'https://via.placeholder.com/150' },
-    { productoId: 2, nombre: 'Zapatillas Adidas', descripcion: 'Zapatillas running', categoria: 'Calzado', precio: 50, fechaPublicacion: '2023-11-15', imagenUrl: 'https://via.placeholder.com/150' },
-    { productoId: 3, nombre: 'Auriculares Bluetooth', descripcion: 'Auriculares inalámbricos', categoria: 'Tecnología', precio: 35, fechaPublicacion: '2024-01-10', imagenUrl: 'https://via.placeholder.com/150' },
-    { productoId: 4, nombre: 'Mochila escolar', descripcion: 'Para estudiantes', categoria: 'Accesorios', precio: 20, fechaPublicacion: '2024-02-20', imagenUrl: 'https://via.placeholder.com/150' }
-  ];
+  constructor(private apiService: ApiService, private router: Router, private elRef: ElementRef) {}
 
   onInputChange(): void {
-    const queryLower = this.query.toLowerCase().trim();
-    this.resultados = queryLower.length > 0
-      ? this.productosSimulados.filter(p =>
-          p.nombre.toLowerCase().includes(queryLower) || p.descripcion.toLowerCase().includes(queryLower)
-        )
-      : [];
+    const q = this.query.trim();
+    if (q.length === 0) {
+      this.resultados = [];
+      return;
+    }
+
+    this.apiService.getSearchedProducts(q).subscribe({
+      next: (res) => {
+        this.resultados = res.productos ?? [];
+      },
+      error: (err) => {
+        console.error('Error buscando productos:', err);
+        this.resultados = [];
+      }
+    });
   }
 
   selectResult(producto: any) {
     this.query = producto.nombre;
     this.resultados = [];
-    // podrías emitir un evento o redirigir
+    this.irAFiltro(this.query);
+  }
+
+  irAFiltro(query: string) {
+    this.router.navigate(['/filtro'], { queryParams: { query } });
+  }
+
+  onKeyEnter(event: Event) {
+    const keyboardEvent = event as KeyboardEvent;
+    if (this.query.trim().length > 0 && keyboardEvent.key === 'Enter') {
+      this.resultados = [];
+      this.irAFiltro(this.query.trim());
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: MouseEvent) {
+    if (!this.elRef.nativeElement.contains(event.target)) {
+      this.resultados = [];
+    }
   }
 }

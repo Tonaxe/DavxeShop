@@ -4,13 +4,14 @@
     [(ngModel)]="query"
     (input)="onInputChange()"
     (focus)="onInputChange()"
+    (keydown.enter)="onKeyEnter($event)"
     placeholder="Buscar productos..."
     class="search-bar"
   />
 
   <div class="search-dropdown" [class.show]="resultados.length">
     <div class="search-dropdown-item" *ngFor="let producto of resultados" (click)="selectResult(producto)">
-      {{ producto.nombre }} <small>({{ producto.categoria }})</small>
+      {{ producto.nombre }}
     </div>
   </div>
 </div>

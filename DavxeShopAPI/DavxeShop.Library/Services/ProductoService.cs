@@ -36,5 +36,10 @@ namespace DavxeShop.Library.Services
         {
             return _davxeShopDboHelper.GetProductosByProductoId(productoId);
         }
+
+        public List<ProductoDTO> GetSearchedProducts(string query)
+        {
+            return _davxeShopDboHelper.GetSearchedProducts(query);
+        }
     }
 }
