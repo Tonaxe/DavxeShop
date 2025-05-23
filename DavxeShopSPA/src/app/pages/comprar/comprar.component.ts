@@ -11,7 +11,10 @@ import { Producto } from '../../models/product.model';
 })
 export class ComprarComponent {
   producto: Producto;
-
+   direccion: string = '';
+  ciudad: string = '';
+  codigoPostal: string = '';
+  pais: string = '';
   constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
     this.producto = navigation?.extras.state?.['producto'] || this.getDefaultProduct();
@@ -36,7 +39,13 @@ export class ComprarComponent {
 
   cargarDatos() {
     this.loading = true;
-    
+     const datosPago = {
+      // ...otros campos,
+      direccion: this.direccion,
+      ciudad: this.ciudad,
+      codigoPostal: this.codigoPostal,
+      pais: this.pais
+    };
     // Simular una operación asíncrona
     setTimeout(() => {
       this.loading = false;

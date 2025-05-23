@@ -21,7 +21,6 @@
           <img [src]="product.image" [alt]="product.name" class="product-image">
           <div class="product-details">
             <h4>{{product.name}}</h4>
-            <p>Cantidad: {{product.quantity}}</p>
             <p>Precio: {{product.price | currency}}</p>
           </div>
         </div>
@@ -57,9 +56,9 @@
       <p><strong>País:</strong> {{shippingInfo.country}}</p>
     </div>
   
-    <div class="actions">
+    <div class="actions no-print">
       <button class="btn primary" (click)="printOrder()">Imprimir comprobante</button>
-      <button class="btn secondary" routerLink="/">Volver al inicio</button>
+      <button class="btn secondary" routerLink="/home">Volver al inicio</button>
       <button class="btn secondary" routerLink="/orders">Ver mis pedidos</button>
     </div>
   </div>

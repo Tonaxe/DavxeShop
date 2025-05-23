@@ -6,8 +6,8 @@ interface Product {
   id: number;
   name: string;
   price: number;
-  quantity: number;
   image: string;
+  quantity: number; // Añadido el campo quantity que faltaba
 }
 
 interface ShippingInfo {
@@ -31,21 +31,14 @@ interface PaymentInfo {
   styleUrls: ['./pago.component.css']
 })
 export class PagoComponent {
-  // Datos de ejemplo - en una app real estos vendrían de un servicio
+  // Datos de ejemplo con quantity incluido
   products: Product[] = [
     {
       id: 1,
       name: 'Producto Ejemplo 1',
       price: 29.99,
-      quantity: 2,
-      image: 'assets/logo.png'
-    },
-    {
-      id: 2,
-      name: 'Producto Ejemplo 2',
-      price: 49.99,
-      quantity: 1,
-      image: 'assets/logo.png'
+      image: 'assets/logo.png',
+      quantity: 1 // Valor por defecto
     }
   ];
 
@@ -72,7 +65,7 @@ export class PagoComponent {
   }
 
   get shippingCost(): number {
-    return 5.99; // Costo fijo de envío para el ejemplo
+    return 5.99;
   }
 
   get total(): number {
@@ -80,6 +73,48 @@ export class PagoComponent {
   }
 
   printOrder() {
-    window.print();
+    // Crear ventana de impresión
+    const printWindow = window.open('', '_blank');
+    
+    // Obtener el HTML que queremos imprimir
+    const printContent = document.querySelector('.confirmation-container')?.outerHTML;
+    
+    // Estilos CSS para impresión
+    const styles = `
+      <style>
+        @media print {
+          body { margin: 0; padding: 20px; }
+          .actions, .no-print { display: none !important; }
+          .confirmation-container { 
+            box-shadow: none !important; 
+            border: none !important;
+            max-width: 100% !important;
+          }
+          .product-item { 
+            display: flex !important;
+            margin-bottom: 15px;
+          }
+        }
+      </style>
+    `;
+    
+    // Escribir el contenido en la nueva ventana
+    printWindow?.document.write(`
+      <html>
+        <head>
+          <title>Comprobante de Pago</title>
+          ${styles}
+        </head>
+        <body>
+          ${printContent}
+          <script>
+            setTimeout(() => {
+              window.print();
+              window.close();
+            }, 500);
+          </script>
+        </body>
+      </html>
+    `);
   }
 }

@@ -74,6 +74,29 @@
             <input type="email" id="email" placeholder="tu@email.com" required>
           </div>
         </div>
+         <div class="form-columns">
+          <div class="form-group">
+            <label for="ciudad">Ciudad</label>
+            <input type="text" id="ciudad" placeholder="Ciudad" required>
+          </div>
+          <div class="form-group">
+            <label for="codigo-postal">Código Postal</label>
+            <input type="text" id="codigo-postal" placeholder="Código Postal" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="pais">País</label>
+          <select id="pais" required>
+            <option value="" disabled selected>Selecciona un país</option>
+            <option value="ES">España</option>
+            <option value="FR">Francia</option>
+            <option value="DE">Alemania</option>
+            <option value="IT">Italia</option>
+            <option value="PT">Portugal</option>
+          </select>
+        </div>
+        
         <button type="submit" class="btn-pagar" (click)="cargarDatos()">
           Pagar {{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}
         </button>
