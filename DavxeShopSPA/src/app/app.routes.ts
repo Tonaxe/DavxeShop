@@ -14,6 +14,8 @@ import { AddProductComponent } from './pages/my-products/add-product/add-product
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SearchBarComponent } from './shared/search-bar/search-bar.component';
 import { ComprarComponent } from './pages/comprar/comprar.component';
+import { LoadingComponent } from './shared/loading/loading.component';
+import { PagoComponent } from './pages/pago/pago.component';
 
 
 
@@ -32,6 +34,8 @@ export const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'search', component: SearchBarComponent },
     { path: 'comprar', component: ComprarComponent },
+    { path: 'loading', component: LoadingComponent },
+    { path: 'pagar', component: PagoComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 

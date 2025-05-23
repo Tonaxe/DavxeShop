@@ -32,4 +32,18 @@ export class ComprarComponent {
       estado: ''
     };
   }
+  loading: boolean = false;
+
+  cargarDatos() {
+    this.loading = true;
+    
+    // Simular una operación asíncrona
+    setTimeout(() => {
+      this.loading = false;
+      this.router.navigate(['/home']);
+    }, 3000);
+   
+         
+  
+  }  
 }

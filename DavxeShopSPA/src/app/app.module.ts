@@ -23,6 +23,8 @@ import { DetalleComponent } from './pages/my-products/detalle/detalle.component'
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SearchBarComponent } from './shared/search-bar/search-bar.component';
 import { ComprarComponent } from './pages/comprar/comprar.component';
+import { LoadingComponent } from './shared/loading/loading.component';
+import { PagoComponent } from './pages/pago/pago.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { ComprarComponent } from './pages/comprar/comprar.component';
     FooterComponent,
     DashboardComponent,
     SearchBarComponent,
-    ComprarComponent
+    ComprarComponent,
+    LoadingComponent,
+    PagoComponent
     
   ],
   imports: [

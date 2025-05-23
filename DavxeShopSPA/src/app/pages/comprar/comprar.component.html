@@ -74,9 +74,10 @@
             <input type="email" id="email" placeholder="tu@email.com" required>
           </div>
         </div>
-        <button type="submit" class="btn-pagar">
+        <button type="submit" class="btn-pagar" (click)="cargarDatos()">
           Pagar {{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}
         </button>
+        <app-loading [isLoading]="loading" message="Procesando..."></app-loading>
       </form>
     </div>
   </div>
