@@ -1,4 +1,3 @@
-/* Estructura principal */
 .product-detail-wrapper {
   background-color: #f8f9fa;
   min-height: 100vh;
@@ -14,19 +13,16 @@
   overflow: hidden;
 }
 
-/* Header */
 .header-detail {
   padding: 20px;
   border-bottom: 1px solid #f0f0f0;
 }
 
-/* Contenido principal */
 .product-content {
   display: flex;
   padding: 20px;
 }
 
-/* Columna de imagen */
 .product-image-column {
   flex: 1;
   padding-right: 30px;
@@ -50,13 +46,11 @@
   transform: scale(1.02);
 }
 
-/* Columna de detalles */
 .product-details-column {
   flex: 1;
   padding-left: 30px;
 }
 
-/* Encabezado del producto */
 .product-header {
   margin-bottom: 30px;
 }
@@ -91,7 +85,6 @@
   font-size: 14px;
 }
 
-/* Secciones de detalle */
 .detail-section {
   margin-bottom: 30px;
   padding-bottom: 30px;
@@ -115,7 +108,6 @@
   margin: 0;
 }
 
-/* Detalles adicionales */
 .details-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -139,21 +131,6 @@
   font-weight: 500;
 }
 
-/* Botones - Estilos base */
-button {
-  cursor: pointer;
-  border-radius: 12px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: all 0.3s ease;
-  border: none;
-  font-size: 16px;
-}
-
-/* Botón volver */
 .btn-volver {
   background: none;
   border: none;
@@ -161,26 +138,34 @@ button {
   border-radius: 50%;
   color: #4f46e5;
   transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .btn-volver:hover {
   background-color: rgba(79, 70, 229, 0.1);
 }
 
-/* Contenedor de acciones */
 .product-actions {
   display: flex;
   gap: 15px;
   margin-top: 30px;
 }
 
-/* Botón Chat */
 .btn-chat {
   flex-grow: 1;
   padding: 15px;
   background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
   color: white;
   box-shadow: 0 5px 15px rgba(79, 70, 229, 0.2);
+  cursor: pointer;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
 }
 
 .btn-chat:hover {
@@ -188,13 +173,21 @@ button {
   box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
 }
 
-/* Botón Comprar */
 .btn-comprar {
   flex-grow: 1;
   padding: 15px;
   background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
   color: white;
   box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
+  cursor: pointer;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
 }
 
 .btn-comprar:hover {
@@ -202,7 +195,6 @@ button {
   box-shadow: 0 8px 20px rgba(22, 163, 74, 0.4);
 }
 
-/* Botón Favorito */
 .btn-favorito {
   background: white;
   border: 2px solid #e5e7eb;
@@ -211,6 +203,12 @@ button {
   padding: 0;
   color: #9ca3af;
   flex-grow: 0;
+  cursor: pointer;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
 }
 
 .btn-favorito svg {
@@ -243,44 +241,48 @@ button {
   stroke: currentColor;
 }
 
-/* Animación corazón */
 @keyframes heartBeat {
-  0%, 50%, 100% { transform: scale(1); }
-  25%, 75% { transform: scale(1.15); }
+
+  0%,
+  50%,
+  100% {
+    transform: scale(1);
+  }
+
+  25%,
+  75% {
+    transform: scale(1.15);
+  }
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .product-content {
     flex-direction: column;
     padding: 15px;
   }
-  
+
   .product-image-column,
   .product-details-column {
     padding: 0;
   }
-  
+
   .product-image-column {
     margin-bottom: 20px;
   }
-  
-  .nombre-producto {
-    font-size: 24px;
-  }
-  
+
+  .nombre-producto,
   .precio-producto {
     font-size: 24px;
   }
-  
+
   .details-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .product-actions {
     flex-direction: column;
   }
-  
+
   .btn-chat,
   .btn-comprar,
   .btn-favorito {

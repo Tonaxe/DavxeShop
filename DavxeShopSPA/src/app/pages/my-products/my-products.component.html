@@ -1,33 +1,18 @@
 <div class="perfil-contenedor">
   <div class="perfil-usuario">
-    <img
-      *ngIf="user.imageBase64"
-      [src]="user.imageBase64"
-      [routerLink]="['/perfil']"
-      alt="Foto de perfil"
-      class="foto-usuario-grande"
-    />
+    <img *ngIf="user.imageBase64" [src]="user.imageBase64" [routerLink]="['/perfil']" alt="Foto de perfil"
+      class="foto-usuario-grande" />
     <div class="info-usuario">
       <h2>Productos de {{ user.name }}</h2>
       <p>{{ productos.length }} productos publicados</p>
     </div>
     <button class="btn-anadir-producto" (click)="navigateToAddProduct()">+</button>
   </div>
-
   <h3 class="subtitulo">Mis productos publicados</h3>
-
   <div class="grid-productos">
-    <div
-      *ngFor="let producto of productos"
-      class="producto-usuario"
-      (click)="verDetalle(producto)"
-    >
+    <div *ngFor="let producto of productos" class="producto-usuario" (click)="verDetalle(producto)">
       <div class="producto-imagen-container">
-        <img
-          [src]="producto.imagenUrl"
-          [alt]="producto.nombre"
-          class="producto-imagen"
-        />
+        <img [src]="producto.imagenUrl" [alt]="producto.nombre" class="producto-imagen" />
         <span class="estado-badge" [ngClass]="formatEstado(producto.estado)">
           {{ producto.estado }}
         </span>

@@ -2,7 +2,6 @@
   <div class="register-box">
     <img src="assets/logo2.png" alt="Logo" class="logo">
     <h2>REGISTRARSE</h2>
-
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <input type="text" placeholder="Nombre de usuario" formControlName="name">
       <input type="email" placeholder="Correo electrónico" formControlName="email">
@@ -11,13 +10,11 @@
       <input type="text" placeholder="DNI" formControlName="dni">
       <input type="date" placeholder="Fecha de ancimiento" formControlName="birthDate">
       <input type="text" placeholder="Ciudad" formControlName="city">
-
       <div class="options">
         <label>
           <input type="checkbox" formControlName="acceptTerms" class="recordar"> Acepto los términos y condiciones
         </label>
       </div>
-
       <button type="submit" [disabled]="!registerForm.valid">REGISTRARSE</button>
       <br><br>
       <div>

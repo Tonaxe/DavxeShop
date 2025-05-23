@@ -12,7 +12,6 @@
         </a>
       </div>
     </div>
-
     <div class="categorias-rapidas">
       <a *ngFor="let categoria of categorias" [routerLink]="['/filtro']"
         [queryParams]="{categoria: categoria.categoriaId, nombre: categoria.nombre}">
@@ -20,19 +19,15 @@
       </a>
     </div>
   </div>
-
   <div class="seccion-titulo">
     <h2 class="titulo-destacado">NOVEDADES</h2>
     <div class="linea-decorativa"></div>
   </div>
-
   <app-slider [productos]="productosAleatorios"></app-slider>
-
   <div *ngFor="let usuario of userProducts; let i = index" class="seccion-usuario">
     <div class="encabezado-seccion">
-      <h3 class="titulo-seccion">Productos de {{ usuario.nombre }}</h3>
+      <h3 class="subtitulo">Productos de {{ usuario.nombre }}</h3>
     </div>
-
     <div class="tarjeta-usuario">
       <a [routerLink]="['/perfil']" class="enlace-usuario">
         <img [src]="usuario.foto || 'assets/said_pf.jpeg'" class="foto-perfil" alt="Foto de perfil">
@@ -45,7 +40,6 @@
         </div>
       </div>
     </div>
-
     <div class="contenedor-scroll">
       <button class="arrow left" (click)="scrollLeft(i)">&#10094;</button>
       <div #contenedor class="contenedor-productos">
@@ -57,10 +51,8 @@
       <button class="arrow right" (click)="scrollRight(i)">&#10095;</button>
     </div>
   </div>
-
   <div class="seccion-recomendados">
     <h2 class="subtitulo">Productos recomendados</h2>
-
     <div class="grid-productos">
       <div class="producto-usuario" *ngFor="let producto of productosAleatorios" (click)="verDetalle(producto)">
         <div class="producto-imagen-container">

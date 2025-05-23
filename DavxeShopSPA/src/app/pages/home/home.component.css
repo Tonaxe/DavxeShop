@@ -1,4 +1,3 @@
-/* Estilos generales */
 .home-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -6,7 +5,6 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* Menú de categorías */
 .categorias-container {
   display: flex;
   flex-wrap: wrap;
@@ -89,24 +87,6 @@
   gap: 10px;
 }
 
-.categoria-link {
-  padding: 8px 16px;
-  border-radius: 8px;
-  background-color: #f9fafb;
-  color: #4b5563;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.categoria-link:hover {
-  background-color: #e0e7ff;
-  color: #4f46e5;
-  transform: translateY(-2px);
-}
-
-/* Sección de título */
 .seccion-titulo {
   text-align: center;
   margin: 40px 0 30px;
@@ -131,8 +111,8 @@
   border-radius: 2px;
 }
 
-/* Secciones */
-.seccion-usuario, .seccion-recomendados {
+.seccion-usuario,
+.seccion-recomendados {
   background: white;
   border-radius: 20px;
   padding: 25px;
@@ -147,14 +127,24 @@
   margin-bottom: 25px;
 }
 
-.titulo-seccion {
+.subtitulo {
   font-size: 24px;
-  font-weight: 700;
   color: #1a202c;
-  margin: 0;
+  margin: 0 0 20px 0;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-/* Tarjeta de usuario */
+.subtitulo::before {
+  content: '';
+  width: 5px;
+  height: 28px;
+  background: linear-gradient(to bottom, #4f46e5, #7c3aed);
+  border-radius: 3px;
+}
+
 .tarjeta-usuario {
   display: flex;
   align-items: center;
@@ -209,7 +199,6 @@
   font-weight: 500;
 }
 
-/* Contenedor scroll productos */
 .contenedor-scroll {
   display: flex;
   align-items: center;
@@ -251,7 +240,7 @@
   display: flex;
   overflow-x: auto;
   gap: 20px;
-  padding: 10px 40px; /* más espacio lateral por las flechas */
+  padding: 10px 40px;
   scroll-behavior: smooth;
   overflow-y: hidden;
   padding-bottom: 20px;
@@ -294,36 +283,6 @@
   font-size: 16px;
 }
 
-/* Sección de productos recomendados (MANTENIDO COMO SOLICITASTE) */
-.seccion-recomendados {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 30px;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(226, 232, 240, 0.8);
-}
-
-.subtitulo {
-  font-size: 24px;
-  color: #1a202c;
-  margin: 0 0 20px 0;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.subtitulo::before {
-  content: '';
-  width: 5px;
-  height: 28px;
-  background: linear-gradient(to bottom, #4f46e5, #7c3aed);
-  border-radius: 3px;
-}
-
-/* Grid de productos */
 .grid-productos {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -331,22 +290,15 @@
   margin-top: 20px;
 }
 
-/* Tarjetas de producto */
 .producto-usuario {
   background: white;
   border-radius: 16px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  padding: 0;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border: 1px solid rgba(226, 232, 240, 0.8);
   cursor: pointer;
   position: relative;
   overflow: hidden;
-}
-
-.producto-usuario:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
 
 .producto-imagen-container {
@@ -363,34 +315,6 @@
   transition: transform 0.5s ease;
   background-color: #ffffff;
   padding: 20px;
-}
-
-.producto-usuario:hover .producto-imagen {
-  transform: scale(1.05);
-}
-
-.estado-badge {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.estado-nuevo {
-  background-color: #10b981;
-}
-
-.estado-usado {
-  background-color: #f59e0b;
-}
-
-.estado-como-nuevo {
-  background-color: #3b82f6;
 }
 
 .producto-info {
@@ -424,128 +348,84 @@
   align-items: center;
 }
 
-.producto-precio {
-  font-size: 20px;
-  color: #4f46e5;
-  font-weight: 700;
-  margin: 0;
+.estado-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.producto-fecha {
-  font-size: 14px;
-  color: #6b7280;
-  margin: 0;
+.estado-nuevo {
+  background-color: #10b981;
 }
 
-/* Responsive */
+.estado-usado {
+  background-color: #f59e0b;
+}
+
+.estado-como-nuevo {
+  background-color: #3b82f6;
+}
+
 @media (max-width: 1024px) {
   .grid-productos {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
-  
-  .producto-imagen-container {
-    height: 180px;
-  }
-  
-  .titulo-destacado {
-    font-size: 36px;
+
+  .dropdown-btn {
+    font-size: 15px;
+    padding: 8px 16px;
   }
 }
 
 @media (max-width: 768px) {
-  .home-container {
-    padding: 15px;
+  .categorias-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
-  
+
   .titulo-destacado {
     font-size: 32px;
   }
-  
-  .categorias-container {
-    flex-direction: column;
-    align-items: stretch;
+
+  .subtitulo {
+    font-size: 20px;
   }
-  
-  .dropdown-categorias {
-    width: 100%;
-  }
-  
-  .dropdown-btn {
-    width: 100%;
-    justify-content: space-between;
-  }
-  
-  .categorias-rapidas {
-    justify-content: center;
-  }
-  
-  .grid-productos {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+  .contenedor-productos {
+    padding: 10px 20px;
     gap: 15px;
   }
-  
-  .seccion-usuario, .seccion-recomendados {
-    padding: 20px;
+
+  .producto-scroll {
+    min-width: 180px;
   }
-  
-  .scroll-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
-  }
-  
-  .scroll-btn.left {
-    left: -18px;
-  }
-  
-  .scroll-btn.right {
-    right: -18px;
-  }
-  
-  .subtitulo {
-    font-size: 22px;
+
+  .producto-nombre-scroll {
+    font-size: 14px;
   }
 }
 
 @media (max-width: 480px) {
+  .titulo-destacado {
+    font-size: 26px;
+  }
+
+  .arrow {
+    display: none;
+  }
+
   .grid-productos {
     grid-template-columns: 1fr;
   }
-  
-  .titulo-destacado {
-    font-size: 28px;
-  }
-  
+
   .producto-imagen-container {
     height: 160px;
-  }
-  
-  .subtitulo {
-    font-size: 20px;
-  }
-  
-  .seccion-usuario, .seccion-recomendados {
-    padding: 15px;
-    margin-bottom: 30px;
-  }
-  
-  .producto-scroll {
-    min-width: 160px;
-  }
-  
-  .producto-imagen-scroll {
-    height: 120px;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }

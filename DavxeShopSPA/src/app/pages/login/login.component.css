@@ -94,7 +94,6 @@ button {
     transition: background 0.3s ease;
     margin-top: 10px;
     box-shadow: #707070 0px 0px 2px;
-    
 }
 
 button:disabled {
@@ -107,10 +106,8 @@ button:disabled {
     margin-top: 10px;
     font-size: 10px;
     font-family: Poppins, sans-serif;
-    
 }
 .recuperar{
     font-size: 10px;
-    font-family: Poppins, sans-serif;
-    
+    font-family: Poppins, sans-serif;   
 }

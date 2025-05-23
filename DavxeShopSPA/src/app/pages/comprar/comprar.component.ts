@@ -13,7 +13,6 @@ export class ComprarComponent {
   producto: Producto;
 
   constructor(private router: Router) {
-    // Obtener producto del estado de navegación
     const navigation = this.router.getCurrentNavigation();
     this.producto = navigation?.extras.state?.['producto'] || this.getDefaultProduct();
   }

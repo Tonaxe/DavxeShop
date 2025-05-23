@@ -2,12 +2,10 @@
   <div class="recoverPass-box">
     <img src="assets/logo2.png" alt="Logo" class="logo">
     <h2>REESTABLECER CONTRASEÑA</h2>
-
     <form *ngIf="!emailSent" [formGroup]="recPasswordForm" (ngSubmit)="sendRecoveryEmail()">
       <input type="email" placeholder="Correo electrónico" formControlName="email">
       <button type="submit" [disabled]="!recPasswordForm.valid">ENVIAR CORREO</button>
     </form>
-
     <form *ngIf="emailSent" [formGroup]="codeForm" (ngSubmit)="verifyCode()">
       <input type="email" [value]="emailValue" disabled>
       <input type="text" placeholder="Introduce el código" formControlName="recoveryCode">

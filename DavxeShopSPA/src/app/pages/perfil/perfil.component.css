@@ -1,12 +1,11 @@
 body, html {
   margin: 0;
   padding: 0;
-  height: calc(100vh - 106px); /* Ajuste por el header */
+  height: calc(100vh - 106px);
   background: linear-gradient(to right, #ece9f1, #f2f3f7);
   font-family: 'Segoe UI', 'Arial', sans-serif;
 }
 
-/* Contenedor principal */
 .profile-container {
   width: 100%;
   min-height: 100vh;
@@ -18,7 +17,6 @@ body, html {
   overflow-y: auto;
 }
 
-/* Cabecera del perfil */
 .profile-header {
   background: white;
   padding: 40px;
@@ -61,7 +59,6 @@ body, html {
   margin-top: 8px;
 }
 
-/* Detalles */
 .profile-details {
   background: white;
   width: 100%;
@@ -111,7 +108,6 @@ body, html {
   font-size: 17px;
 }
 
-/* Inputs */
 input {
   width: 100%;
   padding: 12px 16px;
@@ -129,7 +125,6 @@ input:focus {
   background: white;
 }
 
-/* Botones */
 .actions {
   margin-top: 40px;
   width: 100%;
@@ -157,7 +152,6 @@ button:hover {
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* Botones por tipo */
 .edit-btn {
   background: linear-gradient(135deg, #f9c922 0%, #f6b800 100%);
 }
@@ -179,7 +173,6 @@ button:hover {
   width: 100%;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .profile-container {
     padding: 30px 20px;

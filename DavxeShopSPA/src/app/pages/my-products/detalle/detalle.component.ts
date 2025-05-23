@@ -55,11 +55,11 @@ export class DetalleComponent implements OnInit {
   }
 
   Chat(): void {
-  this.router.navigate(['/chat']);  // Navega a /chat
+  this.router.navigate(['/chat']);
 }
 
 comprar(): void {
-  this.router.navigate(['/comprar']);  // Navega a /comprar
+  this.router.navigate(['/comprar']);
 }
   getCategoriaNombre(categoriaId: number): string {
     const categoria = this.categorias.find(cat => cat.categoriaId === categoriaId);

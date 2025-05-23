@@ -3,22 +3,20 @@ html, body {
     padding: 0;
     height: 100%;
     width: 100%;
-    overflow: hidden; /* Evita scroll en toda la página */
+    overflow: hidden;
     font-family: 'Inter', 'Segoe UI', sans-serif;
     background-color: #f8f9fa;
     box-sizing: border-box;
   }  
 
-/* Este debe ser tu contenedor principal debajo del header */
 .main-container {
     display: flex;
-    height: calc(100vh - 140px); /* Ajuste por el header */
+    height: calc(100vh - 140px);
     overflow: hidden;
     width: 100%;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
-/* Lista de usuarios fija a la izquierda */
 .user-list {
     width: 280px;
     background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
@@ -82,7 +80,6 @@ html, body {
     color: white;
 }
 
-/* El chat ocupa el resto del espacio disponible */
 .chat-wrapper {
     flex: 1;
     display: flex;
@@ -196,7 +193,6 @@ html, body {
     box-shadow: none;
 }
 
-/* Scrollbar personalizado */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -213,4 +209,3 @@ html, body {
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(79, 70, 229, 0.5);
 }
-  
