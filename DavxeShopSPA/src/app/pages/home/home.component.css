@@ -214,7 +214,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  
+  margin: 20px 0;
 }
 
 .arrow {
@@ -222,7 +222,7 @@
   top: 50%;
   transform: translateY(-50%);
   background: linear-gradient(135deg, #ebebebcb, #dbc6ddd3);
-  color: white;
+  color: #6b7280;
   border: none;
   width: 48px;
   height: 48px;
@@ -237,22 +237,21 @@
 
 .arrow:hover {
   transform: translateY(-50%) scale(1.1);
-  background: linear-gradient(135deg, #ebebebcb, #dbc6ddd3);
 }
 
 .arrow.left {
-  left: -30px;
+  left: -25px;
 }
 
 .arrow.right {
-  right: -30px;
+  right: -25px;
 }
 
 .contenedor-productos {
   display: flex;
   overflow-x: auto;
   gap: 20px;
-  padding: 10px ;
+  padding: 10px 40px; /* más espacio lateral por las flechas */
   scroll-behavior: smooth;
   overflow-y: hidden;
   padding-bottom: 20px;
@@ -264,7 +263,8 @@
 
 .producto-scroll {
   min-width: 200px;
-  background: white;
+  max-width: 220px;
+  background: #ffffff;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
@@ -283,6 +283,7 @@
   width: 100%;
   height: 150px;
   object-fit: contain;
+  background-color: #ffffff;
 }
 
 .producto-nombre-scroll {
@@ -290,6 +291,7 @@
   text-align: center;
   color: #4b5563;
   font-weight: 500;
+  font-size: 16px;
 }
 
 /* Sección de productos recomendados (MANTENIDO COMO SOLICITASTE) */

@@ -49,9 +49,9 @@
     <div class="contenedor-scroll">
       <button class="arrow left" (click)="scrollLeft(i)">&#10094;</button>
       <div #contenedor class="contenedor-productos">
-        <div *ngFor="let producto of usuario.productos" class="producto" (click)="verDetalle(producto)">
-          <img [src]="producto.imagenUrl" alt="{{ producto.nombre }}" class="producto-imagen">
-          <div class="producto-nombre">{{ producto.nombre }}</div>
+        <div *ngFor="let producto of usuario.productos" class="producto-scroll" (click)="verDetalle(producto)">
+          <img [src]="producto.imagenUrl" alt="{{ producto.nombre }}" class="producto-imagen-scroll">
+          <div class="producto-nombre-scroll">{{ producto.nombre }}</div>
         </div>
       </div>
       <button class="arrow right" (click)="scrollRight(i)">&#10095;</button>

@@ -28,6 +28,9 @@
           [alt]="producto.nombre"
           class="producto-imagen"
         />
+        <span class="estado-badge" [ngClass]="formatEstado(producto.estado)">
+          {{ producto.estado }}
+        </span>
       </div>
       <div class="producto-info">
         <h4 class="producto-nombre">{{ producto.nombre }}</h4>
