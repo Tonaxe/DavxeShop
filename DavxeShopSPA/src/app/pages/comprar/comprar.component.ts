@@ -40,7 +40,7 @@ export class ComprarComponent {
     // Simular una operación asíncrona
     setTimeout(() => {
       this.loading = false;
-      this.router.navigate(['/home']);
+      this.router.navigate(['/pago']);
     }, 3000);
    
          

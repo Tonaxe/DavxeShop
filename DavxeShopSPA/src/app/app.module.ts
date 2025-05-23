@@ -48,7 +48,6 @@ import { PagoComponent } from './pages/pago/pago.component';
     ComprarComponent,
     LoadingComponent,
     PagoComponent
-    
   ],
   imports: [
     BrowserModule,
