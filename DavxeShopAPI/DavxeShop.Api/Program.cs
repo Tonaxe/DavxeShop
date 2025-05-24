@@ -36,6 +36,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IEstadoService, EstadoService>();
+builder.Services.AddTransient<ICompraService, CompraService>();
 builder.Services.AddTransient<ICategoriaService, CategoriaService>();
 builder.Services.AddTransient<IProductoService, ProductoService>();
 builder.Services.AddTransient<IValidations, Validations>();

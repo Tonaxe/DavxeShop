@@ -9,6 +9,7 @@ import { VerifyRecoveryCode } from "../models/verifyRecoveryCode.model";
 import { Producto, ProductoResponse, ProductosResponse, UserProductsResponse } from "../models/product.model";
 import { CategoriaResponse } from "../models/categoria.model";
 import { EstadoResponse } from "../models/estado.model";
+import { CrearCompraRequest, CrearCompraResponse } from "../models/compra.model";
 
 
 @Injectable({
@@ -89,5 +90,9 @@ export class ApiService {
 
   getSearchedProducts(query: string): Observable<ProductosResponse> {
     return this.http.get<ProductosResponse>(`${this.baseUrl}search?query=${encodeURIComponent(query)}`, { headers: this.getHeaders() });
+  }
+
+  crearCompra(compraDto: CrearCompraRequest): Observable<CrearCompraResponse> {
+    return this.http.post<CrearCompraResponse>(`${this.baseUrl}compras`, compraDto, { headers: this.getHeaders() });
   }
 }

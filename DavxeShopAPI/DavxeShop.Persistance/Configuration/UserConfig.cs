@@ -22,6 +22,11 @@ namespace DavxeShop.Persistance.Configuration
                    .WithMany(r => r.Users)
                    .HasForeignKey(u => u.RolId)
                    .OnDelete(DeleteBehavior.SetNull);
+
+            builder.HasMany(u => u.Compras)
+                   .WithOne(c => c.User)
+                   .HasForeignKey(c => c.UserId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

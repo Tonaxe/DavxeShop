@@ -430,5 +430,32 @@ namespace DavxeShop.Persistance
                 return new List<ProductoDTO>();
             }
         }
+
+        public int CrearCompra(CrearCompraDto crearCompra)
+        {
+            var numeroDePedido = $"TYD-{new Random().Next(100000, 999999)}";
+            var compra = new Compra
+            {
+                UserId = crearCompra.UserId,
+                FechaCompra = DateTime.UtcNow,
+                DireccionEnvio = crearCompra.DireccionEnvio,
+                CiudadEnvio = crearCompra.Ciudad,
+                CodigoPostal = crearCompra.CodigoPostal,
+                Pais = crearCompra.Pais,
+                Email = crearCompra.Email,
+                EstadoCompra = "Pagada",
+                Total = crearCompra.Total,
+                NumeroPedido = numeroDePedido,
+                ProductosCompra = crearCompra.ProductoIds.Select(pid => new ProductoCompra
+                {
+                    ProductoId = pid
+                }).ToList()
+            };
+
+            _context.Compras.Add(compra);
+            _context.SaveChanges();
+
+            return compra.CompraId;
+        }
     }
 }

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Producto } from '../../models/product.model';
+import { NgForm } from '@angular/forms';
+import { ApiService } from '../../services/api.service';
+import { CrearCompraResponse } from '../../models/compra.model';
 
 @Component({
   selector: 'app-comprar',
@@ -10,13 +13,12 @@ import { Producto } from '../../models/product.model';
 })
 export class ComprarComponent {
   producto: Producto;
-  direccion: string = '';
   ciudad: string = '';
   codigoPostal: string = '';
   pais: string = '';
-  loading: boolean = false;
+  loading = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private apiService: ApiService) {
     const navigation = this.router.getCurrentNavigation();
     this.producto = navigation?.extras.state?.['producto'] || this.getDefaultProduct();
   }
@@ -33,24 +35,45 @@ export class ComprarComponent {
       userId: 0,
       userNombre: '',
       userCiudad: '',
-      estado: ''
+      estado: '',
     };
   }
 
-  cargarDatos() {
-    this.loading = true;
+  cargarDatos(form: NgForm) {
+    console.log("llego1");
 
-    const datosPago = {
-      direccion: this.direccion,
-      ciudad: this.ciudad,
-      codigoPostal: this.codigoPostal,
-      pais: this.pais
+    if (form.invalid) {
+      console.log("llego2");
+
+      form.control.markAllAsTouched();
+      return;
+    }
+
+    this.loading = true;
+    const { direccionEnvio, ciudad, codigoPostal, pais, email } = form.value;
+    const compraDto = {
+      userId: this.producto.userId,
+      direccionEnvio,
+      ciudad,
+      codigoPostal,
+      pais,
+      email,
+      productoIds: [this.producto.productoId],
+      total: this.producto.precio
     };
 
-    // Simular operación de carga
-    setTimeout(() => {
-      this.loading = false;
-      this.router.navigate(['/pago']);
-    }, 3000);
+
+    console.log("llego3");
+    this.apiService.crearCompra(compraDto).subscribe({
+      next: (res: CrearCompraResponse) => {
+        this.loading = false;
+        this.router.navigate(['/pago']);
+      },
+      error: (err) => {
+        this.loading = false;
+        alert(`Error al realizar la compra: ${err.error?.message || err.message}`);
+      },
+    });
+
   }
 }

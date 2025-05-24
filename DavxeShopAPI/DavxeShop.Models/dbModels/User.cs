@@ -17,5 +17,6 @@
         public virtual ICollection<Productos> Productos { get; set; } = new List<Productos>();
         public virtual ICollection<RecoverCode> RecoverCodes { get; set; } = new List<RecoverCode>();
         public virtual ICollection<Session> Sessions { get; set; } = new List<Session>();
+        public virtual ICollection<Compra> Compras { get; set; } = new List<Compra>();
     }
 }

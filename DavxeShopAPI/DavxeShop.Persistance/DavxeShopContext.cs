@@ -15,6 +15,9 @@ namespace DavxeShop.Persistance
         public DbSet<Rol> Roles { get; set; } = null!;
         public DbSet<Categoria> Categorias { get; set; } = null!;
         public DbSet<Estado> Estados { get; set; } = null!;
+        public DbSet<Compra> Compras { get; set; } = null!;
+        public DbSet<ProductoCompra> ProductosCompra { get; set; } = null!;
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +30,8 @@ namespace DavxeShop.Persistance
             modelBuilder.ApplyConfiguration(new UserConfig());
             modelBuilder.ApplyConfiguration(new RolConfig());
             modelBuilder.ApplyConfiguration(new EstadoConfig());
+            modelBuilder.ApplyConfiguration(new CompraConfig());
+            modelBuilder.ApplyConfiguration(new ProductoCompraConfig());
         }
     }
 }

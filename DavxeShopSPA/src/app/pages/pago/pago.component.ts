@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 interface Product {
   id: number;
   name: string;
   price: number;
   image: string;
-  quantity: number; // Añadido el campo quantity que faltaba
+  quantity: number;
 }
 
 interface ShippingInfo {
@@ -31,14 +29,13 @@ interface PaymentInfo {
   styleUrls: ['./pago.component.css']
 })
 export class PagoComponent {
-  // Datos de ejemplo con quantity incluido
   products: Product[] = [
     {
       id: 1,
       name: 'Producto Ejemplo 1',
       price: 29.99,
       image: 'assets/logo.png',
-      quantity: 1 // Valor por defecto
+      quantity: 1
     }
   ];
 
@@ -61,7 +58,7 @@ export class PagoComponent {
   estimatedDeliveryDate: Date = new Date(new Date().setDate(this.orderDate.getDate() + 3));
 
   get subtotal(): number {
-    return this.products.reduce((sum, product) => sum + (product.price * product.quantity), 0);
+    return this.products.reduce((sum, p) => sum + (p.price * p.quantity), 0);
   }
 
   get shippingCost(): number {
@@ -73,32 +70,25 @@ export class PagoComponent {
   }
 
   printOrder() {
-    // Crear ventana de impresión
     const printWindow = window.open('', '_blank');
-    
-    // Obtener el HTML que queremos imprimir
     const printContent = document.querySelector('.confirmation-container')?.outerHTML;
-    
-    // Estilos CSS para impresión
     const styles = `
       <style>
         @media print {
           body { margin: 0; padding: 20px; }
           .actions, .no-print { display: none !important; }
-          .confirmation-container { 
-            box-shadow: none !important; 
+          .confirmation-container {
+            box-shadow: none !important;
             border: none !important;
             max-width: 100% !important;
           }
-          .product-item { 
+          .product-item {
             display: flex !important;
             margin-bottom: 15px;
           }
         }
       </style>
     `;
-    
-    // Escribir el contenido en la nueva ventana
     printWindow?.document.write(`
       <html>
         <head>
