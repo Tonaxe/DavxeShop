@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Producto } from '../../models/product.model';
 
 @Component({
@@ -11,10 +10,12 @@ import { Producto } from '../../models/product.model';
 })
 export class ComprarComponent {
   producto: Producto;
-   direccion: string = '';
+  direccion: string = '';
   ciudad: string = '';
   codigoPostal: string = '';
   pais: string = '';
+  loading: boolean = false;
+
   constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
     this.producto = navigation?.extras.state?.['producto'] || this.getDefaultProduct();
@@ -28,31 +29,28 @@ export class ComprarComponent {
       precio: 0,
       fechaPublicacion: '',
       categoria: '',
-      imagenUrl: 'https://via.placeholder.com/150',
+      imagenUrl: '',
       userId: 0,
       userNombre: '',
       userCiudad: '',
       estado: ''
     };
   }
-  loading: boolean = false;
 
   cargarDatos() {
     this.loading = true;
-     const datosPago = {
-      // ...otros campos,
+
+    const datosPago = {
       direccion: this.direccion,
       ciudad: this.ciudad,
       codigoPostal: this.codigoPostal,
       pais: this.pais
     };
-    // Simular una operación asíncrona
+
+    // Simular operación de carga
     setTimeout(() => {
       this.loading = false;
       this.router.navigate(['/pago']);
     }, 3000);
-   
-         
-  
-  }  
+  }
 }

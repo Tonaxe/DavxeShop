@@ -1,93 +1,91 @@
 <div class="checkout-page">
   <div class="checkout-header">
     <h2>Finalizar Compra</h2>
-    <button class="btn-cerrar">
+    <button class="btn-cerrar" [routerLink]="['/detalle', producto.productoId]">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
       </svg>
     </button>
   </div>
   <div class="checkout-layout">
     <div class="product-summary">
       <div class="producto-info">
-        <img src="assets/logo.png" alt="Producto" class="producto-thumbnail">
+        <img [src]="producto.imagenUrl" alt="Producto" class="producto-thumbnail" />
         <div class="product-details">
           <h3>{{ producto.nombre }}</h3>
-          <p class="producto-precio">{{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</p>
+          <p class="producto-precio">{{ producto.precio | currency: 'EUR':'symbol':'1.2-2' }}</p>
         </div>
       </div>
-
       <div class="metodos-pago">
         <p>Métodos de pago aceptados:</p>
         <div class="tarjetas">
-          <img src="assets/Mastercard-Logo.wine.png" alt="Mastercard">
-          <img src="assets/images-removebg-preview.png" alt="Visa">
-          <img src="assets/descarga__2_-removebg-preview.png" alt="Apple Pay">
+          <img src="assets/Mastercard-Logo.wine.png" alt="Mastercard" />
+          <img src="assets/images-removebg-preview.png" alt="Visa" />
+          <img src="assets/descarga__2_-removebg-preview.png" alt="Apple Pay" />
         </div>
       </div>
     </div>
     <div class="payment-form">
-      <form class="formulario-pago">
+      <form class="formulario-pago" (ngSubmit)="cargarDatos()">
         <div class="form-group">
           <label for="tarjeta">Número de tarjeta</label>
           <div class="input-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-              <line x1="1" y1="10" x2="23" y2="10"></line>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+              <line x1="1" y1="10" x2="23" y2="10" />
             </svg>
-            <input type="text" id="tarjeta" placeholder="1234 5678 9012 3456" maxlength="19" pattern="[0-9]{16}"
-              required>
+            <input type="text" id="tarjeta" placeholder="1234 5678 9012 3456" maxlength="19" pattern="[0-9 ]{19}"
+              required />
           </div>
         </div>
         <div class="form-columns">
           <div class="form-group">
             <label for="fecha">Fecha de expiración</label>
-            <input type="text" id="fecha" placeholder="MM/AA" maxlength="5" required>
+            <input type="text" id="fecha" placeholder="MM/AA" maxlength="5" pattern="[0-9]{2}/[0-9]{2}" required />
           </div>
           <div class="form-group">
             <label for="cvv">CVV</label>
             <div class="input-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M17.6 6.4a9 9 0 1 1-12.77.04"></path>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="4" />
               </svg>
-              <input type="text" id="cvv" placeholder="123" maxlength="3" required>
+              <input type="text" id="cvv" placeholder="123" maxlength="3" pattern="[0-9]{3}" required />
             </div>
           </div>
         </div>
         <div class="form-group">
           <label for="nombre">Nombre en la tarjeta</label>
-          <input type="text" id="nombre" placeholder="Nombre Apellido" required>
+          <input type="text" id="nombre" placeholder="Nombre Apellido" required />
         </div>
         <div class="form-group">
           <label for="email">Correo electrónico</label>
           <div class="input-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M4 4h16v16H4z" />
+              <polyline points="22,6 12,13 2,6" />
             </svg>
-            <input type="email" id="email" placeholder="tu@email.com" required>
+            <input type="email" id="email" placeholder="tu@email.com" required />
           </div>
         </div>
-         <div class="form-columns">
+        <div class="form-columns">
           <div class="form-group">
             <label for="ciudad">Ciudad</label>
-            <input type="text" id="ciudad" placeholder="Ciudad" required>
+            <input type="text" id="ciudad" [(ngModel)]="ciudad" name="ciudad" required />
           </div>
           <div class="form-group">
             <label for="codigo-postal">Código Postal</label>
-            <input type="text" id="codigo-postal" placeholder="Código Postal" required>
+            <input type="text" id="codigo-postal" [(ngModel)]="codigoPostal" name="codigoPostal" required />
           </div>
         </div>
-
         <div class="form-group">
           <label for="pais">País</label>
-          <select id="pais" required>
+          <select id="pais" [(ngModel)]="pais" name="pais" required>
             <option value="" disabled selected>Selecciona un país</option>
             <option value="ES">España</option>
             <option value="FR">Francia</option>
@@ -96,11 +94,11 @@
             <option value="PT">Portugal</option>
           </select>
         </div>
-        
-        <button type="submit" class="btn-pagar" (click)="cargarDatos()">
-          Pagar {{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}
-        </button>
-        <app-loading [isLoading]="loading" message="Procesando..."></app-loading>
+        <div class="form-group">
+          <button class="btn-pagar" type="submit" [disabled]="loading">
+            {{ loading ? 'Procesando...' : 'Pagar ahora' }}
+          </button>
+        </div>
       </form>
     </div>
   </div>
