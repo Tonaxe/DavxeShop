@@ -431,7 +431,7 @@ namespace DavxeShop.Persistance
             }
         }
 
-        public int CrearCompra(CrearCompraDto crearCompra)
+        public Compra CrearCompra(CrearCompraDto crearCompra)
         {
             var numeroDePedido = $"TYD-{new Random().Next(100000, 999999)}";
             var compra = new Compra
@@ -455,7 +455,7 @@ namespace DavxeShop.Persistance
             _context.Compras.Add(compra);
             _context.SaveChanges();
 
-            return compra.CompraId;
+            return compra;
         }
     }
 }

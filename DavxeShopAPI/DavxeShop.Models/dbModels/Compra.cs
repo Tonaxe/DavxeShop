@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DavxeShop.Models.dbModels
+﻿namespace DavxeShop.Models.dbModels
 {
     public class Compra
     {

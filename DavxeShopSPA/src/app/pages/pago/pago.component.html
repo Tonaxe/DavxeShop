@@ -11,7 +11,7 @@
     <h2>Resumen del pedido</h2>
     <div class="order-info">
       <p><strong>Número de pedido:</strong> {{orderId}}</p>
-      <p><strong>Fecha:</strong> {{orderDate | date:'medium'}}</p>
+      <p><strong>Fecha:</strong> {{orderDate | date:'mediumDate'}}</p>
       <p><strong>Entrega estimada:</strong> {{estimatedDeliveryDate | date:'mediumDate'}}</p>
     </div>
 
@@ -44,7 +44,6 @@
       <div class="payment-method" *ngIf="paymentInfo">
         <p><strong>Método de pago:</strong> {{paymentInfo.method}}</p>
         <p *ngIf="paymentInfo.cardLastFour"><strong>Tarjeta:</strong> **** **** **** {{paymentInfo.cardLastFour}}</p>
-        <p><strong>ID de transacción:</strong> {{paymentInfo.transactionId}}</p>
       </div>
     </div>
   </div>

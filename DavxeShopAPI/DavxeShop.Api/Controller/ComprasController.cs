@@ -37,8 +37,13 @@ public class ComprasController : ControllerBase
             return BadRequest(new { message = "El contenido de la petición está incompleto." });
         }
 
-        var compraId = _compraService.CrearCompra(crearCompra);
-        return Ok(new { CompraId = compraId });
+        var compra = _compraService.CrearCompra(crearCompra);
+        return Ok(new
+        {
+            CompraId = compra.CompraId,
+            NumeroPedido = compra.NumeroPedido,
+            Fecha = compra.FechaCompra
+        });
     }
 
     private bool HasNullOrEmptyProperties(object obj)

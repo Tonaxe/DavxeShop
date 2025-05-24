@@ -2,11 +2,6 @@
 using DavxeShop.Models.dbModels;
 using DavxeShop.Models.models;
 using DavxeShop.Persistance.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DavxeShop.Library.Services
 {

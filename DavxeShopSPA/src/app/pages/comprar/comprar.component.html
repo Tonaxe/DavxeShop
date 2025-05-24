@@ -31,7 +31,6 @@
     <div class="payment-form">
       <form #formCompra="ngForm" (ngSubmit)="cargarDatos(formCompra)" class="formulario-pago" novalidate>
         
-        <!-- Número de tarjeta -->
         <div class="form-group">
           <label for="tarjeta">Número de tarjeta</label>
           <div class="input-icon">
@@ -57,7 +56,6 @@
           </div>
         </div>
 
-        <!-- Fecha de expiración -->
         <div class="form-columns">
           <div class="form-group">
             <label for="fecha">Fecha de expiración</label>
@@ -77,7 +75,6 @@
             </div>
           </div>
 
-          <!-- CVV -->
           <div class="form-group">
             <label for="cvv">CVV</label>
             <div class="input-icon">
@@ -104,7 +101,6 @@
           </div>
         </div>
 
-        <!-- Nombre en la tarjeta -->
         <div class="form-group">
           <label for="nombre">Nombre en la tarjeta</label>
           <input
@@ -121,7 +117,6 @@
           </div>
         </div>
 
-        <!-- Correo electrónico -->
         <div class="form-group">
           <label for="email">Correo electrónico</label>
           <div class="input-icon">
@@ -145,7 +140,6 @@
           </div>
         </div>
 
-        <!-- Dirección -->
         <div class="form-group">
           <label for="direccionEnvio">Dirección de Domicilio</label>
           <input
@@ -161,7 +155,6 @@
           </div>
         </div>
 
-        <!-- Ciudad y Código Postal -->
         <div class="form-columns">
           <div class="form-group">
             <label for="ciudad">Ciudad</label>
@@ -193,7 +186,6 @@
           </div>
         </div>
 
-        <!-- País -->
         <div class="form-group">
           <label for="pais">País</label>
           <select

@@ -40,17 +40,14 @@ export class ComprarComponent {
   }
 
   cargarDatos(form: NgForm) {
-    console.log("llego1");
-
     if (form.invalid) {
-      console.log("llego2");
-
       form.control.markAllAsTouched();
       return;
     }
 
     this.loading = true;
-    const { direccionEnvio, ciudad, codigoPostal, pais, email } = form.value;
+
+    const { direccionEnvio, ciudad, codigoPostal, pais, email, tarjeta } = form.value;
     const compraDto = {
       userId: this.producto.userId,
       direccionEnvio,
@@ -62,18 +59,45 @@ export class ComprarComponent {
       total: this.producto.precio
     };
 
-
-    console.log("llego3");
     this.apiService.crearCompra(compraDto).subscribe({
       next: (res: CrearCompraResponse) => {
         this.loading = false;
-        this.router.navigate(['/pago']);
+
+        const orderId = res.numeroPedido;
+        const orderDate = new Date(res.fecha);
+
+        const datosPago = {
+          products: [
+            {
+              id: this.producto.productoId,
+              name: this.producto.nombre,
+              price: this.producto.precio,
+              image: this.producto.imagenUrl,
+              quantity: 1
+            }
+          ],
+          shippingInfo: {
+            name: this.producto.userNombre,
+            address: direccionEnvio,
+            city: ciudad,
+            postalCode: codigoPostal,
+            country: pais
+          },
+          paymentInfo: {
+            method: 'Tarjeta de crédito',
+            cardLastFour: tarjeta.slice(-4),
+            transactionId: 'TXN' + Math.random().toString(36).substring(2, 15)
+          },
+          orderId,
+          orderDate
+        };
+
+        this.router.navigate(['/pago'], { state: datosPago });
       },
       error: (err) => {
         this.loading = false;
         alert(`Error al realizar la compra: ${err.error?.message || err.message}`);
       },
     });
-
   }
 }
