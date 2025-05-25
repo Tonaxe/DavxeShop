@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 
 namespace DavxeShop.Library.Services
 {
@@ -152,6 +153,15 @@ namespace DavxeShop.Library.Services
         private string GenerateRecoveryCode(int length)
         {
             return new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", length).Select(s => s[new Random().Next(s.Length)]).ToArray());
+        }
+        public bool UpdateUserProfile(UpdateProfileDto profileDto)
+        {
+            if (profileDto.Password != null)
+            {
+                profileDto.Password = BCrypt.Net.BCrypt.HashPassword(profileDto.Password);
+            }
+
+            return _davxeShopDboHelper.UpdateUserProfile(profileDto);
         }
     }
 }

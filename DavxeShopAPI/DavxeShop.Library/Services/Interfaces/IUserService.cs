@@ -18,5 +18,6 @@ namespace DavxeShop.Library.Services.Interfaces
         bool SendRecoveryCode(string email);
         bool VerifyRecoveryCode(VerifyRecoverPasswordRequest request);
         bool ResetPassword(ResetPasswordRequest request);
+        bool UpdateUserProfile(UpdateProfileDto profileDto);
     }
 }

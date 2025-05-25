@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { LogInRequest, LoginResponse } from "../models/logIn.model";
 import { RegisterRequest } from "../models/register.model";
 import { ResetPasswordComponentRequest } from "../models/resetPasswordRequest.model";
-import { User } from "../models/user.model";
+import { UpdateProfile, User } from "../models/user.model";
 import { VerifyRecoveryCode } from "../models/verifyRecoveryCode.model";
 import { Producto, ProductoResponse, ProductosResponse, UserProductsResponse } from "../models/product.model";
 import { CategoriaResponse } from "../models/categoria.model";
@@ -94,5 +94,9 @@ export class ApiService {
 
   crearCompra(compraDto: CrearCompraRequest): Observable<CrearCompraResponse> {
     return this.http.post<CrearCompraResponse>(`${this.baseUrl}compras`, compraDto, { headers: this.getHeaders() });
+  }
+
+  updateProfile(updateProfile: UpdateProfile): Observable<string> {
+    return this.http.patch<string>(`${this.baseUrl}users/update-profile`, updateProfile, { headers: this.getHeaders() });
   }
 }

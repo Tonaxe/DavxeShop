@@ -457,5 +457,42 @@ namespace DavxeShop.Persistance
 
             return compra;
         }
+        public bool UpdateUserProfile(UpdateProfileDto profileDto)
+        {
+            try
+            {
+                var user = _context.Users.FirstOrDefault(u => u.UserId == profileDto.UserId);
+                if (user == null) return false;
+
+                if (profileDto.Name != null)
+                    user.Name = profileDto.Name;
+
+                if (profileDto.Email != null)
+                    user.Email = profileDto.Email;
+
+                if (profileDto.BirthDate != null)
+                    user.BirthDate = profileDto.BirthDate;
+
+                if (profileDto.City != null)
+                    user.City = profileDto.City;
+
+                if (profileDto.Dni != null)
+                    user.DNI = profileDto.Dni;
+
+                if (profileDto.Password != null)
+                    user.Password = profileDto.Password;
+
+                if (profileDto.ImageBase64 != null)
+                    user.ImageBase64 = profileDto.ImageBase64;
+
+                _context.Users.Update(user);
+                return _context.SaveChanges() > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
     }
 }

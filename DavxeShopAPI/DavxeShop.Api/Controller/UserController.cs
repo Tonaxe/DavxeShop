@@ -1,5 +1,6 @@
 ﻿using DavxeShop.Library.Services.Interfaces;
 using DavxeShop.Models.Request.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DavxeShop.Api.Controller
@@ -225,9 +226,49 @@ namespace DavxeShop.Api.Controller
             return Ok(new { message = "La contraseña se ha cambiado correctamente." });
         }
 
+       
+        [HttpPatch("users/update-profile")]
+        public IActionResult UpdateProfile([FromBody] UpdateProfileDto request)
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(new { message = "No se ha enviado el token." });
+            }
+
+            var tokenIsValid = _validations.ValidToken(token);
+
+            if (!tokenIsValid)
+            {
+                return Unauthorized(new { message = "El token es incorrecto." });
+            }
+
+            bool validatedEmail = _validations.ValidEmail(request.Email);
+
+            if (!validatedEmail)
+            {
+                return BadRequest(new { message = "El email no es válido." });
+            }
+
+            bool validatedDNI = _validations.ValidDni(request.Dni);
+
+            if (!validatedDNI)
+            {
+                return BadRequest(new { message = "El DNI no es válido." });
+            }
+
+            if (!_userService.UpdateUserProfile(request))
+            {
+                return StatusCode(500, new { message = "No se ha podido actualizar el perfil." });
+            }
+
+            return Ok(new { message = "Perfil actualizado correctamente." });
+        }
         private bool HasNullOrEmptyProperties(object obj)
         {
             return obj.GetType().GetProperties().Any(p => p.GetValue(obj) == null || (p.PropertyType == typeof(string) && string.IsNullOrWhiteSpace(p.GetValue(obj) as string)));
         }
+
     }
 }

@@ -1,11 +1,11 @@
 <div class="profile-container">
   <div class="profile-header">
     <ng-container *ngIf="!isEditing; else editAvatar">
-      <img [src]="profile.avatar" alt="Foto de perfil" class="profile-pic" />
+      <img [src]="profile.imageBase64" alt="Foto de perfil" class="profile-pic" />
     </ng-container>
     <ng-template #editAvatar>
       <label for="avatarInput">
-        <img [src]="profile.avatar" alt="Foto de perfil" class="profile-pic" style="cursor: pointer;" />
+        <img [src]="profile.imageBase64" alt="Foto de perfil" class="profile-pic" style="cursor: pointer;" />
       </label>
       <input id="avatarInput" type="file" (change)="onImageSelected($event)" accept="image/*" hidden />
     </ng-template>

@@ -8,3 +8,13 @@ export interface User {
     rolId: number,
     imageBase64: string,
 }
+export interface UpdateProfile {
+  userId: number;
+  name: string;
+  email: string;
+  imageBase64: string;
+  birthDate: string;
+  dni: string;
+  city: string;
+  password?: string;
+}

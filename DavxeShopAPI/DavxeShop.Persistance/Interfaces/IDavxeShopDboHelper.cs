@@ -33,5 +33,6 @@ namespace DavxeShop.Persistance.Interfaces
         List<ProductoDTO> GetProductosByCategoria(int categoriaId);
         List<ProductoDTO> GetSearchedProducts(string query);
         Compra CrearCompra(CrearCompraDto crearCompra);
+        bool UpdateUserProfile(UpdateProfileDto profileDto);
     }
 }
