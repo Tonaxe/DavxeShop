@@ -16,6 +16,7 @@ import { SearchBarComponent } from './shared/search-bar/search-bar.component';
 import { ComprarComponent } from './pages/comprar/comprar.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { PagoComponent } from './pages/pago/pago.component';
+import { FavoritosComponent } from './pages/favoritos/favoritos.component';
 
 
 
@@ -36,6 +37,7 @@ export const routes: Routes = [
     { path: 'comprar', component: ComprarComponent },
     { path: 'loading', component: LoadingComponent },
     { path: 'pago', component: PagoComponent },
+    { path: 'favoritos', component: FavoritosComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 

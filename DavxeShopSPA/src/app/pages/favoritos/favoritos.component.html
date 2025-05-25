@@ -1,0 +1,32 @@
+<div class="perfil-contenedor">
+  <div class="perfil-usuario">
+    <img *ngIf="user.imageBase64" [src]="user.imageBase64" [routerLink]="['/perfil']" alt="Foto de perfil"
+      class="foto-usuario-grande" />
+    <div class="info-usuario">
+      <h2>Favoritos de {{ user.name }}</h2>
+      <p>{{ favoritos.length }} productos guardados</p>
+    </div>
+  </div>
+
+  <h3 class="subtitulo">Mis productos favoritos</h3>
+
+  <div class="grid-productos">
+    <div *ngFor="let producto of favoritos" class="producto-usuario" (click)="verDetalle(producto)">
+      <div class="producto-imagen-container">
+        <img [src]="producto.imagenUrl" [alt]="producto.nombre" class="producto-imagen" />
+        <span class="estado-badge" [ngClass]="formatEstado(producto.estado)">
+          {{ producto.estado }}
+        </span>
+      </div>
+      <div class="producto-info">
+        <h4 class="producto-nombre">{{ producto.nombre }}</h4>
+        <p class="producto-descripcion">{{ producto.descripcion }}</p>
+        <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
+        <div class="producto-meta">
+          <p class="producto-precio">{{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</p>
+          <p class="producto-fecha">{{ calcularTiempoPublicacion(producto.fechaPublicacion) }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

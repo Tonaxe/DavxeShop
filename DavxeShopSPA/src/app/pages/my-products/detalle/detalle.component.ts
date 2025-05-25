@@ -61,7 +61,12 @@ export class DetalleComponent implements OnInit {
   comprar(): void {
     this.router.navigate(['/comprar'], { state: { producto: this.producto } });
   }
-
+  editarProducto(): void {
+    this.router.navigate(['/add-product'], { state: { producto: this.producto } });
+  }
+  eliminarProducto(): void {
+   
+  }
   getCategoriaNombre(categoriaId: number): string {
     const categoria = this.categorias.find(cat => cat.categoriaId === categoriaId);
     return categoria ? categoria.nombre : 'Desconocida';

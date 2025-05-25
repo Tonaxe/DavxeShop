@@ -269,6 +269,5 @@ namespace DavxeShop.Api.Controller
         {
             return obj.GetType().GetProperties().Any(p => p.GetValue(obj) == null || (p.PropertyType == typeof(string) && string.IsNullOrWhiteSpace(p.GetValue(obj) as string)));
         }
-
     }
 }
