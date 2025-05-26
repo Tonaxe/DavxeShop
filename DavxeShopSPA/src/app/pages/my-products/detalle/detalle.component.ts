@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Producto, ProductoResponse } from '../../../models/product.model';
 import { ApiService } from '../../../services/api.service';
+import { User } from '../../../models/user.model';
 
 @Component({
   selector: 'app-detalle',
@@ -11,6 +12,7 @@ import { ApiService } from '../../../services/api.service';
 })
 export class DetalleComponent implements OnInit {
   esFavorito: boolean = false;
+  user: User | null = null;
   producto: Producto = {
     productoId: 0,
     nombre: '',
@@ -29,6 +31,10 @@ export class DetalleComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService) { }
 
   ngOnInit(): void {
+    const userJson = sessionStorage.getItem('user');
+    if (userJson) {
+    this.user = JSON.parse(userJson);
+    }
     const categoriasJson = sessionStorage.getItem('categorias');
     if (categoriasJson) {
       this.categorias = JSON.parse(categoriasJson);
@@ -44,6 +50,9 @@ export class DetalleComponent implements OnInit {
         }
       });
     }
+  }
+  esMiProducto(): boolean {
+    return this.user?.userId === this.producto?.userId;
   }
 
   toggleFavorito(): void {
@@ -65,7 +74,7 @@ export class DetalleComponent implements OnInit {
     this.router.navigate(['/add-product'], { state: { producto: this.producto } });
   }
   eliminarProducto(): void {
-   
+
   }
   getCategoriaNombre(categoriaId: number): string {
     const categoria = this.categorias.find(cat => cat.categoriaId === categoriaId);
