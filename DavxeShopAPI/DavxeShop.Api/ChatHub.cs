@@ -7,6 +7,7 @@ public class ChatHub : Hub
         await Clients.Group(conversacionId)
             .SendAsync("RecibirMensaje", new
             {
+                ConversacionId = conversacionId,
                 RemitenteId = remitenteId,
                 Contenido = contenido,
                 FechaEnvio = DateTime.UtcNow
