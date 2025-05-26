@@ -20,7 +20,6 @@
       <div class="producto-info">
         <h4 class="producto-nombre">{{ producto.nombre }}</h4>
         <p class="producto-descripcion">{{ producto.descripcion }}</p>
-        <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
         <div class="producto-meta">
           <p class="producto-precio">{{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</p>
           <p class="producto-fecha">{{ calcularTiempoPublicacion(producto.fechaPublicacion) }}</p>

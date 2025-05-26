@@ -1,33 +1,37 @@
-<body>
-  <div class="main-container">
-    <aside class="user-list">
-      <h2>Conversaciones</h2>
-      <ul>
-        <li *ngFor="let user of users" [class.active]="user.isActive">
-          <img [src]="user.avatar" [alt]="user.name" />
-          <span>{{ user.name }}</span>
-        </li>
-      </ul>
-    </aside>
-    <div class="chat-wrapper">
-      <div class="chat-container">
-        <div class="chat-header">
-          <h2>Chat con {{ activeUser.name }}</h2>
-        </div>
+<div class="main-container">
+  <aside class="user-list">
+    <h2>Conversaciones</h2>
+    <ul>
+      <li *ngFor="let user of users" [class.active]="user === activeUser" (click)="selectUser(user)">
+        <img [src]="user.imageBase64" [alt]="user.name" />
+        <span>{{ user.name }}</span>
+      </li>
+    </ul>
+  </aside>
 
-        <div class="chat-messages">
-          <div class="message user" *ngFor="let msg of messages">
-            <div class="message-content">{{ msg.content }}</div>
-          </div>
+  <div class="chat-wrapper">
+    <div class="chat-container">
+      <div class="chat-header">
+        <h2>Chat con {{ activeUser?.name }}</h2>
+      </div>
+
+      <div class="chat-messages">
+        <div class="message user" *ngFor="let msg of messages">
+          <div class="message-content">{{ msg.content }}</div>
         </div>
-        <div class="chat-input">
-          <input type="text" placeholder="Escribe un mensaje..." [(ngModel)]="messageInput"
-            (keyup.enter)="sendMessage()" />
-          <button (click)="sendMessage()" [disabled]="!messageInput">
-            Enviar
-          </button>
-        </div>
+      </div>
+
+      <div class="chat-input">
+        <input
+          type="text"
+          placeholder="Escribe un mensaje..."
+          [(ngModel)]="messageInput"
+          (keyup.enter)="sendMessage()"
+        />
+        <button (click)="sendMessage()" [disabled]="!messageInput.trim()">
+          Enviar
+        </button>
       </div>
     </div>
   </div>
-</body>
+</div>

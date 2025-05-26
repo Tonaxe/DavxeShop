@@ -10,6 +10,7 @@ import { Producto, ProductoResponse, ProductosResponse, UserProductsResponse } f
 import { CategoriaResponse } from "../models/categoria.model";
 import { EstadoResponse } from "../models/estado.model";
 import { CrearCompraRequest, CrearCompraResponse } from "../models/compra.model";
+import { CrearConversacionDto, CrearMensajeDto } from "../models/chat.model";
 
 
 @Injectable({
@@ -98,5 +99,25 @@ export class ApiService {
 
   updateProfile(updateProfile: UpdateProfile): Observable<string> {
     return this.http.patch<string>(`${this.baseUrl}users/update-profile`, updateProfile, { headers: this.getHeaders() });
+  }
+
+  crearConversacion(dto: CrearConversacionDto): Observable<any> {
+    return this.http.post(`${this.baseUrl}chat/conversacion`, dto, { headers: this.getHeaders() });
+  }
+
+  obtenerConversaciones(): Observable<any> {
+    return this.http.get(`${this.baseUrl}chat/conversaciones`, { headers: this.getHeaders() });
+  }
+
+  obtenerConversacion(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}chat/conversacion/${id}`, { headers: this.getHeaders() });
+  }
+
+  enviarMensaje(dto: CrearMensajeDto): Observable<any> {
+    return this.http.post(`${this.baseUrl}chat/mensaje`, dto, { headers: this.getHeaders() });
+  }
+
+  eliminarConversacion(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}chat/conversacion/${id}`, { headers: this.getHeaders() });
   }
 }

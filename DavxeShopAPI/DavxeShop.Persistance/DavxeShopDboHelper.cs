@@ -3,6 +3,7 @@ using DavxeShop.Models.models;
 using DavxeShop.Models.Request.User;
 using DavxeShop.Models.Response;
 using DavxeShop.Persistance.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DavxeShop.Persistance
 {
@@ -494,5 +495,114 @@ namespace DavxeShop.Persistance
             }
         }
 
+        public Conversacion CrearConversacion(int compradorId, int vendedorId)
+        {
+            var compradorExiste = _context.Users.Any(u => u.UserId == compradorId);
+            var vendedorExiste = _context.Users.Any(u => u.UserId == vendedorId);
+
+            if (!compradorExiste || !vendedorExiste)
+            {
+                throw new Exception("Comprador o vendedor no existen.");
+            }
+
+            var existente = _context.Conversaciones
+                .FirstOrDefault(c => c.CompradorId == compradorId && c.VendedorId == vendedorId);
+
+            if (existente != null)
+                return existente;
+
+            var conversacion = new Conversacion
+            {
+                CompradorId = compradorId,
+                VendedorId = vendedorId,
+                FechaCreacion = DateTime.UtcNow
+            };
+
+            _context.Conversaciones.Add(conversacion);
+            _context.SaveChanges();
+
+            return conversacion;
+        }
+
+
+        public List<ConversacionDto> ObtenerConversacionesDeUsuario(int userId)
+        {
+            return _context.Conversaciones
+                .Include(c => c.Comprador)
+                .Include(c => c.Vendedor)
+                .Where(c => c.CompradorId == userId || c.VendedorId == userId)
+                .OrderByDescending(c => c.FechaCreacion)
+                .Select(c => new ConversacionDto
+                {
+                    ConversacionId = c.ConversacionId,
+                    CompradorId = c.CompradorId,
+                    VendedorId = c.VendedorId,
+                    FechaCreacion = c.FechaCreacion,
+                    UltimoMensaje = c.Mensajes
+                        .OrderByDescending(m => m.FechaEnvio)
+                        .Select(m => new MensajeDto
+                        {
+                            MensajeId = m.MensajeId,
+                            Contenido = m.Contenido,
+                            FechaEnvio = m.FechaEnvio,
+                            RemitenteId = m.RemitenteId
+                        })
+                        .FirstOrDefault(),
+
+                    OtroUsuario = c.CompradorId == userId
+                        ? new UsuarioDto
+                        {
+                            UserId = c.Vendedor.UserId,
+                            Nombre = c.Vendedor.Name,
+                            ImagenUrl = c.Vendedor.ImageBase64
+                        }
+                        : new UsuarioDto
+                        {
+                            UserId = c.Comprador.UserId,
+                            Nombre = c.Comprador.Name,
+                            ImagenUrl = c.Comprador.ImageBase64
+                        }
+                })
+                .ToList();
+        }
+
+        public Conversacion? ObtenerConversacionConMensajes(int conversacionId, int userId)
+        {
+            return _context.Conversaciones
+                .Include(c => c.Mensajes.OrderBy(m => m.FechaEnvio))
+                .FirstOrDefault(c => c.ConversacionId == conversacionId &&
+                                     (c.CompradorId == userId || c.VendedorId == userId));
+        }
+
+        public Mensaje EnviarMensaje(int remitenteId, int conversacionId, string contenido)
+        {
+            var mensaje = new Mensaje
+            {
+                ConversacionId = conversacionId,
+                RemitenteId = remitenteId,
+                Contenido = contenido,
+                FechaEnvio = DateTime.UtcNow,
+                Leido = false
+            };
+
+            _context.Mensajes.Add(mensaje);
+            _context.SaveChanges();
+
+            return mensaje;
+        }
+
+        public bool EliminarConversacion(int conversacionId, int userId)
+        {
+            var conversacion = _context.Conversaciones.FirstOrDefault(c =>
+                c.ConversacionId == conversacionId &&
+                (c.CompradorId == userId || c.VendedorId == userId));
+
+            if (conversacion == null)
+                return false;
+
+            _context.Conversaciones.Remove(conversacion);
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

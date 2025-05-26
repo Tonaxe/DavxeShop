@@ -34,5 +34,10 @@ namespace DavxeShop.Persistance.Interfaces
         List<ProductoDTO> GetSearchedProducts(string query);
         Compra CrearCompra(CrearCompraDto crearCompra);
         bool UpdateUserProfile(UpdateProfileDto profileDto);
+        Conversacion CrearConversacion(int compradorId, int vendedorId);
+        List<ConversacionDto> ObtenerConversacionesDeUsuario(int userId);
+        Conversacion? ObtenerConversacionConMensajes(int conversacionId, int userId);
+        Mensaje EnviarMensaje(int remitenteId, int conversacionId, string contenido);
+        bool EliminarConversacion(int conversacionId, int userId);
     }
 }

@@ -18,5 +18,8 @@
         public virtual ICollection<RecoverCode> RecoverCodes { get; set; } = new List<RecoverCode>();
         public virtual ICollection<Session> Sessions { get; set; } = new List<Session>();
         public virtual ICollection<Compra> Compras { get; set; } = new List<Compra>();
+        public virtual ICollection<Conversacion> ConversacionesComoComprador { get; set; } = new List<Conversacion>();
+        public virtual ICollection<Conversacion> ConversacionesComoVendedor { get; set; } = new List<Conversacion>();
+        public virtual ICollection<Mensaje> MensajesEnviados { get; set; } = new List<Mensaje>();
     }
 }

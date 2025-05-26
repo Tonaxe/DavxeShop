@@ -12,13 +12,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
         policy.WithOrigins("http://localhost:4200", "http://localhost:44355")
               .AllowAnyMethod()
-              .AllowAnyHeader());
+              .AllowAnyHeader()
+              .AllowCredentials()
+    );
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -30,7 +31,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:SecretKey"] ?? throw new ArgumentNullException("AppSettings:SecretKey no está configurado.")))
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:SecretKey"]
+                ?? throw new ArgumentNullException("AppSettings:SecretKey no está configurado."))
+            )
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/chatHub"))
+                {
+                    context.Token = accessToken;
+                }
+                return System.Threading.Tasks.Task.CompletedTask;
+            }
         };
     });
 
@@ -40,15 +58,16 @@ builder.Services.AddTransient<ICompraService, CompraService>();
 builder.Services.AddTransient<ICategoriaService, CategoriaService>();
 builder.Services.AddTransient<IProductoService, ProductoService>();
 builder.Services.AddTransient<IValidations, Validations>();
-builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddTransient<IDavxeShopDboHelper, DavxeShopDboHelper>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IChatService, ChatService>();
+builder.Services.AddSignalR();
 builder.Services.AddDbContextFactory<DavxeShopContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), sqlOptions =>
     {
         sqlOptions.EnableRetryOnFailure();
     })
 );
-
 
 var app = builder.Build();
 
@@ -69,7 +88,8 @@ else
 
 app.UseCors("AllowFrontend");
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
+app.MapHub<ChatHub>("/chatHub");
 app.Run();

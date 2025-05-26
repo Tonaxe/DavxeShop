@@ -1,6 +1,7 @@
 ﻿using DavxeShop.Library.Services.Interfaces;
 using DavxeShop.Models.Response;
 using DavxeShop.Persistance.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text.RegularExpressions;
 
 namespace DavxeShop.Library.Services
@@ -57,6 +58,27 @@ namespace DavxeShop.Library.Services
         public bool UserExistsById(int userId)
         {
             return _davxeShopDboHelper.UserExistsById(userId);
+        }
+
+        public int? GetUserIdFromToken(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+                return null;
+
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                var jwt = handler.ReadJwtToken(token);
+                var claim = jwt.Claims.FirstOrDefault(c => c.Type == "userId");
+                if (claim != null && int.TryParse(claim.Value, out int userId))
+                    return userId;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error parseando token: {ex.Message}");
+            }
+
+            return null;
         }
     }
 }

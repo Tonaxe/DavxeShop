@@ -10,5 +10,6 @@ namespace DavxeShop.Library.Services.Interfaces
         bool ValidateToken(LogInResponse userAndToken);
         bool ValidToken(string token);
         bool UserExistsById(int userId);
+        int? GetUserIdFromToken(string token);
     }
 }

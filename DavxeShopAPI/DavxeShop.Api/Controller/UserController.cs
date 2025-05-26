@@ -1,6 +1,5 @@
 ﻿using DavxeShop.Library.Services.Interfaces;
 using DavxeShop.Models.Request.User;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DavxeShop.Api.Controller
