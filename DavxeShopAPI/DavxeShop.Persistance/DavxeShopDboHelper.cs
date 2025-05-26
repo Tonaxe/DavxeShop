@@ -604,5 +604,10 @@ namespace DavxeShop.Persistance
             _context.SaveChanges();
             return true;
         }
+
+        public Conversacion? ObtenerConversacionExistente(int userId1, int userId2)
+        {
+            return _context.Conversaciones.FirstOrDefault(c =>(c.CompradorId == userId1 && c.VendedorId == userId2) ||(c.CompradorId == userId2 && c.VendedorId == userId1));
+        }
     }
 }

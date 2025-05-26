@@ -38,5 +38,10 @@
         {
             return _davxeShopDboHelper.EliminarConversacion(conversacionId, userId);
         }
+
+        public Conversacion? ObtenerConversacionExistente(int compradorId, int vendedorId)
+        {
+            return _davxeShopDboHelper.ObtenerConversacionExistente(compradorId, vendedorId);
+        }
     }
 }

@@ -39,5 +39,6 @@ namespace DavxeShop.Persistance.Interfaces
         Conversacion? ObtenerConversacionConMensajes(int conversacionId, int userId);
         Mensaje EnviarMensaje(int remitenteId, int conversacionId, string contenido);
         bool EliminarConversacion(int conversacionId, int userId);
+        Conversacion? ObtenerConversacionExistente(int compradorId, int vendedorId);
     }
 }

@@ -22,24 +22,22 @@ public class ChatController : ControllerBase
     public IActionResult CrearConversacion([FromBody] CrearConversacionDto dto)
     {
         var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-
-        if (string.IsNullOrEmpty(token))
-        {
-            return Unauthorized(new { message = "No se ha enviado el token." });
-        }
+        if (string.IsNullOrEmpty(token)) return Unauthorized(new { message = "No se ha enviado el token." });
 
         var tokenIsValid = _validations.ValidToken(token);
-
-        if (!tokenIsValid)
-        {
-            return Unauthorized(new { message = "El token es incorrecto." });
-        }
+        if (!tokenIsValid) return Unauthorized(new { message = "El token es incorrecto." });
 
         var userId = _validations.GetUserIdFromToken(token);
         if (userId == null) return Unauthorized(new { message = "Token inválido." });
 
-        var conversacion = _chatService.CrearConversacion((int)userId, dto.SellerId);
-        return Ok(conversacion);
+        var conversacionExistente = _chatService.ObtenerConversacionExistente((int)userId, dto.SellerId);
+        if (conversacionExistente != null)
+        {
+            return Ok(conversacionExistente);
+        }
+
+        var conversacionNueva = _chatService.CrearConversacion((int)userId, dto.SellerId);
+        return Ok(conversacionNueva);
     }
 
     [HttpGet("chat/conversaciones")]

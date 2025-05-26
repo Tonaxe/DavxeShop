@@ -98,6 +98,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.apiService.crearConversacion(crearConversacionDto).subscribe({
       next: (conv: any) => {
         this.activeConversationId = conv.conversacionId;
+        console.log('Conversación obtenida o creada:', conv.conversacionId);
         this.loadMessages(this.activeConversationId);
       },
       error: (err) => {

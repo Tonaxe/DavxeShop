@@ -209,3 +209,25 @@ html, body {
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(79, 70, 229, 0.5);
 }
+
+.from-current {
+  align-items: flex-end;
+}
+
+.from-other {
+  align-items: flex-start;
+}
+
+.from-current .message-content {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: white;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 18px;
+}
+
+.from-other .message-content {
+  background: white;
+  color: #1a202c;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 18px;
+}
