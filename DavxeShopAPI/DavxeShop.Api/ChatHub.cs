@@ -4,14 +4,13 @@ public class ChatHub : Hub
 {
     public async Task EnviarMensaje(string conversacionId, string remitenteId, string contenido)
     {
-        await Clients.Group(conversacionId)
-            .SendAsync("RecibirMensaje", new
-            {
-                ConversacionId = conversacionId,
-                RemitenteId = remitenteId,
-                Contenido = contenido,
-                FechaEnvio = DateTime.UtcNow
-            });
+        await Clients.Group(conversacionId).SendAsync("RecibirMensaje", new
+        {
+            ConversacionId = conversacionId,
+            RemitenteId = remitenteId,
+            Contenido = contenido,
+            FechaEnvio = DateTime.UtcNow
+        });
     }
 
     public async Task UnirseConversacion(string conversacionId)
