@@ -31,23 +31,28 @@ export class SignalRService {
   }
 
   private registerOnServerEvents(): void {
-    this.hubConnection.on('ReceiveMessage', (user: string, message: string, timestamp: string) => {
+    this.hubConnection.on('RecibirMensaje', (mensaje) => {
       this.ngZone.run(() => {
-
-        this.messageSource.next({
-          conversacionId: 0,
-          usuarioId: 0,
-          message,
-          timestamp: new Date(timestamp)
-        });
+        const msg: ChatMessage = {
+          conversacionId: parseInt(mensaje.conversacionId),
+          usuarioId: parseInt(mensaje.remitenteId),
+          message: mensaje.contenido,
+          timestamp: new Date(mensaje.fechaEnvio)
+        };
+        this.messageSource.next(msg);
       });
     });
   }
 
-  public sendMessage(user: string, message: string): void {
+  public sendMessage(conversacionId: number, remitenteId: number, contenido: string): void {
     if (this.hubConnection && this.hubConnection.state === signalR.HubConnectionState.Connected) {
-      this.hubConnection.invoke('SendMessage', user, message)
+      this.hubConnection.invoke('EnviarMensaje', conversacionId.toString(), remitenteId.toString(), contenido)
         .catch(err => console.error(err));
     }
+  }
+
+  public joinConversation(conversacionId: number): void {
+    this.hubConnection.invoke('UnirseConversacion', conversacionId.toString())
+      .catch(err => console.error('Error al unirse a la conversación:', err));
   }
 }

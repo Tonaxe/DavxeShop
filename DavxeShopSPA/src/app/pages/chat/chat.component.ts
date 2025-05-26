@@ -98,6 +98,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.apiService.crearConversacion(crearConversacionDto).subscribe({
       next: (conv: any) => {
         this.activeConversationId = conv.conversacionId;
+        this.signalRService.joinConversation(conv.conversacionId);
         console.log('Conversación obtenida o creada:', conv.conversacionId);
         this.loadMessages(this.activeConversationId);
       },
@@ -142,7 +143,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     this.apiService.enviarMensaje(mensajeDto).subscribe({
       next: () => {
-        this.signalRService.sendMessage(this.activeUser!.name, messageContent);
+        this.signalRService.sendMessage(this.activeConversationId, this.currentUserId, messageContent);
         this.messages.push({
           senderId: this.currentUserId,
           content: messageContent,
