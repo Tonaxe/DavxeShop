@@ -17,9 +17,7 @@ import { CrearConversacionDto, CrearMensajeDto } from "../models/chat.model";
   providedIn: 'root',
 })
 export class ApiService {
-  //private baseUrl = 'https://localhost:44355/api/DavxeShop/';
-  private baseUrl = 'https://davxeshop.onrender.com/api/DavxeShop/';
-
+  private baseUrl = 'https://localhost:44355/api/DavxeShop/';
 
   constructor(private http: HttpClient) { }
 
