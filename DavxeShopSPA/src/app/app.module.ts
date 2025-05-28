@@ -27,6 +27,7 @@ import { LoadingComponent } from './shared/loading/loading.component';
 import { PagoComponent } from './pages/pago/pago.component';
 import { FavoritosComponent } from './pages/favoritos/favoritos.component';
 import { CommonModule } from '@angular/common';
+import { BaseChartDirective } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     HttpClientModule,
     CommonModule,
-    RouterModule
+    RouterModule,
+    BaseChartDirective
   ],
   providers: [],
   bootstrap: [AppComponent],

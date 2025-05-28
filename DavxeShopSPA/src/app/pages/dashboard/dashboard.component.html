@@ -1,29 +1,51 @@
 <div class="dashboard-container">
-  <aside class="sidebar">
+  <div class="sidebar">
     <h2>Dashboard</h2>
-    <nav>
-      <ul>
-        <li><a routerLink="/home">Inicio</a></li>
-        <li><a routerLink="/my-products">Mis Productos</a></li>
-        <li><a routerLink="/perfil">Perfil</a></li>
-      </ul>
-    </nav>
-  </aside>
-  <main class="main-content">
-    <h1>Resumen General</h1>
-    <div class="cards">
-      <div class="card">
-        <h3>Productos</h3>
-        <p>12</p>
-      </div>
-      <div class="card">
-        <h3>Ventas</h3>
-        <p>$1,200</p>
-      </div>
-      <div class="card">
-        <h3>Mensajes</h3>
-        <p>5</p>
-      </div>
+    <ul>
+      <li><button class="sidebar-link" (click)="selectSection('usuarios')"><strong>Usuarios</strong></button></li>
+      <li><button class="sidebar-link" (click)="selectSection('productos')"><strong>Productos</strong></button></li>
+      <li><button class="sidebar-link" (click)="selectSection('ventas')"><strong>Compras / Ventas</strong></button></li>
+      <li><button class="sidebar-link" (click)="selectSection('chat')"><strong>Chat / Soporte</strong></button></li>
+      <li><button class="sidebar-link" (click)="selectSection('tendencias')"><strong>Tendencias</strong></button></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <h1>Bienvenido al Dashboard</h1>
+
+    <div *ngIf="selectedSection === 'usuarios'">
+      <h2>Total de usuarios</h2>
+      <h2>Usuarios nuevos</h2>
+      <h2>Usuarios activos</h2>
+      <h2>Usuarios por ciudad</h2>
     </div>
-  </main>
+
+    <div *ngIf="selectedSection === 'productos'">
+      <h2>Total de productos</h2>
+      <h2>Productos más vendidos</h2>
+      <h2>Productos recientes</h2>
+      <h2>Productos por categoría</h2>
+    </div>
+
+    <div *ngIf="selectedSection === 'ventas'">
+      <h2>Ventas por mes</h2>
+      <h2>Total de compras</h2>
+      <h2>Ingresos totales</h2>
+      <h2>Promedio por compra</h2>
+    </div>
+
+    <div *ngIf="selectedSection === 'chat'">
+      <h2>Mensajes totales</h2>
+      <h2>Conversaciones activas</h2>
+      <h2>Respuestas por usuario</h2>
+      <h2>Chats recientes</h2>
+    </div>
+
+    <div *ngIf="selectedSection === 'tendencias'">
+      <h2>Categorías populares</h2>
+      <h2>Crecimiento mensual</h2>
+      <h2>Top compradores</h2>
+      <h2>Top vendedores</h2>
+    </div>
+  </div>
 </div>
