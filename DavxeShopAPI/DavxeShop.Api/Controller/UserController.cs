@@ -107,7 +107,6 @@ namespace DavxeShop.Api.Controller
         [HttpPost("login")]
         public IActionResult LogIn([FromBody] LogInRequest request)
         {
-
             if (request == null || HasNullOrEmptyProperties(request))
             {
                 return BadRequest(new { message = "El contenido de la petición está incompleto." });

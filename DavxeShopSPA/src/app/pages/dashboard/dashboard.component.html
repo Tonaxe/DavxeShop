@@ -1,51 +1,162 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 <div class="dashboard-container">
+  <!-- Sidebar -->
   <div class="sidebar">
-    <h2>Dashboard</h2>
-    <ul>
-      <li><button class="sidebar-link" (click)="selectSection('usuarios')"><strong>Usuarios</strong></button></li>
-      <li><button class="sidebar-link" (click)="selectSection('productos')"><strong>Productos</strong></button></li>
-      <li><button class="sidebar-link" (click)="selectSection('ventas')"><strong>Compras / Ventas</strong></button></li>
-      <li><button class="sidebar-link" (click)="selectSection('chat')"><strong>Chat / Soporte</strong></button></li>
-      <li><button class="sidebar-link" (click)="selectSection('tendencias')"><strong>Tendencias</strong></button></li>
-    </ul>
+    <div class="sidebar-header">
+      <h2><i class="fas fa-chart-pie"></i> Dashboard</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-btn" [class.active]="selectedSection === 'usuarios'" (click)="selectSection('usuarios')">
+        <i class="fas fa-users"></i>
+        <span>Usuarios</span>
+      </button>
+      <button class="nav-btn" [class.active]="selectedSection === 'productos'" (click)="selectSection('productos')">
+        <i class="fas fa-box-open"></i>
+        <span>Productos</span>
+      </button>
+      <button class="nav-btn" [class.active]="selectedSection === 'ventas'" (click)="selectSection('ventas')">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Ventas</span>
+      </button>
+      <button class="nav-btn" [class.active]="selectedSection === 'chat'" (click)="selectSection('chat')">
+        <i class="fas fa-comments"></i>
+        <span>Chat</span>
+      </button>
+      <button class="nav-btn" [class.active]="selectedSection === 'tendencias'" (click)="selectSection('tendencias')">
+        <i class="fas fa-chart-line"></i>
+        <span>Tendencias</span>
+      </button>
+    </nav>
   </div>
 
-  <div class="main-content">
-    <h1>Bienvenido al Dashboard</h1>
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="content-header">
+      <h1>
+        <i class="fas" [class.fa-users]="selectedSection === 'usuarios'" 
+                      [class.fa-box-open]="selectedSection === 'productos'"
+                      [class.fa-shopping-cart]="selectedSection === 'ventas'"
+                      [class.fa-comments]="selectedSection === 'chat'"
+                      [class.fa-chart-line]="selectedSection === 'tendencias'"></i>
+        a
+      </h1>
+      <div class="header-actions">
+        <button class="btn-action">
+          <i class="fas fa-bell"></i>
+        </button>
+        <button class="btn-action">
+          <i class="fas fa-cog"></i>
+        </button>
+      </div>
+    </header>
 
-    <div *ngIf="selectedSection === 'usuarios'">
-      <h2>Total de usuarios</h2>
-      <h2>Usuarios nuevos</h2>
-      <h2>Usuarios activos</h2>
-      <h2>Usuarios por ciudad</h2>
-    </div>
+    <!-- Sección Usuarios -->
+    <section *ngIf="selectedSection === 'usuarios'" class="dashboard-section">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon bg-blue">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Total de usuarios</h3>
+            <p class="stat-value">{{userData.total | number}}</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon bg-green">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Usuarios nuevos</h3>
+            <p class="stat-value">{{userData.new | number}}</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon bg-orange">
+            <i class="fas fa-user-check"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Usuarios activos</h3>
+            <p class="stat-value">{{userData.active | number}}</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon bg-purple">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Usuarios por ciudad</h3>
+            <p class="stat-value">{{userData.cities | number}}</p>
+          </div>
+        </div>
+      </div>
 
-    <div *ngIf="selectedSection === 'productos'">
-      <h2>Total de productos</h2>
-      <h2>Productos más vendidos</h2>
-      <h2>Productos recientes</h2>
-      <h2>Productos por categoría</h2>
-    </div>
+      <div class="chart-container">
+        <canvas baseChart
+          [data]="chartData"
+          [options]="chartOptions"
+          [type]="chartType">
+        </canvas>
+      </div>
+    </section>
 
-    <div *ngIf="selectedSection === 'ventas'">
-      <h2>Ventas por mes</h2>
-      <h2>Total de compras</h2>
-      <h2>Ingresos totales</h2>
-      <h2>Promedio por compra</h2>
-    </div>
+    <!-- Sección Productos -->
+    <section *ngIf="selectedSection === 'productos'" class="dashboard-section">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon bg-blue">
+            <i class="fas fa-boxes"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Total de productos</h3>
+            <p class="stat-value">{{productData.total | number}}</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon bg-green">
+            <i class="fas fa-fire"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Productos más vendidos</h3>
+            <p class="stat-value">{{productData.topSelling | number}}</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon bg-orange">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Productos recientes</h3>
+            <p class="stat-value">{{productData.recent | number}}</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon bg-purple">
+            <i class="fas fa-tags"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Categorías</h3>
+            <p class="stat-value">{{productData.categories | number}}</p>
+          </div>
+        </div>
+      </div>
 
-    <div *ngIf="selectedSection === 'chat'">
-      <h2>Mensajes totales</h2>
-      <h2>Conversaciones activas</h2>
-      <h2>Respuestas por usuario</h2>
-      <h2>Chats recientes</h2>
-    </div>
+      <div class="chart-container">
+        <canvas baseChart
+          [data]="chartData"
+          [options]="chartOptions"
+          [type]="chartType">
+        </canvas>
+      </div>
+    </section>
 
-    <div *ngIf="selectedSection === 'tendencias'">
-      <h2>Categorías populares</h2>
-      <h2>Crecimiento mensual</h2>
-      <h2>Top compradores</h2>
-      <h2>Top vendedores</h2>
-    </div>
-  </div>
+    <!-- Otras secciones con la misma estructura -->
+  </main>
 </div>

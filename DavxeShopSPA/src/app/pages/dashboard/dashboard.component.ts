@@ -12,11 +12,47 @@ export class DashboardComponent {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   public chartType: 'bar' = 'bar';
+  selectedSection: string = 'usuarios'; // Mostrar usuarios por defecto
 
-  selectedSection: string = '';
+  // Datos de ejemplo para las tarjetas
+  userData = {
+    total: 1245,
+    new: 84,
+    active: 892,
+    cities: 15
+  };
+
+  productData = {
+    total: 356,
+    topSelling: 24,
+    recent: 18,
+    categories: 8
+  };
+
+  salesData = {
+    monthly: 12500,
+    total: 35600,
+    income: 89200,
+    average: 125
+  };
+
+  chatData = {
+    messages: 2456,
+    conversations: 84,
+    responses: 892,
+    recent: 15
+  };
+
+  trendsData = {
+    categories: 12,
+    growth: 24,
+    topBuyers: 8,
+    topSellers: 5
+  };
 
   selectSection(section: string) {
     this.selectedSection = section;
+    this.updateChart();
   }
   
   public chartData: ChartConfiguration<'bar'>['data'] = {
@@ -25,15 +61,15 @@ export class DashboardComponent {
       {
         label: 'Usuarios nuevos',
         data: [30, 50, 70, 40, 90, 120],
-        backgroundColor: 'rgba(75, 192, 192, 0.7)',
-        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(67, 97, 238, 0.7)',
+        borderColor: 'rgba(67, 97, 238, 1)',
         borderWidth: 1
       },
       {
         label: 'Ventas',
         data: [20, 40, 60, 30, 80, 100],
-        backgroundColor: 'rgba(255, 159, 64, 0.7)',
-        borderColor: 'rgba(255, 159, 64, 1)',
+        backgroundColor: 'rgba(76, 201, 240, 0.7)',
+        borderColor: 'rgba(76, 201, 240, 1)',
         borderWidth: 1
       }
     ]
@@ -41,21 +77,53 @@ export class DashboardComponent {
 
   public chartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
-      legend: { position: 'top' },
+      legend: { 
+        position: 'top',
+        labels: {
+          font: {
+            size: 14
+          }
+        }
+      },
       title: {
         display: true,
-        text: 'Dashboard - Usuarios y Ventas por mes'
+        text: 'Actividad Mensual',
+        font: {
+          size: 16
+        }
       }
     },
     scales: {
       y: {
-        beginAtZero: true
+        beginAtZero: true,
+        ticks: {
+          font: {
+            size: 12
+          }
+        }
+      },
+      x: {
+        ticks: {
+          font: {
+            size: 12
+          }
+        }
       }
     }
   };
 
   constructor() {
     Chart.register(...registerables);
+  }
+
+  updateChart() {
+    // Puedes personalizar los datos del gráfico según la sección seleccionada
+    if (this.selectedSection === 'ventas') {
+      this.chartData.datasets[0].data = [45, 60, 75, 50, 95, 130];
+      this.chartData.datasets[1].data = [25, 45, 65, 35, 85, 110];
+      this.chart?.update();
+    }
   }
 }
