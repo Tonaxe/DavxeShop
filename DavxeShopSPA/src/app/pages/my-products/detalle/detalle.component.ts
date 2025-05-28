@@ -28,31 +28,32 @@ export class DetalleComponent implements OnInit {
   };
   categorias: { categoriaId: number; nombre: string }[] = [];
 
+  esProductoMio: boolean | null = null;
+  
   constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService) { }
 
   ngOnInit(): void {
     const userJson = sessionStorage.getItem('user');
     if (userJson) {
-    this.user = JSON.parse(userJson);
+      this.user = JSON.parse(userJson).user;
     }
     const categoriasJson = sessionStorage.getItem('categorias');
     if (categoriasJson) {
       this.categorias = JSON.parse(categoriasJson);
     }
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.apiService.getProductosByProductoId(+id).subscribe({
         next: (res: ProductoResponse) => {
           this.producto = res.producto;
+          this.esProductoMio = this.user?.userId === this.producto?.userId;
         },
         error: (err) => {
           console.error('Error al cargar producto:', err);
         }
       });
     }
-  }
-  esMiProducto(): boolean {
-    return this.user?.userId === this.producto?.userId;
   }
 
   toggleFavorito(): void {
@@ -70,12 +71,15 @@ export class DetalleComponent implements OnInit {
   comprar(): void {
     this.router.navigate(['/comprar'], { state: { producto: this.producto } });
   }
+
   editarProducto(): void {
     this.router.navigate(['/add-product'], { state: { producto: this.producto } });
   }
-  eliminarProducto(): void {
 
+  eliminarProducto(): void {
+    // Aquí implementa la lógica para eliminar el producto si quieres
   }
+
   getCategoriaNombre(categoriaId: number): string {
     const categoria = this.categorias.find(cat => cat.categoriaId === categoriaId);
     return categoria ? categoria.nombre : 'Desconocida';
