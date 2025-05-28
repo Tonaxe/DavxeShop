@@ -225,7 +225,7 @@ namespace DavxeShop.Api.Controller
             return Ok(new { message = "La contraseña se ha cambiado correctamente." });
         }
 
-       
+
         [HttpPatch("users/update-profile")]
         public IActionResult UpdateProfile([FromBody] UpdateProfileDto request)
         {
