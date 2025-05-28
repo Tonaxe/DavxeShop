@@ -609,5 +609,34 @@ namespace DavxeShop.Persistance
         {
             return _context.Conversaciones.FirstOrDefault(c =>(c.CompradorId == userId1 && c.VendedorId == userId2) ||(c.CompradorId == userId2 && c.VendedorId == userId1));
         }
+
+        public bool EliminarMensaje(int mensajeId)
+        {
+            var mensaje = _context.Mensajes.FirstOrDefault(c => c.MensajeId == mensajeId);
+
+            if (mensaje == null)
+                return false;
+
+            _context.Mensajes.Remove(mensaje);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public int ObtenerConversacionIdPorMensajeId(int mensajeId)
+        {
+            return _context.Mensajes.FirstOrDefault(c => c.MensajeId == mensajeId).ConversacionId;
+        }
+
+        public bool EditarMensaje(int mensajeId, EditarMensajeDto dto)
+        {
+            var mensaje = _context.Mensajes.FirstOrDefault(c => c.MensajeId == mensajeId);
+
+            if (mensaje == null)
+                return false;
+
+            mensaje.Contenido = dto.Contenido;
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

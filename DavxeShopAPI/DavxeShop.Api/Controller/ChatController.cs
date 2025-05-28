@@ -145,4 +145,61 @@ public class ChatController : ControllerBase
 
         return Ok(new { message = "Conversación eliminada correctamente." });
     }
+
+    [HttpDelete("chat/mensaje/{mensajeId}")]
+    public async Task<IActionResult> EliminarMensaje(int mensajeId)
+    {
+        var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+        if (string.IsNullOrEmpty(token))
+            return Unauthorized(new { message = "No se ha enviado el token." });
+
+        var tokenIsValid = _validations.ValidToken(token);
+        if (!tokenIsValid)
+            return Unauthorized(new { message = "El token es incorrecto." });
+
+        var conversacionId = _chatService.ObtenerConversacionIdPorMensajeId(mensajeId);
+        if (conversacionId == null)
+            return NotFound(new { message = "El mensaje no existe." });
+
+        var eliminado = _chatService.EliminarMensaje(mensajeId);
+        if (!eliminado)
+            return Forbid();
+
+        await _hubContext.Clients.Group(conversacionId.ToString())
+            .SendAsync("EliminarMensaje", mensajeId.ToString());
+
+        return Ok(new { message = "Mensaje eliminado correctamente." });
+    }
+
+    [HttpPatch("chat/mensaje/{mensajeId}")]
+    public async Task<IActionResult> EditarMensaje(int mensajeId, [FromBody] EditarMensajeDto dto)
+    {
+        var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+        if (string.IsNullOrEmpty(token))
+            return Unauthorized(new { message = "No se ha enviado el token." });
+
+        var tokenIsValid = _validations.ValidToken(token);
+        if (!tokenIsValid)
+            return Unauthorized(new { message = "El token es incorrecto." });
+
+        var conversacionId = _chatService.ObtenerConversacionIdPorMensajeId(mensajeId);
+        if (conversacionId == null)
+            return NotFound(new { message = "El mensaje no existe." });
+
+        var eliminado = _chatService.EditarMensaje(mensajeId, dto);
+        if (!eliminado)
+            return Forbid();
+
+        await _hubContext.Clients.Group(conversacionId.ToString())
+        .SendAsync("MensajeEditado", new
+        {
+            MensajeId = mensajeId,
+            Contenido = dto.Contenido,
+            FechaModificacion = DateTime.UtcNow
+        });
+
+        return Ok(new { message = "Mensaje eliminado correctamente." });
+    }
 }

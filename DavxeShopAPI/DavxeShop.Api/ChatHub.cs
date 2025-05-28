@@ -22,4 +22,19 @@ public class ChatHub : Hub
     {
         await Groups.RemoveFromGroupAsync(Context.ConnectionId, conversacionId);
     }
+
+    public async Task NotificarEliminacionMensaje(string conversacionId, string mensajeId)
+    {
+        await Clients.Group(conversacionId).SendAsync("EliminarMensaje", mensajeId);
+    }
+
+    public async Task NotificarEdicionMensaje(string conversacionId, int mensajeId, string nuevoContenido)
+    {
+        await Clients.Group(conversacionId).SendAsync("MensajeEditado", new
+        {
+            MensajeId = mensajeId,
+            Contenido = nuevoContenido,
+            FechaModificacion = DateTime.UtcNow
+        });
+    }
 }

@@ -120,4 +120,13 @@ export class ApiService {
   eliminarConversacion(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}chat/conversacion/${id}`, { headers: this.getHeaders() });
   }
+
+  eliminarMensaje(mensajeId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}chat/mensaje/${mensajeId}`, { headers: this.getHeaders() });
+  }
+
+  editarMensaje(mensajeId: number, contenido: string): Observable<any> {
+    const body = { contenido };
+    return this.http.patch(`${this.baseUrl}chat/mensaje/${mensajeId}`, body, { headers: this.getHeaders() });
+  }
 }

@@ -43,5 +43,20 @@
         {
             return _davxeShopDboHelper.ObtenerConversacionExistente(compradorId, vendedorId);
         }
+
+        public bool EliminarMensaje(int mensajeId)
+        {
+            return _davxeShopDboHelper.EliminarMensaje(mensajeId);
+        }
+
+        public int ObtenerConversacionIdPorMensajeId(int mensajeId)
+        {
+            return _davxeShopDboHelper.ObtenerConversacionIdPorMensajeId(mensajeId);
+        }
+
+        public bool EditarMensaje(int mensajeId, EditarMensajeDto dto)
+        {
+            return _davxeShopDboHelper.EditarMensaje(mensajeId, dto);
+        }
     }
 }

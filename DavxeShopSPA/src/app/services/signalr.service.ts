@@ -12,6 +12,12 @@ export class SignalRService {
   private messageSource = new BehaviorSubject<ChatMessage | null>(null);
   messageReceived$ = this.messageSource.asObservable();
 
+  private messageDeletedSource = new BehaviorSubject<number | null>(null);
+  messageDeleted$ = this.messageDeletedSource.asObservable();
+
+  private messageEditedSource = new BehaviorSubject<{ mensajeId: number, contenido: string } | null>(null);
+  messageEdited$ = this.messageEditedSource.asObservable();
+
   constructor(private ngZone: NgZone) { }
 
   public startConnection(token: string): void {
@@ -37,22 +43,36 @@ export class SignalRService {
           conversacionId: parseInt(mensaje.conversacionId),
           usuarioId: parseInt(mensaje.remitenteId),
           message: mensaje.contenido,
-          timestamp: new Date(mensaje.fechaEnvio)
+          timestamp: new Date(mensaje.fechaEnvio),
         };
         this.messageSource.next(msg);
+      });
+    });
+
+    this.hubConnection.on('EliminarMensaje', (mensajeId: string) => {
+      this.ngZone.run(() => {
+        this.messageDeletedSource.next(parseInt(mensajeId));
+      });
+    });
+
+    this.hubConnection.on('MensajeEditado', (mensaje: { mensajeId: number, contenido: string }) => {
+      this.ngZone.run(() => {
+        this.messageEditedSource.next(mensaje);
       });
     });
   }
 
   public sendMessage(conversacionId: number, remitenteId: number, contenido: string): void {
-    if (this.hubConnection && this.hubConnection.state === signalR.HubConnectionState.Connected) {
+    if (this.hubConnection?.state === signalR.HubConnectionState.Connected) {
       this.hubConnection.invoke('EnviarMensaje', conversacionId.toString(), remitenteId.toString(), contenido)
         .catch(err => console.error(err));
     }
   }
 
   public joinConversation(conversacionId: number): void {
-    this.hubConnection.invoke('UnirseConversacion', conversacionId.toString())
-      .catch(err => console.error('Error al unirse a la conversación:', err));
+    if (this.hubConnection?.state === signalR.HubConnectionState.Connected) {
+      this.hubConnection.invoke('UnirseConversacion', conversacionId.toString())
+        .catch(err => console.error('Error al unirse a la conversación:', err));
+    }
   }
 }
