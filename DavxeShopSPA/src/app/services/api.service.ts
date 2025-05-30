@@ -11,6 +11,9 @@ import { CategoriaResponse } from "../models/categoria.model";
 import { EstadoResponse } from "../models/estado.model";
 import { CrearCompraRequest, CrearCompraResponse } from "../models/compra.model";
 import { CrearConversacionDto, CrearMensajeDto } from "../models/chat.model";
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+
 
 
 @Injectable({
@@ -128,5 +131,11 @@ export class ApiService {
   editarMensaje(mensajeId: number, contenido: string): Observable<any> {
     const body = { contenido };
     return this.http.patch(`${this.baseUrl}chat/mensaje/${mensajeId}`, body, { headers: this.getHeaders() });
+  }
+   actualizarProducto(producto: Producto) {
+    console.log('Simulando actualización del producto:', producto);
+
+    // Simulamos una espera de 1 segundo como si fuera una llamada real
+    return of({ mensaje: 'Producto actualizado correctamente' }).pipe(delay(1000));
   }
 }

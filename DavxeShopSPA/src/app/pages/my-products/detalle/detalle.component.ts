@@ -11,6 +11,8 @@ import { User } from '../../../models/user.model';
   styleUrl: './detalle.component.css'
 })
 export class DetalleComponent implements OnInit {
+  isEditingProducto = false;
+  originalProducto: any;
   esFavorito: boolean = false;
   user: User | null = null;
   producto: Producto = {
@@ -29,7 +31,8 @@ export class DetalleComponent implements OnInit {
   categorias: { categoriaId: number; nombre: string }[] = [];
 
   esProductoMio: boolean | null = null;
-  
+  productoOriginal: any;
+
   constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService) { }
 
   ngOnInit(): void {
@@ -37,6 +40,7 @@ export class DetalleComponent implements OnInit {
     if (userJson) {
       this.user = JSON.parse(userJson).user;
     }
+
     const categoriasJson = sessionStorage.getItem('categorias');
     if (categoriasJson) {
       this.categorias = JSON.parse(categoriasJson);
@@ -49,12 +53,17 @@ export class DetalleComponent implements OnInit {
           this.producto = res.producto;
           this.esProductoMio = this.user?.userId === this.producto?.userId;
         },
-        error: (err) => {
+        error: (err: any) => {
           console.error('Error al cargar producto:', err);
         }
       });
     }
   }
+
+  onEditarProducto() {
+  this.isEditingProducto = true;
+  this.productoOriginal = { ...this.producto }; // copia profunda
+}
 
   toggleFavorito(): void {
     this.esFavorito = !this.esFavorito;
@@ -72,12 +81,26 @@ export class DetalleComponent implements OnInit {
     this.router.navigate(['/comprar'], { state: { producto: this.producto } });
   }
 
-  editarProducto(): void {
-    this.router.navigate(['/add-product'], { state: { producto: this.producto } });
+  guardarCambios(): void {
+    this.apiService.actualizarProducto(this.producto).subscribe({
+      next: () => {
+        this.isEditingProducto = false;
+      },
+      error: (err: any) => {
+        console.error('Error al actualizar producto:', err);
+      }
+    });
   }
 
+  cancelarEdicion() {
+  this.producto = { ...this.productoOriginal };
+  this.isEditingProducto = false;
+}
+
   eliminarProducto(): void {
-    // Aquí implementa la lógica para eliminar el producto si quieres
+    console.log('Simulando eliminación de producto');
+    alert('Producto eliminado (simulado)');
+    this.router.navigate(['/my-products']);
   }
 
   getCategoriaNombre(categoriaId: number): string {

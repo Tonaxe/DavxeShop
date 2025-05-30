@@ -340,5 +340,81 @@
   gap: 10px;
   align-items: center;
 }
+/* Inputs y textareas para modo edición */
+input[type="text"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #1f2937;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+  border-color: #4f46e5;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Asegura que los campos editables se mantengan consistentes */
+input::placeholder,
+textarea::placeholder {
+  color: #9ca3af;
+}
+
+/* Ocultar spinner de los input type number en algunos navegadores */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 
+
+/* Ajustes para encabezado editable */
+.product-header input {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a202c;
+}
+
+/* Ajustes para grupo de botones pequeños */
+.btn-small-group {
+  display: flex;
+  gap: 8px;
+}
+
+/* Estilos adicionales por si faltaban márgenes o separación */
+.product-header input,
+.price-category input {
+  margin-bottom: 10px;
+}
+
+textarea {
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+/* Asegurar buen alineamiento visual */
+.price-category input {
+  max-width: 150px;
+}
+
+@media (max-width: 768px) {
+  .product-header input {
+    font-size: 20px;
+  }
+
+  textarea {
+    min-height: 80px;
+  }
+}
