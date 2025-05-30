@@ -34,129 +34,139 @@
   <main class="main-content">
     <header class="content-header">
       <h1>
-        <i class="fas" [class.fa-users]="selectedSection === 'usuarios'" 
-                      [class.fa-box-open]="selectedSection === 'productos'"
-                      [class.fa-shopping-cart]="selectedSection === 'ventas'"
-                      [class.fa-comments]="selectedSection === 'chat'"
-                      [class.fa-chart-line]="selectedSection === 'tendencias'"></i>
-        a
+        <i class="fas" [class.fa-users]="selectedSection === 'usuarios'"
+          [class.fa-box-open]="selectedSection === 'productos'" [class.fa-shopping-cart]="selectedSection === 'ventas'"
+          [class.fa-comments]="selectedSection === 'chat'" [class.fa-chart-line]="selectedSection === 'tendencias'"></i>
+        {{ getSectionTitle() }}
       </h1>
       <div class="header-actions">
-        <button class="btn-action">
-          <i class="fas fa-bell"></i>
-        </button>
-        <button class="btn-action">
-          <i class="fas fa-cog"></i>
-        </button>
+        <button class="btn-action"><i class="fas fa-bell"></i></button>
+        <button class="btn-action"><i class="fas fa-cog"></i></button>
       </div>
     </header>
 
     <!-- Sección Usuarios -->
     <section *ngIf="selectedSection === 'usuarios'" class="dashboard-section">
       <div class="stats-grid">
+        <!-- Cards de usuarios -->
         <div class="stat-card">
-          <div class="stat-icon bg-blue">
-            <i class="fas fa-users"></i>
-          </div>
-          <div class="stat-info">
-            <h3>Total de usuarios</h3>
-            <p class="stat-value">{{userData.total | number}}</p>
-          </div>
+          <div class="stat-icon bg-blue"><i class="fas fa-users"></i></div>
+          <div class="stat-info"><h3>Total de usuarios</h3><p class="stat-value">{{userData.total | number}}</p></div>
         </div>
-        
         <div class="stat-card">
-          <div class="stat-icon bg-green">
-            <i class="fas fa-user-plus"></i>
-          </div>
-          <div class="stat-info">
-            <h3>Usuarios nuevos</h3>
-            <p class="stat-value">{{userData.new | number}}</p>
-          </div>
+          <div class="stat-icon bg-green"><i class="fas fa-user-plus"></i></div>
+          <div class="stat-info"><h3>Usuarios nuevos</h3><p class="stat-value">{{userData.new | number}}</p></div>
         </div>
-        
         <div class="stat-card">
-          <div class="stat-icon bg-orange">
-            <i class="fas fa-user-check"></i>
-          </div>
-          <div class="stat-info">
-            <h3>Usuarios activos</h3>
-            <p class="stat-value">{{userData.active | number}}</p>
-          </div>
+          <div class="stat-icon bg-orange"><i class="fas fa-user-check"></i></div>
+          <div class="stat-info"><h3>Usuarios activos</h3><p class="stat-value">{{userData.active | number}}</p></div>
         </div>
-        
         <div class="stat-card">
-          <div class="stat-icon bg-purple">
-            <i class="fas fa-map-marker-alt"></i>
-          </div>
-          <div class="stat-info">
-            <h3>Usuarios por ciudad</h3>
-            <p class="stat-value">{{userData.cities | number}}</p>
-          </div>
+          <div class="stat-icon bg-purple"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="stat-info"><h3>Usuarios por ciudad</h3><p class="stat-value">{{userData.cities | number}}</p></div>
         </div>
       </div>
 
       <div class="chart-container">
-        <canvas baseChart
-          [data]="chartData"
-          [options]="chartOptions"
-          [type]="chartType">
-        </canvas>
+        <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="chartType"></canvas>
       </div>
     </section>
 
     <!-- Sección Productos -->
     <section *ngIf="selectedSection === 'productos'" class="dashboard-section">
       <div class="stats-grid">
+        <!-- Cards de productos -->
         <div class="stat-card">
-          <div class="stat-icon bg-blue">
-            <i class="fas fa-boxes"></i>
-          </div>
-          <div class="stat-info">
-            <h3>Total de productos</h3>
-            <p class="stat-value">{{productData.total | number}}</p>
-          </div>
+          <div class="stat-icon bg-blue"><i class="fas fa-boxes"></i></div>
+          <div class="stat-info"><h3>Total de productos</h3><p class="stat-value">{{productData.total | number}}</p></div>
         </div>
-        
         <div class="stat-card">
-          <div class="stat-icon bg-green">
-            <i class="fas fa-fire"></i>
-          </div>
-          <div class="stat-info">
-            <h3>Productos más vendidos</h3>
-            <p class="stat-value">{{productData.topSelling | number}}</p>
-          </div>
+          <div class="stat-icon bg-green"><i class="fas fa-fire"></i></div>
+          <div class="stat-info"><h3>Productos más vendidos</h3><p class="stat-value">{{productData.topSelling | number}}</p></div>
         </div>
-        
         <div class="stat-card">
-          <div class="stat-icon bg-orange">
-            <i class="fas fa-star"></i>
-          </div>
-          <div class="stat-info">
-            <h3>Productos recientes</h3>
-            <p class="stat-value">{{productData.recent | number}}</p>
-          </div>
+          <div class="stat-icon bg-orange"><i class="fas fa-star"></i></div>
+          <div class="stat-info"><h3>Productos recientes</h3><p class="stat-value">{{productData.recent | number}}</p></div>
         </div>
-        
         <div class="stat-card">
-          <div class="stat-icon bg-purple">
-            <i class="fas fa-tags"></i>
-          </div>
-          <div class="stat-info">
-            <h3>Categorías</h3>
-            <p class="stat-value">{{productData.categories | number}}</p>
-          </div>
+          <div class="stat-icon bg-purple"><i class="fas fa-tags"></i></div>
+          <div class="stat-info"><h3>Categorías</h3><p class="stat-value">{{productData.categories | number}}</p></div>
         </div>
       </div>
 
       <div class="chart-container">
-        <canvas baseChart
-          [data]="chartData"
-          [options]="chartOptions"
-          [type]="chartType">
-        </canvas>
+        <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="chartType"></canvas>
       </div>
     </section>
 
-    <!-- Otras secciones con la misma estructura -->
+    <!-- Sección Ventas (corregida, ya no anidada dentro de Productos) -->
+    <section *ngIf="selectedSection === 'ventas'" class="dashboard-section">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon bg-blue"><i class="fas fa-dollar-sign"></i></div>
+          <div class="stat-info"><h3>Ventas mensuales</h3><p class="stat-value">{{salesData.monthly | currency}}</p></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon bg-green"><i class="fas fa-chart-line"></i></div>
+          <div class="stat-info"><h3>Ventas totales</h3><p class="stat-value">{{salesData.total | currency}}</p></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon bg-orange"><i class="fas fa-wallet"></i></div>
+          <div class="stat-info"><h3>Ingresos</h3><p class="stat-value">{{salesData.income | currency}}</p></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon bg-purple"><i class="fas fa-coins"></i></div>
+          <div class="stat-info"><h3>Promedio por venta</h3><p class="stat-value">{{salesData.average | currency}}</p></div>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="chartType"></canvas>
+      </div>
+    </section>
+
+    <!-- Sección Chat -->
+    <section *ngIf="selectedSection === 'chat'" class="dashboard-section">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon bg-blue"><i class="fas fa-comment"></i></div>
+          <div class="stat-info"><h3>Total de mensajes</h3><p class="stat-value">{{chatData.messages | number}}</p></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon bg-green"><i class="fas fa-comments"></i></div>
+          <div class="stat-info"><h3>Conversaciones</h3><p class="stat-value">{{chatData.conversations | number}}</p></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon bg-orange"><i class="fas fa-reply"></i></div>
+          <div class="stat-info"><h3>Respuestas</h3><p class="stat-value">{{chatData.responses | number}}</p></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon bg-purple"><i class="fas fa-clock"></i></div>
+          <div class="stat-info"><h3>Chats recientes</h3><p class="stat-value">{{chatData.recent | number}}</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Tendencias -->
+    <section *ngIf="selectedSection === 'tendencias'" class="dashboard-section">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon bg-blue"><i class="fas fa-th"></i></div>
+          <div class="stat-info"><h3>Categorías analizadas</h3><p class="stat-value">{{trendsData.categories}}</p></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon bg-green"><i class="fas fa-arrow-up"></i></div>
+          <div class="stat-info"><h3>Crecimiento</h3><p class="stat-value">{{trendsData.growth}}%</p></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon bg-orange"><i class="fas fa-user-tag"></i></div>
+          <div class="stat-info"><h3>Top compradores</h3><p class="stat-value">{{trendsData.topBuyers}}</p></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon bg-purple"><i class="fas fa-user-shield"></i></div>
+          <div class="stat-info"><h3>Top vendedores</h3><p class="stat-value">{{trendsData.topSellers}}</p></div>
+        </div>
+      </div>
+    </section>
   </main>
 </div>

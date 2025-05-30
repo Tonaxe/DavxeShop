@@ -54,7 +54,7 @@ export class DashboardComponent {
     this.selectedSection = section;
     this.updateChart();
   }
-  
+
   public chartData: ChartConfiguration<'bar'>['data'] = {
     labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
     datasets: [
@@ -79,7 +79,7 @@ export class DashboardComponent {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { 
+      legend: {
         position: 'top',
         labels: {
           font: {
@@ -119,11 +119,92 @@ export class DashboardComponent {
   }
 
   updateChart() {
-    // Puedes personalizar los datos del gráfico según la sección seleccionada
-    if (this.selectedSection === 'ventas') {
-      this.chartData.datasets[0].data = [45, 60, 75, 50, 95, 130];
-      this.chartData.datasets[1].data = [25, 45, 65, 35, 85, 110];
-      this.chart?.update();
+    switch (this.selectedSection) {
+      case 'usuarios':
+        this.chartData = {
+          labels: ['Enero', 'Febrero', 'Marzo'],
+          datasets: [
+            {
+              label: 'Usuarios nuevos',
+              data: [50, 60, 70],
+              backgroundColor: 'rgba(67, 97, 238, 0.7)'
+            }
+          ]
+        };
+        break;
+
+      case 'productos':
+        this.chartData = {
+          labels: ['Electrónica', 'Ropa', 'Hogar'],
+          datasets: [
+            {
+              label: 'Productos por categoría',
+              data: [120, 90, 60],
+              backgroundColor: 'rgba(76, 201, 240, 0.7)'
+            }
+          ]
+        };
+        break;
+
+      case 'ventas':
+        this.chartData = {
+          labels: ['Enero', 'Febrero', 'Marzo', 'Abril'],
+          datasets: [
+            {
+              label: 'Ingresos mensuales',
+              data: [10000, 12500, 14000, 15500],
+              backgroundColor: 'rgba(46, 204, 113, 0.7)'
+            }
+          ]
+        };
+        break;
+
+      case 'chat':
+        this.chartData = {
+          labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'],
+          datasets: [
+            {
+              label: 'Mensajes diarios',
+              data: [300, 400, 350, 500, 450],
+              backgroundColor: 'rgba(243, 156, 18, 0.7)'
+            }
+          ]
+        };
+        break;
+
+      case 'tendencias':
+        this.chartData = {
+          labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+          datasets: [
+            {
+              label: 'Crecimiento por trimestre (%)',
+              data: [12, 18, 25, 30],
+              backgroundColor: 'rgba(155, 89, 182, 0.7)'
+            }
+          ]
+        };
+        break;
+    }
+
+    this.chart?.update();
+  }
+
+  getSectionTitle(): string {
+    switch (this.selectedSection) {
+      case 'usuarios':
+        return 'Gestión de Usuarios';
+      case 'productos':
+        return 'Inventario de Productos';
+      case 'ventas':
+        return 'Resumen de Ventas';
+      case 'chat':
+        return 'Mensajes y Soporte';
+      case 'tendencias':
+        return 'Tendencias del Mercado';
+      default:
+        return 'Dashboard';
     }
   }
+
+
 }

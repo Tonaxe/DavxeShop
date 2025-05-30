@@ -24,7 +24,7 @@
 /* Sidebar */
 .sidebar {
   width: 250px;
-  background-color: var(--sidebar-bg);
+  background-color: #243447;
   color: white;
   padding: 1.5rem 0;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
@@ -61,6 +61,7 @@
   text-align: left;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-weight:500;
 }
 
 .nav-btn:hover {

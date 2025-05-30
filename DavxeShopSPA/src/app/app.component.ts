@@ -13,9 +13,9 @@ export class AppComponent{
   constructor(private router: Router) {}
 
   shouldShowHeader(): boolean {
-    return !['/login', '/register', '/recover-password', '/reset-password'].some(route => this.router.url.startsWith(route));
+    return !['/login', '/register', '/recover-password', '/reset-password',"/dashboard"].some(route => this.router.url.startsWith(route));
   }
   shouldShowFooter(): boolean {
-    return !['/login', '/register', '/recover-password', '/reset-password','/chat'].some(route => this.router.url.startsWith(route));
+    return !['/login', '/register', '/recover-password', '/reset-password','/chat',"/dashboard"].some(route => this.router.url.startsWith(route));
   }
 }
