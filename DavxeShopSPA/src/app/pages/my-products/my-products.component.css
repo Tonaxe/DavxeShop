@@ -64,6 +64,17 @@
   background-color: #3b82f6;
 }
 
+.estado-reacondicionado {
+  background-color: #6366f1;
+}
+
+.estado-defectuoso {
+  background-color: #ef4444;
+}
+
+.estado-en-reparacion {
+  background-color: #a855f7;
+}
 
 .info-usuario p {
   margin-top: 8px;

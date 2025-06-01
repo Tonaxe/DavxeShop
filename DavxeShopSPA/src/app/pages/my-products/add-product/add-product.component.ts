@@ -59,6 +59,7 @@ export class AddProductComponent implements OnInit {
     this.apiService.getAllEstados().subscribe({
       next: (res) => {
         this.estados = res.estados;
+        sessionStorage.setItem("estados", JSON.stringify(this.estados));
       },
       error: (err) => {
         console.error('Error al cargar estados', err);

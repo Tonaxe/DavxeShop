@@ -372,6 +372,18 @@
   background-color: #3b82f6;
 }
 
+.estado-reacondicionado {
+  background-color: #6366f1;
+}
+
+.estado-defectuoso {
+  background-color: #ef4444;
+}
+
+.estado-en-reparacion {
+  background-color: #a855f7;
+}
+
 @media (max-width: 1024px) {
   .grid-productos {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));

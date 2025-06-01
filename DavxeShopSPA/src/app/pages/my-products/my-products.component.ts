@@ -47,7 +47,7 @@ export class MyProductsComponent implements OnInit {
     return 'Hace ' + diff + ' días';
   }
 
-  formatEstado(estado: string): string {
-    return 'estado-' + estado.toLowerCase().replace(/\s/g, '-');
+  formatEstado(estado: string | number): string {
+    return 'estado-' + estado.toString().toLowerCase().replace(/\s/g, '-');
   }
 }

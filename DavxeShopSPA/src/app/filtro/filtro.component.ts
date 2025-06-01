@@ -19,7 +19,7 @@ export class FiltroComponent implements OnInit {
     private route: ActivatedRoute,
     private apiService: ApiService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -74,7 +74,7 @@ export class FiltroComponent implements OnInit {
     return `${Math.floor(diffDias / 30)} meses`;
   }
 
-  formatEstado(estado: string): string {
-    return 'estado-' + estado.toLowerCase().replace(/\s/g, '-');
+  formatEstado(estado: string | number): string {
+    return 'estado-' + estado.toString().toLowerCase().replace(/\s/g, '-');
   }
 }
