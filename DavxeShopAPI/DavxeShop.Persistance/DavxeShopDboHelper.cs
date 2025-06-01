@@ -194,6 +194,7 @@ namespace DavxeShop.Persistance
                     UserId = producto.UserId,
                     CategoriaId = producto.Categoria,
                     ImagenUrl = producto.ImagenUrl,
+                    EstadoId = producto.Estado
                 };
                 _context.Productos.Add(productoMap);
                 int result = _context.SaveChanges();
