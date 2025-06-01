@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Producto, ProductoResponse } from '../../../models/product.model';
 import { ApiService } from '../../../services/api.service';
 import { User } from '../../../models/user.model';
+import { Estado } from '../../../models/estado.model';
 
 @Component({
   selector: 'app-detalle',
@@ -29,9 +30,9 @@ export class DetalleComponent implements OnInit {
     estado: 0
   };
   categorias: { categoriaId: number; nombre: string }[] = [];
-
   esProductoMio: boolean | null = null;
   productoOriginal: any;
+  estados: Estado[] = [];
 
   constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService) { }
 
@@ -46,12 +47,21 @@ export class DetalleComponent implements OnInit {
       this.categorias = JSON.parse(categoriasJson);
     }
 
+    const estadosJson = sessionStorage.getItem('estados');
+    if (estadosJson) {
+      this.estados = JSON.parse(estadosJson);
+    }
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.apiService.getProductosByProductoId(+id).subscribe({
         next: (res: ProductoResponse) => {
           this.producto = res.producto;
           this.esProductoMio = this.user?.userId === this.producto?.userId;
+          const estadoEncontrado = this.estados.find(e => e.nombre === String(this.producto.estado));
+          if (estadoEncontrado) {
+            this.producto.estado = estadoEncontrado.estadoId;
+          }
         },
         error: (err: any) => {
           console.error('Error al cargar producto:', err);
@@ -60,10 +70,15 @@ export class DetalleComponent implements OnInit {
     }
   }
 
+  getEstadoNombre(estadoId: number): string {
+    const estado = this.estados.find(e => e.estadoId === estadoId);
+    return estado ? estado.nombre : 'Desconocido';
+  }
+
   onEditarProducto() {
-  this.isEditingProducto = true;
-  this.productoOriginal = { ...this.producto }; // copia profunda
-}
+    this.isEditingProducto = true;
+    this.productoOriginal = { ...this.producto };
+  }
 
   toggleFavorito(): void {
     this.esFavorito = !this.esFavorito;
@@ -93,9 +108,9 @@ export class DetalleComponent implements OnInit {
   }
 
   cancelarEdicion() {
-  this.producto = { ...this.productoOriginal };
-  this.isEditingProducto = false;
-}
+    this.producto = { ...this.productoOriginal };
+    this.isEditingProducto = false;
+  }
 
   eliminarProducto(): void {
     console.log('Simulando eliminación de producto');
