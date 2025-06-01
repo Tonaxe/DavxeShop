@@ -57,7 +57,14 @@
             <ng-template #mostrarPrecio>
               <p class="precio-producto">{{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</p>
             </ng-template>
-            <span class="categoria-badge">{{ getCategoriaNombre(+producto.categoria) }}</span>
+            <div *ngIf="isEditingProducto; else mostrarCategoria">
+              <select [(ngModel)]="producto.categoria">
+                <option *ngFor="let cat of categorias" [value]="cat.categoriaId">{{ cat.nombre }}</option>
+              </select>
+            </div>
+            <ng-template #mostrarCategoria>
+              <span class="categoria-badge">{{ getCategoriaNombre(+producto.categoria) }}</span>
+            </ng-template>
           </div>
         </div>
 
@@ -96,7 +103,17 @@
           <div class="details-grid">
             <div class="detail-item">
               <span class="detail-label">Estado:</span>
-              <span class="detail-value">{{ producto.estado }}</span>
+              <div *ngIf="isEditingProducto; else mostrarEstado">
+                <select [(ngModel)]="producto.estado">
+                  <option value="Nuevo">Nuevo</option>
+                  <option value="Usado">Usado</option>
+                  <option value="Reacondicionado">Reacondicionado</option>
+                </select>
+              </div>
+              <ng-template #mostrarEstado>
+                <span class="detail-value">{{ producto.estado }}</span>
+              </ng-template>
+
             </div>
             <div class="detail-item">
               <span class="detail-label">Publicado:</span>
