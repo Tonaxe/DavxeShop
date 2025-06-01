@@ -35,7 +35,7 @@ export class ComprarComponent {
       userId: 0,
       userNombre: '',
       userCiudad: '',
-      estado: '',
+      estado: 0,
     };
   }
 

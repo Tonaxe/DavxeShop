@@ -181,7 +181,7 @@ namespace DavxeShop.Persistance
             }
         }
 
-        public bool AddProduct(ProductoDTO producto)
+        public bool AddProduct(AgregarProductoDTO producto)
         {
             try
             {

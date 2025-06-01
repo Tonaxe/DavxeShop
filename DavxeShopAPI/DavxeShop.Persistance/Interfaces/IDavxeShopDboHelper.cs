@@ -23,7 +23,7 @@ namespace DavxeShop.Persistance.Interfaces
         bool ResetPassword(ResetPasswordRequest request);
         bool ValidToken(string token);
         bool UserExistsById(int userId);
-        bool AddProduct(ProductoDTO producto);
+        bool AddProduct(AgregarProductoDTO producto);
         List<ProductoDTO> GetProductosByUserId(int userId);
         List<ProductoDTO> GetRandomProductos();
         List<CategoriaDTO> GetAllCategorias();

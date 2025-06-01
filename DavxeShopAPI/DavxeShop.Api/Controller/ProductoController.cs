@@ -18,7 +18,7 @@ namespace DavxeShop.Api.Controller
         }
 
         [HttpPost("producto")]
-        public IActionResult AddProduct([FromBody] ProductoDTO request)
+        public IActionResult AddProduct([FromBody] AgregarProductoDTO request)
         {
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 

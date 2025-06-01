@@ -30,7 +30,7 @@ export class FavoritosComponent implements OnInit {
           precio: 79.99,
           fechaPublicacion: new Date(Date.now() - 2 * 86400000).toISOString(),
           imagenUrl: 'https://via.placeholder.com/300x200',
-          estado: 'nuevo',
+          estado: 1,
           userId: 101,
           userNombre: 'Juan Pérez',
           userCiudad: 'Madrid'
@@ -43,7 +43,7 @@ export class FavoritosComponent implements OnInit {
           precio: 129.50,
           fechaPublicacion: new Date(Date.now() - 5 * 86400000).toISOString(),
           imagenUrl: 'https://via.placeholder.com/300x200',
-          estado: 'usado',
+          estado: 1,
           userId: 102,
           userNombre: 'Laura Gómez',
           userCiudad: 'Barcelona'
@@ -66,7 +66,4 @@ export class FavoritosComponent implements OnInit {
     return `Hace ${diff} días`;
   }
 
-  formatEstado(estado: string): string {
-    return 'estado-' + estado.toLowerCase().replace(/\s/g, '-');
-  }
 }

@@ -4,7 +4,7 @@ namespace DavxeShop.Library.Services.Interfaces
 {
     public interface IProductoService
     {
-        bool AddProduct(ProductoDTO producto);
+        bool AddProduct(AgregarProductoDTO producto);
         List<ProductoDTO> GetProductosByUserId(int userId);
         List<ProductoDTO> GetRandomProductos();
         List<UserProductsDTO> GetRandomProductosUsers();
