@@ -12,7 +12,7 @@ import { EstadoResponse } from "../models/estado.model";
 import { CrearCompraRequest, CrearCompraResponse } from "../models/compra.model";
 import { ContraOfertaDto, ContraOfertaResponseDto, CrearConversacionDto, CrearMensajeDto } from "../models/chat.model";
 import { FavoritoRequest } from "../models/favorito.model";
-import { ResponseDashboard } from "../models/dashboard.model";
+import { ProductDashboardResponse, ResponseDashboard, ResumenChatResponse, ResumenVentasResponse } from "../models/dashboard.model";
 
 
 
@@ -159,5 +159,17 @@ export class ApiService {
 
   getUsersData(): Observable<ResponseDashboard> {
     return this.http.get<ResponseDashboard>(`${this.baseUrl}dashboard/usuarios`, { headers: this.getHeaders() });
+  }
+
+  getProductsData(): Observable<ProductDashboardResponse> {
+    return this.http.get<ProductDashboardResponse>(`${this.baseUrl}dashboard/productos`, { headers: this.getHeaders() });
+  }
+
+  getVentasData(): Observable<ResumenVentasResponse> {
+    return this.http.get<ResumenVentasResponse>(`${this.baseUrl}dashboard/ventas`, { headers: this.getHeaders() });
+  }
+
+  getChatData(): Observable<ResumenChatResponse> {
+    return this.http.get<ResumenChatResponse>(`${this.baseUrl}dashboard/chat`, { headers: this.getHeaders() });
   }
 }

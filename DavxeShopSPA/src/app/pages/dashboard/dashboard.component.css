@@ -248,3 +248,16 @@
   font-size: 1.2em;
   user-select: none;
 }
+
+.trend-up {
+  color: green;
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+.trend-down {
+  color: red;
+  margin-left: 5px;
+  font-weight: bold;
+}
+

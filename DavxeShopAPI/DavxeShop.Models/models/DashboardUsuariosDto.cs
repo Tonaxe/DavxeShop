@@ -12,8 +12,7 @@
         public int ActiveUsersTrend { get; set; }
 
         public Dictionary<string, int> UsersByCity { get; set; }
-        public Dictionary<string, int> UsersByCityTrend { get; set; }
-
+        public Dictionary<string, bool> UsersByCityTrend { get; set; }
         public WeeklyActivityDto WeeklyActivity { get; set; }
     }
 }

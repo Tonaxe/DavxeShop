@@ -16,5 +16,20 @@ namespace DavxeShop.Library.Services
         {
             return _davxeShopDboHelper.GetUsersData();
         }
+
+        public ProductDashboardDto GetProductsData()
+        {
+            return _davxeShopDboHelper.GetProductsData();
+        }
+
+        public ResumenVentasDto GetVentasData()
+        {
+            return _davxeShopDboHelper.GetVentasData();
+        }
+
+        public ResumenChatResponse GetChatData()
+        {
+            return _davxeShopDboHelper.GetChatData();
+        }
     }
 }

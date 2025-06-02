@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Chart, ChartType, ChartConfiguration, registerables } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { ApiService } from '../../services/api.service';
-import { ResponseDashboard } from '../../models/dashboard.model';
+import { DatosChat, ResponseDashboard, ResumenChatResponse, ResumenVentasResponse, SemanaActividad, VentaSemanal } from '../../models/dashboard.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,31 +28,38 @@ export class DashboardComponent implements OnInit {
   };
 
   productData = {
-    total: 356,
-    topSelling: 24,
-    recent: 18,
-    categories: 8
+    total: 0,
+    totalTrend: 0,
+    topSelling: 0,
+    topSellingTrend: 0,
+    recent: 0,
+    recentTrend: 0,
+    categories: 0,
+    categoriesTrend: 0
   };
 
-  salesData = {
-    monthly: 12500,
-    total: 35600,
-    income: 89200,
-    average: 125
+  ventasData = {
+    ventasMensuales: 0,
+    ventasMensualesTrend: 0,
+    ventasTotales: 0,
+    ventasTotalesTrend: 0,
+    ingresos: 0,
+    ingresosTrend: 0,
+    promedioPorVenta: 0,
+    promedioPorVentaTrend: 0,
+    ventasSemanales: [] as VentaSemanal[]
   };
 
-  chatData = {
-    messages: 2456,
-    conversations: 84,
-    responses: 892,
-    recent: 15
-  };
-
-  trendsData = {
-    categories: 12,
-    growth: 24,
-    topBuyers: 8,
-    topSellers: 5
+  chatData: DatosChat = {
+    totalMessages: 0,
+    totalMessagesTrend: 0,
+    totalConversations: 0,
+    totalConversationsTrend: 0,
+    totalResponses: 0,
+    totalResponsesTrend: 0,
+    recentChats: 0,
+    recentChatsTrend: 0,
+    weeklyActivity: []
   };
 
   public chartData: ChartConfiguration<'bar'>['data'] = {
@@ -105,8 +112,12 @@ export class DashboardComponent implements OnInit {
     this.selectedSection = section;
     if (section === 'usuarios') {
       this.loadUserStats();
-    } else {
-      this.updateChart();
+    } else if (section === 'productos') {
+      this.loadProductStats();
+    } else if (section === 'ventas') {
+      this.loadVentasData();
+    } else if (section === 'chat') {
+      this.loadChatData();
     }
   }
 
@@ -134,6 +145,94 @@ export class DashboardComponent implements OnInit {
             backgroundColor: 'rgba(67, 97, 238, 0.7)',
             borderColor: 'rgba(67, 97, 238, 1)',
             borderWidth: 1,
+          }
+        ]
+      };
+
+      this.chart?.update();
+    });
+  }
+
+  loadProductStats(): void {
+    this.apiService.getProductsData().subscribe(res => {
+      const data = res.datos;
+      console.log('Datos recibidos:', data);
+
+      this.productData = {
+        total: data.total,
+        totalTrend: data.totalTrend,
+        topSelling: data.topSelling,
+        topSellingTrend: data.topSellingTrend,
+        recent: data.recent,
+        recentTrend: data.recentTrend,
+        categories: data.categories,
+        categoriesTrend: data.categoriesTrend
+      };
+
+      if (data.weeklyActivity) {
+        this.chartData = {
+          labels: data.weeklyActivity.labels,
+          datasets: [
+            {
+              label: 'Actividad semanal',
+              data: data.weeklyActivity.data,
+              backgroundColor: 'rgba(76, 201, 240, 0.7)'
+            }
+          ]
+        };
+        this.chart?.update();
+      } else {
+        this.chartData = { labels: [], datasets: [] };
+        this.chart?.update();
+      }
+    });
+  }
+
+  loadVentasData(): void {
+    this.apiService.getVentasData().subscribe((res: ResumenVentasResponse) => {
+      const d = res.datos;
+      this.ventasData = {
+        ventasMensuales: d.ventasMensuales,
+        ventasMensualesTrend: d.ventasMensualesTrend,
+        ventasTotales: d.ventasTotales,
+        ventasTotalesTrend: d.ventasTotalesTrend,
+        ingresos: d.ingresos,
+        ingresosTrend: d.ingresosTrend,
+        promedioPorVenta: d.promedioPorVenta,
+        promedioPorVentaTrend: d.promedioPorVentaTrend,
+        ventasSemanales: d.ventasSemanales
+      };
+
+      this.chartData = {
+        labels: this.ventasData.ventasSemanales.map(v => v.semana),
+        datasets: [
+          {
+            label: 'Ingresos por semana',
+            data: this.ventasData.ventasSemanales.map(v => v.totalDinero),
+            backgroundColor: 'rgba(46, 204, 113, 0.7)'
+          }
+        ]
+      };
+
+      this.chart?.update();
+    });
+  }
+
+  loadChatData(): void {
+    this.apiService.getChatData().subscribe((res: ResumenChatResponse) => {
+      this.chatData = res.datos;
+      const labels = this.chatData.weeklyActivity.map((item: SemanaActividad) => item.semana);
+      const data = this.chatData.weeklyActivity.map((item: SemanaActividad) => item.totalMensajes);
+
+      this.chartData = {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Mensajes por semana',
+            data: data,
+            backgroundColor: 'rgba(243, 156, 18, 0.7)',
+            borderColor: 'rgba(243, 156, 18, 1)',
+            borderWidth: 1
           }
         ]
       };
@@ -182,19 +281,6 @@ export class DashboardComponent implements OnInit {
           ]
         };
         break;
-
-      case 'tendencias':
-        this.chartData = {
-          labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-          datasets: [
-            {
-              label: 'Crecimiento por trimestre (%)',
-              data: [12, 18, 25, 30],
-              backgroundColor: 'rgba(155, 89, 182, 0.7)'
-            }
-          ]
-        };
-        break;
     }
 
     this.chart?.update();
@@ -206,7 +292,6 @@ export class DashboardComponent implements OnInit {
       case 'productos': return 'Inventario de Productos';
       case 'ventas': return 'Resumen de Ventas';
       case 'chat': return 'Mensajes y Soporte';
-      case 'tendencias': return 'Tendencias del Mercado';
       default: return 'Dashboard';
     }
   }

@@ -1,7 +1,5 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
 <div class="dashboard-container">
-  <!-- Sidebar -->
   <div class="sidebar">
     <div class="sidebar-header">
       <h2><i class="fas fa-chart-pie"></i> Dashboard</h2>
@@ -23,14 +21,8 @@
         <i class="fas fa-comments"></i>
         <span>Chat</span>
       </button>
-      <button class="nav-btn" [class.active]="selectedSection === 'tendencias'" (click)="selectSection('tendencias')">
-        <i class="fas fa-chart-line"></i>
-        <span>Tendencias</span>
-      </button>
     </nav>
   </div>
-
-  <!-- Main Content -->
   <main class="main-content">
     <header class="content-header">
       <h1>
@@ -44,13 +36,9 @@
         <button class="btn-action"><i class="fas fa-cog"></i></button>
       </div>
     </header>
-
-    <!-- Sección Usuarios -->
     <section *ngIf="selectedSection === 'usuarios'" class="dashboard-section">
       <h2 class="section-title">Estadísticas de Usuarios</h2>
-
       <div class="stats-grid">
-
         <div class="stat-card">
           <div class="stat-info">
             <h3>Total Usuarios</h3>
@@ -68,7 +56,6 @@
             </p>
           </div>
         </div>
-
         <div class="stat-card">
           <div class="stat-info">
             <h3>Usuarios Nuevos</h3>
@@ -86,7 +73,6 @@
             </p>
           </div>
         </div>
-
         <div class="stat-card">
           <div class="stat-info">
             <h3>Usuarios Activos</h3>
@@ -104,7 +90,6 @@
             </p>
           </div>
         </div>
-
         <div class="stat-card">
           <div class="stat-info">
             <h3>Ciudades</h3>
@@ -122,148 +107,166 @@
             </p>
           </div>
         </div>
-
       </div>
-
-      <!-- Gráfico -->
       <div class="chart-container">
         <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="chartType"></canvas>
       </div>
     </section>
-
-
-
-    <!-- Sección Productos -->
     <section *ngIf="selectedSection === 'productos'" class="dashboard-section">
+      <h2 class="section-title">Estadísticas de Productos</h2>
       <div class="stats-grid">
-        <!-- Cards de productos -->
         <div class="stat-card">
           <div class="stat-info">
             <h3>Total de productos</h3>
-            <p class="stat-value">{{productData.total | number}}</p>
+            <p class="stat-value">
+              {{ productData.total | number }}
+              <span class="trend-arrow" [ngClass]="{
+              'up': productData.totalTrend > 0,
+              'down': productData.totalTrend < 0
+            }" *ngIf="productData.totalTrend !== 0" title="Tendencia">
+                <i class="fas" [ngClass]="{
+             'fa-arrow-up': productData.totalTrend > 0, 
+             'fa-arrow-down': productData.totalTrend < 0
+           }"></i>
+              </span>
+            </p>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-info">
             <h3>Productos más vendidos</h3>
-            <p class="stat-value">{{productData.topSelling | number}}</p>
+            <p class="stat-value">
+              {{ productData.topSelling | number }}
+              <span class="trend-arrow" [ngClass]="{
+              'up': productData.topSellingTrend > 0,
+              'down': productData.topSellingTrend < 0
+            }" *ngIf="productData.topSellingTrend !== 0" title="Tendencia">
+                <i class="fas" [ngClass]="{
+             'fa-arrow-up': productData.topSellingTrend > 0, 
+             'fa-arrow-down': productData.topSellingTrend < 0
+           }"></i>
+              </span>
+            </p>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-info">
             <h3>Productos recientes</h3>
-            <p class="stat-value">{{productData.recent | number}}</p>
+            <p class="stat-value">
+              {{ productData.recent | number }}
+              <span class="trend-arrow" [ngClass]="{
+              'up': productData.recentTrend > 0,
+              'down': productData.recentTrend < 0
+            }" *ngIf="productData.recentTrend !== 0" title="Tendencia">
+                <i class="fas" [ngClass]="{
+             'fa-arrow-up': productData.recentTrend > 0, 
+             'fa-arrow-down': productData.recentTrend < 0
+           }"></i>
+              </span>
+            </p>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-info">
             <h3>Categorías</h3>
-            <p class="stat-value">{{productData.categories | number}}</p>
+            <p class="stat-value">
+              {{ productData.categories | number }}
+              <span class="trend-arrow" [ngClass]="{
+              'up': productData.categoriesTrend > 0,
+              'down': productData.categoriesTrend < 0
+            }" *ngIf="productData.categoriesTrend !== 0" title="Tendencia">
+                <i class="fas" [ngClass]="{
+             'fa-arrow-up': productData.categoriesTrend > 0, 
+             'fa-arrow-down': productData.categoriesTrend < 0
+           }"></i>
+              </span>
+            </p>
           </div>
         </div>
       </div>
-
       <div class="chart-container">
         <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="chartType"></canvas>
       </div>
     </section>
-
-    <!-- Sección Ventas (corregida, ya no anidada dentro de Productos) -->
     <section *ngIf="selectedSection === 'ventas'" class="dashboard-section">
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-info">
-            <h3>Ventas mensuales</h3>
-            <p class="stat-value">{{salesData.monthly | currency}}</p>
+            <h3>Ventas Mensuales</h3>
+            <p class="stat-value">{{ ventasData.ventasMensuales | currency:'USD' }}</p>
+            <p [class.positive]="ventasData.ventasMensualesTrend >= 0"
+              [class.negative]="ventasData.ventasMensualesTrend < 0">
+              {{ ventasData.ventasMensualesTrend | number:'1.2-2' }}%
+            </p>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-info">
-            <h3>Ventas totales</h3>
-            <p class="stat-value">{{salesData.total | currency}}</p>
+            <h3>Ventas Totales</h3>
+            <p class="stat-value">{{ ventasData.ventasTotales | currency:'USD' }}</p>
+            <p [class.positive]="ventasData.ventasTotalesTrend >= 0"
+              [class.negative]="ventasData.ventasTotalesTrend < 0">
+              {{ ventasData.ventasTotalesTrend | number:'1.2-2' }}%
+            </p>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-info">
             <h3>Ingresos</h3>
-            <p class="stat-value">{{salesData.income | currency}}</p>
+            <p class="stat-value">{{ ventasData.ingresos | currency:'USD' }}</p>
+            <p [class.positive]="ventasData.ingresosTrend >= 0" [class.negative]="ventasData.ingresosTrend < 0">
+              {{ ventasData.ingresosTrend | number:'1.2-2' }}%
+            </p>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-info">
-            <h3>Promedio por venta</h3>
-            <p class="stat-value">{{salesData.average | currency}}</p>
+            <h3>Promedio por Venta</h3>
+            <p class="stat-value">{{ ventasData.promedioPorVenta | currency:'USD' }}</p>
+            <p [class.positive]="ventasData.promedioPorVentaTrend >= 0"
+              [class.negative]="ventasData.promedioPorVentaTrend < 0">
+              {{ ventasData.promedioPorVentaTrend | number:'1.2-2' }}%
+            </p>
           </div>
         </div>
       </div>
-
-      <div class="chart-container">
-        <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="chartType"></canvas>
+      <div class="chart-container" style="height: 300px;">
+        <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="chartType">
+        </canvas>
       </div>
     </section>
-
-    <!-- Sección Chat -->
     <section *ngIf="selectedSection === 'chat'" class="dashboard-section">
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-info">
             <h3>Total de mensajes</h3>
-            <p class="stat-value">{{chatData.messages | number}}</p>
+            <p class="stat-value">{{ chatData.totalMessages | number }}</p>
+            <small class="trend">Tendencia: {{ chatData.totalMessagesTrend }}%</small>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-info">
             <h3>Conversaciones</h3>
-            <p class="stat-value">{{chatData.conversations | number}}</p>
+            <p class="stat-value">{{ chatData.totalConversations | number }}</p>
+            <small class="trend">Tendencia: {{ chatData.totalConversationsTrend }}%</small>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-info">
             <h3>Respuestas</h3>
-            <p class="stat-value">{{chatData.responses | number}}</p>
+            <p class="stat-value">{{ chatData.totalResponses | number }}</p>
+            <small class="trend">Tendencia: {{ chatData.totalResponsesTrend }}%</small>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-info">
             <h3>Chats recientes</h3>
-            <p class="stat-value">{{chatData.recent | number}}</p>
+            <p class="stat-value">{{ chatData.recentChats | number }}</p>
+            <small class="trend">Tendencia: {{ chatData.recentChatsTrend }}%</small>
           </div>
         </div>
       </div>
-      <div class="chart-container">
-        <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="chartType"></canvas>
-      </div>
-    </section>
-
-    <!-- Sección Tendencias -->
-    <section *ngIf="selectedSection === 'tendencias'" class="dashboard-section">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-info">
-            <h3>Categorías analizadas</h3>
-            <p class="stat-value">{{trendsData.categories}}</p>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-info">
-            <h3>Crecimiento</h3>
-            <p class="stat-value">{{trendsData.growth}}%</p>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-info">
-            <h3>Top compradores</h3>
-            <p class="stat-value">{{trendsData.topBuyers}}</p>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-info">
-            <h3>Top vendedores</h3>
-            <p class="stat-value">{{trendsData.topSellers}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="chart-container">
+      <div class="chart-container" style="height: 300px;">
         <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="chartType"></canvas>
       </div>
     </section>

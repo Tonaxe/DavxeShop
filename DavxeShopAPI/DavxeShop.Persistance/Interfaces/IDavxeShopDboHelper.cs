@@ -50,5 +50,8 @@ namespace DavxeShop.Persistance.Interfaces
         List<ProductoDTO> GetFavoritUsersProducts(int userId);
         ContraOfertaResponseDto EnviarContraOferta(int userId, ContraOfertaDto dto);
         DashboardUsuariosDto GetUsersData();
+        ProductDashboardDto GetProductsData();
+        ResumenVentasDto GetVentasData();
+        ResumenChatResponse GetChatData();
     }
 }

@@ -4,6 +4,7 @@ using DavxeShop.Models.Request.User;
 using DavxeShop.Models.Response;
 using DavxeShop.Persistance.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace DavxeShop.Persistance
 {
@@ -790,7 +791,6 @@ namespace DavxeShop.Persistance
             var hace60Dias = now.AddDays(-60);
 
             var totalUsers = _context.Users.Count();
-
             var prevTotalUsers = _context.Users.Count(u => u.BirthDate < hace30Dias);
             int totalUsersTrend = CompareTrend(totalUsers, prevTotalUsers);
 
@@ -817,21 +817,18 @@ namespace DavxeShop.Persistance
                 .Select(g => new { City = g.Key ?? "Sin ciudad", Count = g.Count() })
                 .ToDictionary(g => g.City, g => g.Count);
 
-            var prevUsersByCity = _context.Users
+            var prevCities = _context.Users
                 .Where(u => u.BirthDate >= hace60Dias && u.BirthDate < hace30Dias)
-                .GroupBy(u => u.City)
-                .Select(g => new { City = g.Key ?? "Sin ciudad", Count = g.Count() })
-                .ToDictionary(g => g.City, g => g.Count);
+                .Select(u => u.City ?? "Sin ciudad")
+                .Distinct()
+                .ToHashSet();
 
-            var usersByCityTrend = new Dictionary<string, int>();
-            foreach (var kvp in usersByCity)
-            {
-                var ciudad = kvp.Key;
-                var actual = kvp.Value;
-                var anterior = prevUsersByCity.ContainsKey(ciudad) ? prevUsersByCity[ciudad] : 0;
+            var currentCities = usersByCity.Keys;
 
-                usersByCityTrend[ciudad] = CompareTrend(actual, anterior);
-            }
+            var usersByCityTrend = currentCities.ToDictionary(
+                ciudad => ciudad,
+                ciudad => !prevCities.Contains(ciudad)
+            );
 
             var usersUltimas4Semanas = _context.Users
                 .Where(u => u.BirthDate >= now.AddDays(-28))
@@ -865,6 +862,210 @@ namespace DavxeShop.Persistance
                     Labels = agrupadoPorSemana.Select(x => x.Semana).ToList(),
                     Data = agrupadoPorSemana.Select(x => x.Cantidad).ToList()
                 }
+            };
+        }
+
+        public ProductDashboardDto GetProductsData()
+        {
+            var now = DateTime.UtcNow;
+            var hace30Dias = now.AddDays(-30);
+            var hace60Dias = now.AddDays(-60);
+
+            var total = _context.Productos.Count();
+            var prevTotal = _context.Productos.Count(p => p.FechaPublicacion >= hace60Dias && p.FechaPublicacion < hace30Dias);
+            int totalTrend = CompareTrend(total, prevTotal);
+
+            var topSelling = _context.ProductosCompra.Sum(p => p.Cantidad);
+
+            var prevTopSelling = _context.ProductosCompra
+                .Where(pc => _context.Productos
+                    .Where(p => p.FechaPublicacion >= hace60Dias && p.FechaPublicacion < hace30Dias)
+                    .Select(p => p.ProductoId)
+                    .Contains(pc.ProductoId))
+                .GroupBy(p => p.ProductoId)
+                .Select(g => g.Sum(x => x.Cantidad))
+                .OrderByDescending(s => s)
+                .FirstOrDefault();
+
+            int topSellingTrend = CompareTrend(topSelling, prevTopSelling);
+
+            var recent = _context.Productos.Count(p => p.FechaPublicacion >= hace30Dias);
+            var prevRecent = _context.Productos.Count(p => p.FechaPublicacion >= hace60Dias && p.FechaPublicacion < hace30Dias);
+            int recentTrend = CompareTrend(recent, prevRecent);
+
+            var categories = _context.Productos.Where(p => p.CategoriaId != null).Select(p => p.CategoriaId).Distinct().Count();
+            var prevCategories = _context.Productos
+                .Where(p => p.FechaPublicacion >= hace60Dias && p.FechaPublicacion < hace30Dias && p.CategoriaId != null)
+                .Select(p => p.CategoriaId)
+                .Distinct()
+                .Count();
+            int categoriesTrend = CompareTrend(categories, prevCategories);
+
+            var hace28Dias = now.AddDays(-28);
+            var productosUltimas4Semanas = _context.Productos
+                .Where(p => p.FechaPublicacion >= hace28Dias)
+                .ToList();
+
+            var agrupadoPorSemana = productosUltimas4Semanas
+                .GroupBy(p => CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(
+                    p.FechaPublicacion,
+                    CalendarWeekRule.FirstDay,
+                    DayOfWeek.Monday))
+                .OrderBy(g => g.Key)
+                .Select(g => new
+                {
+                    Semana = "Semana " + g.Key,
+                    Cantidad = g.Count()
+                })
+                .ToList();
+
+            return new ProductDashboardDto
+            {
+                Total = total,
+                TotalTrend = totalTrend,
+
+                TopSelling = topSelling,
+                TopSellingTrend = topSellingTrend,
+
+                Recent = recent,
+                RecentTrend = recentTrend,
+
+                Categories = categories,
+                CategoriesTrend = categoriesTrend,
+
+                WeeklyActivity = new WeeklyActivityDto
+                {
+                    Labels = agrupadoPorSemana.Select(x => x.Semana).ToList(),
+                    Data = agrupadoPorSemana.Select(x => x.Cantidad).ToList()
+                }
+            };
+        }
+        public ResumenVentasDto GetVentasData()
+        {
+            var hoy = DateTime.UtcNow;
+            var inicioMesActual = new DateTime(hoy.Year, hoy.Month, 1);
+            var inicioMesAnterior = inicioMesActual.AddMonths(-1);
+            var finMesAnterior = inicioMesActual.AddDays(-1);
+
+            var compras = _context.Compras.ToList();
+
+            var comprasMesActual = compras.Where(c => c.FechaCompra >= inicioMesActual && c.FechaCompra <= hoy);
+            var comprasMesAnterior = compras.Where(c => c.FechaCompra >= inicioMesAnterior && c.FechaCompra <= finMesAnterior);
+
+            var ingresosTotales = compras.Sum(c => c.Total);
+            var ingresosMesActual = comprasMesActual.Sum(c => c.Total);
+            var ingresosMesAnterior = comprasMesAnterior.Sum(c => c.Total);
+
+            var totalVentas = compras.Count();
+            var totalVentasAnterior = comprasMesAnterior.Count();
+
+            var promedioActual = totalVentas > 0 ? ingresosTotales / totalVentas : 0;
+            var promedioAnterior = totalVentasAnterior > 0 ? ingresosMesAnterior / totalVentasAnterior : 0;
+
+            var ventasPorSemana = compras
+                .GroupBy(c => ISOWeek.GetWeekOfYear(c.FechaCompra))
+                .Select(g => new VentaSemanalDto
+                {
+                    Semana = $"Semana {g.Key}",
+                    TotalDinero = g.Sum(c => c.Total)
+                })
+                .OrderBy(v => v.Semana)
+                .ToList();
+
+            decimal CalcularTrend(decimal actual, decimal anterior)
+            {
+                return anterior == 0 ? 0 : ((actual - anterior) / anterior) * 100;
+            }
+
+            return new ResumenVentasDto
+            {
+                VentasMensuales = ingresosMesActual,
+                VentasMensualesTrend = CalcularTrend(ingresosMesActual, ingresosMesAnterior),
+
+                VentasTotales = ingresosTotales,
+                VentasTotalesTrend = CalcularTrend(ingresosTotales, ingresosTotales - ingresosMesActual),
+
+                Ingresos = ingresosTotales,
+                IngresosTrend = CalcularTrend(ingresosMesActual, ingresosMesAnterior),
+
+                PromedioPorVenta = promedioActual,
+                PromedioPorVentaTrend = CalcularTrend(promedioActual, promedioAnterior),
+
+                VentasSemanales = ventasPorSemana
+            };
+        }
+
+        public ResumenChatResponse GetChatData()
+        {
+            var now = DateTime.UtcNow;
+
+            var startCurrentMonth = new DateTime(now.Year, now.Month, 1);
+            var startPreviousMonth = startCurrentMonth.AddMonths(-1);
+            var startTwoMonthsAgo = startCurrentMonth.AddMonths(-2);
+
+            int totalMessagesCurrent = _context.Mensajes.Count();
+            int totalMessagesPrevious = _context.Mensajes
+                .Count(m => m.FechaEnvio >= startTwoMonthsAgo && m.FechaEnvio < startPreviousMonth);
+
+            int totalConversationsCurrent = _context.Conversaciones.Count();
+            int totalConversationsPrevious = _context.Conversaciones
+                .Count(c => c.FechaCreacion >= startTwoMonthsAgo && c.FechaCreacion < startPreviousMonth);
+
+            var mensajesPorConversacion = _context.Mensajes
+                .GroupBy(m => m.ConversacionId)
+                .Select(g => new
+                {
+                    ConversacionId = g.Key,
+                    MensajesCount = g.Count()
+                }).ToList();
+
+            int totalResponsesCurrent = _context.Mensajes.Count() - _context.Conversaciones.Count();
+
+            int totalResponsesPrevious = _context.Mensajes
+                .Where(m => m.FechaEnvio >= startTwoMonthsAgo && m.FechaEnvio < startPreviousMonth)
+                .Count() - _context.Conversaciones
+                    .Where(c => c.FechaCreacion >= startTwoMonthsAgo && c.FechaCreacion < startPreviousMonth)
+                    .Count();
+
+            int recentChatsCurrent = _context.Conversaciones.Count(c => c.FechaCreacion >= now.AddDays(-7));
+            int recentChatsPrevious = _context.Conversaciones.Count(c => c.FechaCreacion >= now.AddDays(-14) && c.FechaCreacion < now.AddDays(-7));
+
+            double CalculateTrend(int current, int previous)
+            {
+                if (previous == 0) return current > 0 ? 100 : 0;
+                return ((double)(current - previous) / previous) * 100;
+            }
+
+            var weeklyActivity = _context.Mensajes
+                .Where(m => m.FechaEnvio >= now.AddDays(-28))
+                .AsEnumerable()
+                .GroupBy(m => System.Globalization.CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(
+                    m.FechaEnvio,
+                    System.Globalization.CalendarWeekRule.FirstFourDayWeek,
+                    DayOfWeek.Monday))
+                .Select(g => new SemanaActividad
+                {
+                    Semana = "Semana " + g.Key,
+                    TotalMensajes = g.Count()
+                })
+                .OrderBy(sa => sa.Semana)
+                .ToList();
+
+            return new ResumenChatResponse
+            {
+                TotalMessages = totalMessagesCurrent,
+                TotalMessagesTrend = CalculateTrend(totalMessagesCurrent, totalMessagesPrevious),
+
+                TotalConversations = totalConversationsCurrent,
+                TotalConversationsTrend = CalculateTrend(totalConversationsCurrent, totalConversationsPrevious),
+
+                TotalResponses = totalResponsesCurrent,
+                TotalResponsesTrend = CalculateTrend(totalResponsesCurrent, totalResponsesPrevious),
+
+                RecentChats = recentChatsCurrent,
+                RecentChatsTrend = CalculateTrend(recentChatsCurrent, recentChatsPrevious),
+
+                WeeklyActivity = weeklyActivity
             };
         }
 
