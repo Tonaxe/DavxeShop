@@ -24,7 +24,7 @@
     <div class="linea-decorativa"></div>
   </div>
   <app-slider [productos]="productosAleatorios"></app-slider>
-  <div *ngFor="let usuario of userProducts; let i = index" class="seccion-usuario">
+  <div *ngFor="let usuario of userProducts; let i = index" class="seccion-usuario" [routerLink]="['/persona', usuario.nombre, usuario.userId]">
     <div class="encabezado-seccion">
       <h3 class="subtitulo">Productos de {{ usuario.nombre }}</h3>
     </div>

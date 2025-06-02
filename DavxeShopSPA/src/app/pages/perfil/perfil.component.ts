@@ -7,7 +7,7 @@ import { UpdateProfile } from '../../models/user.model';
   selector: 'app-perfil',
   standalone: false,
   templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.css'] 
+  styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
   profile = {
@@ -23,7 +23,7 @@ export class PerfilComponent implements OnInit {
   isEditing = false;
   originalProfile: any = {};
 
-  constructor(private router: Router, private apiService: ApiService) {}
+  constructor(private router: Router, private apiService: ApiService) { }
 
   ngOnInit(): void {
     const sessionUser = sessionStorage.getItem('user');
@@ -44,37 +44,35 @@ export class PerfilComponent implements OnInit {
     this.isEditing = true;
   }
 
- onSaveChanges() {
-  const sessionUser = sessionStorage.getItem('user');
-  if (!sessionUser) return;
+  onSaveChanges() {
+    const sessionUser = sessionStorage.getItem('user');
+    if (!sessionUser) return;
 
-  const user = JSON.parse(sessionUser).user;
+    const user = JSON.parse(sessionUser).user;
 
-  const updateRequest: UpdateProfile = {
-    userId: user.userId,
-    name: this.profile.name,
-    email: this.profile.email,
-    birthDate: this.profile.birthDate,
-    dni: this.profile.dni,
-    city: this.profile.city,
-    imageBase64: this.profile.imageBase64,
-    password: this.profile.password || undefined
-  };
+    const updateRequest: UpdateProfile = {
+      userId: user.userId,
+      name: this.profile.name,
+      email: this.profile.email,
+      birthDate: this.profile.birthDate,
+      dni: this.profile.dni,
+      city: this.profile.city,
+      imageBase64: this.profile.imageBase64,
+      password: this.profile.password || undefined
+    };
 
-  this.apiService.updateProfile(updateRequest).subscribe({
-    next: (response) => {
-      const updatedUser = { ...user, ...updateRequest };
-      sessionStorage.setItem('user', JSON.stringify({ user: updatedUser }));
-      this.originalProfile = { ...this.profile };
-      this.isEditing = false;
-    },
-    error: (err) => {
-      console.error('Error al actualizar el perfil:', err);
-    }
-  });
-}
-
-
+    this.apiService.updateProfile(updateRequest).subscribe({
+      next: (response) => {
+        const updatedUser = { ...user, ...updateRequest };
+        sessionStorage.setItem('user', JSON.stringify({ user: updatedUser }));
+        this.originalProfile = { ...this.profile };
+        this.isEditing = false;
+      },
+      error: (err) => {
+        console.error('Error al actualizar el perfil:', err);
+      }
+    });
+  }
 
   onCancel() {
     this.profile = { ...this.originalProfile };
@@ -95,5 +93,4 @@ export class PerfilComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-  
 }

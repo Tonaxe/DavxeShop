@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { User } from '../../models/user.model';
 import { Producto, ProductosResponse } from '../../models/product.model';
@@ -15,27 +15,54 @@ export class MyProductsComponent implements OnInit {
   user!: User;
   productos: Producto[] = [];
   estados: Estado[] = [];
+  miUserId!: number;
 
-  constructor(private router: Router, private apiService: ApiService) {}
+  constructor(private router: Router, private apiService: ApiService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    const sessionUser = sessionStorage.getItem('user');
+    if (sessionUser) {
+      this.miUserId = JSON.parse(sessionUser).user.userId;
+    }
+
+    this.route.paramMap.subscribe(params => {
+      const userIdParam = params.get('userId');
+      if (userIdParam) {
+        const userId = Number(userIdParam);
+        this.cargarDatosUsuario(userId);
+      } else if (sessionUser) {
+        this.user = JSON.parse(sessionUser).user as User;
+        this.cargarProductos(this.user.userId);
+      }
+    });
+
     const estadosJson = sessionStorage.getItem('estados');
     if (estadosJson) {
       this.estados = JSON.parse(estadosJson);
     }
-    
-    const sessionUser = sessionStorage.getItem('user');
-    if (sessionUser) {
-      this.user = JSON.parse(sessionUser).user as User;
-      this.apiService.getProductosPorUsuario(this.user.userId).subscribe({
-        next: (res: ProductosResponse) => {
-          this.productos = res.productos;
-        },
-        error: (err) => {
-          console.error(err);
-        }
-      });
-    }
+  }
+
+  cargarDatosUsuario(userId: number): void {
+    this.apiService.getUserById(userId).subscribe({
+      next: (userData: any) => {
+        this.user = userData.user;
+        this.cargarProductos(userId);
+      },
+      error: (err) => {
+        console.error('Error al cargar usuario', err);
+      }
+    });
+  }
+
+  cargarProductos(userId: number): void {
+    this.apiService.getProductosPorUsuario(userId).subscribe({
+      next: (res: ProductosResponse) => {
+        this.productos = res.productos;
+      },
+      error: (err) => {
+        console.error('Error al cargar productos', err);
+      }
+    });
   }
 
   navigateToAddProduct(): void {
@@ -56,8 +83,7 @@ export class MyProductsComponent implements OnInit {
 
   formatEstado(estadoId: number): string {
     const estado = this.estados.find(e => e.estadoId === estadoId);
-    if (!estado) return 'estado-desconocido';
-    return 'estado-' + estado.nombre.toLowerCase().replace(/\s/g, '-');
+    return estado ? 'estado-' + estado.nombre.toLowerCase().replace(/\s/g, '-') : 'estado-desconocido';
   }
 
   getNombreEstado(estadoId: number): string {

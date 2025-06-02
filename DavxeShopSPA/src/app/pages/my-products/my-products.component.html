@@ -1,4 +1,4 @@
-<div class="perfil-contenedor">
+<div class="perfil-contenedor" *ngIf="user">
   <div class="perfil-usuario">
     <img *ngIf="user.imageBase64" [src]="user.imageBase64" [routerLink]="['/perfil']" alt="Foto de perfil"
       class="foto-usuario-grande" />
@@ -6,9 +6,13 @@
       <h2>Productos de {{ user.name }}</h2>
       <p>{{ productos.length }} productos publicados</p>
     </div>
-    <button class="btn-anadir-producto" (click)="navigateToAddProduct()">+</button>
+    <button *ngIf="user.userId === miUserId" class="btn-anadir-producto" (click)="navigateToAddProduct()">+</button>
   </div>
-  <h3 class="subtitulo">Mis productos publicados</h3>
+
+  <h3 class="subtitulo">
+    {{ user.userId === miUserId ? 'Mis productos publicados' : 'Productos publicados por ' + user.name }}
+  </h3>
+
   <div class="grid-productos">
     <div *ngFor="let producto of productos" class="producto-usuario" [class.comprado]="producto.comprado"
       (click)="!producto.comprado && verDetalle(producto)">

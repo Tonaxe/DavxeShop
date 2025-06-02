@@ -26,6 +26,7 @@ export const routes: Routes = [
     { path: 'recover-password', component: RecuperarContrasenaComponent },
     { path: 'reset-password', component: ResetPasswordComponent },
     { path: 'my-products', component: MyProductsComponent },
+    { path: 'persona/:nombre/:userId', component: MyProductsComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'add-product', component: AddProductComponent },
     { path: 'chat/:conversationId', component: ChatComponent },
