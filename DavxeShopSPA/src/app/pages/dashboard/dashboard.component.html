@@ -32,8 +32,7 @@
         {{ getSectionTitle() }}
       </h1>
       <div class="header-actions">
-        <button class="btn-action"><i class="fas fa-bell"></i></button>
-        <button class="btn-action"><i class="fas fa-cog"></i></button>
+        <button class="btn-action" (click)="redirectToLogin()"><i class="fas fa-door-open"></i></button>
       </div>
     </header>
     <section *ngIf="selectedSection === 'usuarios'" class="dashboard-section">

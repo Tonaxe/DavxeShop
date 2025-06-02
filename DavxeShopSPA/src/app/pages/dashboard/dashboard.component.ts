@@ -3,6 +3,7 @@ import { Chart, ChartType, ChartConfiguration, registerables } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { ApiService } from '../../services/api.service';
 import { DatosChat, ResponseDashboard, ResumenChatResponse, ResumenVentasResponse, SemanaActividad, VentaSemanal } from '../../models/dashboard.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,9 +14,13 @@ import { DatosChat, ResponseDashboard, ResumenChatResponse, ResumenVentasRespons
 export class DashboardComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
+  
   public chartType: 'bar' = 'bar';
   selectedSection: string = 'usuarios';
-
+  redirectToLogin() {
+  // Opción 1: Usando Router de Angular
+  this.router.navigate(['/login']);
+}
   userData = {
     total: 0,
     totalTrend: 0,
@@ -100,7 +105,7 @@ export class DashboardComponent implements OnInit {
     }
   };
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private router: Router) {
     Chart.register(...registerables);
   }
 
