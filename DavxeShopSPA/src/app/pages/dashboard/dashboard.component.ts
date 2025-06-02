@@ -1,6 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Chart, ChartType, ChartConfiguration, registerables } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { ApiService } from '../../services/api.service';
+import { ResponseDashboard } from '../../models/dashboard.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,18 +10,21 @@ import { BaseChartDirective } from 'ng2-charts';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   public chartType: 'bar' = 'bar';
-  selectedSection: string = 'usuarios'; // Mostrar usuarios por defecto
+  selectedSection: string = 'usuarios';
 
-  // Datos de ejemplo para las tarjetas
   userData = {
-    total: 1245,
-    new: 84,
-    active: 892,
-    cities: 15
+    total: 0,
+    totalTrend: 0,
+    new: 0,
+    newTrend: 0,
+    active: 0,
+    activeTrend: 0,
+    cities: 0,
+    citiesTrend: 0
   };
 
   productData = {
@@ -50,29 +55,9 @@ export class DashboardComponent {
     topSellers: 5
   };
 
-  selectSection(section: string) {
-    this.selectedSection = section;
-    this.updateChart();
-  }
-
   public chartData: ChartConfiguration<'bar'>['data'] = {
-    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-    datasets: [
-      {
-        label: 'Usuarios nuevos',
-        data: [30, 50, 70, 40, 90, 120],
-        backgroundColor: 'rgba(67, 97, 238, 0.7)',
-        borderColor: 'rgba(67, 97, 238, 1)',
-        borderWidth: 1
-      },
-      {
-        label: 'Ventas',
-        data: [20, 40, 60, 30, 80, 100],
-        backgroundColor: 'rgba(76, 201, 240, 0.7)',
-        borderColor: 'rgba(76, 201, 240, 1)',
-        borderWidth: 1
-      }
-    ]
+    labels: [],
+    datasets: []
   };
 
   public chartOptions: ChartConfiguration<'bar'>['options'] = {
@@ -82,9 +67,7 @@ export class DashboardComponent {
       legend: {
         position: 'top',
         labels: {
-          font: {
-            size: 14
-          }
+          font: { size: 14 }
         }
       },
       title: {
@@ -99,40 +82,68 @@ export class DashboardComponent {
       y: {
         beginAtZero: true,
         ticks: {
-          font: {
-            size: 12
-          }
+          font: { size: 12 }
         }
       },
       x: {
         ticks: {
-          font: {
-            size: 12
-          }
+          font: { size: 12 }
         }
       }
     }
   };
 
-  constructor() {
+  constructor(private apiService: ApiService) {
     Chart.register(...registerables);
+  }
+
+  ngOnInit(): void {
+    this.loadUserStats();
+  }
+
+  selectSection(section: string) {
+    this.selectedSection = section;
+    if (section === 'usuarios') {
+      this.loadUserStats();
+    } else {
+      this.updateChart();
+    }
+  }
+
+  loadUserStats(): void {
+    this.apiService.getUsersData().subscribe((res: ResponseDashboard) => {
+      const data = res.datos;
+
+      this.userData = {
+        total: data.totalUsers,
+        totalTrend: data.totalUsersTrend,
+        new: data.newUsers,
+        newTrend: data.newUsersTrend,
+        active: data.activeUsers,
+        activeTrend: data.activeUsersTrend,
+        cities: data.usersByCity ? Object.keys(data.usersByCity).length : 0,
+        citiesTrend: 0
+      };
+
+      this.chartData = {
+        labels: data.weeklyActivity?.labels ?? [],
+        datasets: [
+          {
+            label: 'Usuarios activos por semana',
+            data: data.weeklyActivity?.data ?? [],
+            backgroundColor: 'rgba(67, 97, 238, 0.7)',
+            borderColor: 'rgba(67, 97, 238, 1)',
+            borderWidth: 1,
+          }
+        ]
+      };
+
+      this.chart?.update();
+    });
   }
 
   updateChart() {
     switch (this.selectedSection) {
-      case 'usuarios':
-        this.chartData = {
-          labels: ['Enero', 'Febrero', 'Marzo'],
-          datasets: [
-            {
-              label: 'Usuarios nuevos',
-              data: [50, 60, 70],
-              backgroundColor: 'rgba(67, 97, 238, 0.7)'
-            }
-          ]
-        };
-        break;
-
       case 'productos':
         this.chartData = {
           labels: ['Electrónica', 'Ropa', 'Hogar'],
@@ -191,20 +202,12 @@ export class DashboardComponent {
 
   getSectionTitle(): string {
     switch (this.selectedSection) {
-      case 'usuarios':
-        return 'Gestión de Usuarios';
-      case 'productos':
-        return 'Inventario de Productos';
-      case 'ventas':
-        return 'Resumen de Ventas';
-      case 'chat':
-        return 'Mensajes y Soporte';
-      case 'tendencias':
-        return 'Tendencias del Mercado';
-      default:
-        return 'Dashboard';
+      case 'usuarios': return 'Gestión de Usuarios';
+      case 'productos': return 'Inventario de Productos';
+      case 'ventas': return 'Resumen de Ventas';
+      case 'chat': return 'Mensajes y Soporte';
+      case 'tendencias': return 'Tendencias del Mercado';
+      default: return 'Dashboard';
     }
   }
-
-
 }

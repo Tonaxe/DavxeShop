@@ -225,3 +225,26 @@
   height: 24px;
   fill: white; /* hereda color */
 }
+
+.trend-arrow {
+  margin-left: 0.5em;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+}
+
+.trend-arrow.up {
+  color: #28a745; /* verde */
+}
+
+.trend-arrow.down {
+  color: #dc3545; /* rojo */
+}
+
+.no-trend {
+  margin-left: 0.5em;
+  color: #999999;
+  font-weight: bold;
+  font-size: 1.2em;
+  user-select: none;
+}

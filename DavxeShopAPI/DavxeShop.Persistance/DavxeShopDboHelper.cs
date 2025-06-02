@@ -782,5 +782,97 @@ namespace DavxeShop.Persistance
                 ProductoFotoUrl = producto.ImagenUrl
             };
         }
+
+        public DashboardUsuariosDto GetUsersData()
+        {
+            var now = DateTime.UtcNow;
+            var hace30Dias = now.AddDays(-30);
+            var hace60Dias = now.AddDays(-60);
+
+            var totalUsers = _context.Users.Count();
+
+            var prevTotalUsers = _context.Users.Count(u => u.BirthDate < hace30Dias);
+            int totalUsersTrend = CompareTrend(totalUsers, prevTotalUsers);
+
+            var newUsers = _context.Users.Count(u => u.BirthDate >= hace30Dias);
+            var prevNewUsers = _context.Users.Count(u => u.BirthDate >= hace60Dias && u.BirthDate < hace30Dias);
+            int newUsersTrend = CompareTrend(newUsers, prevNewUsers);
+
+            var activeUsers = _context.Sessions
+                .Where(s => s.Started >= hace30Dias)
+                .Select(s => s.UserId)
+                .Distinct()
+                .Count();
+
+            var prevActiveUsers = _context.Sessions
+                .Where(s => s.Started >= hace60Dias && s.Started < hace30Dias)
+                .Select(s => s.UserId)
+                .Distinct()
+                .Count();
+
+            int activeUsersTrend = CompareTrend(activeUsers, prevActiveUsers);
+
+            var usersByCity = _context.Users
+                .GroupBy(u => u.City)
+                .Select(g => new { City = g.Key ?? "Sin ciudad", Count = g.Count() })
+                .ToDictionary(g => g.City, g => g.Count);
+
+            var prevUsersByCity = _context.Users
+                .Where(u => u.BirthDate >= hace60Dias && u.BirthDate < hace30Dias)
+                .GroupBy(u => u.City)
+                .Select(g => new { City = g.Key ?? "Sin ciudad", Count = g.Count() })
+                .ToDictionary(g => g.City, g => g.Count);
+
+            var usersByCityTrend = new Dictionary<string, int>();
+            foreach (var kvp in usersByCity)
+            {
+                var ciudad = kvp.Key;
+                var actual = kvp.Value;
+                var anterior = prevUsersByCity.ContainsKey(ciudad) ? prevUsersByCity[ciudad] : 0;
+
+                usersByCityTrend[ciudad] = CompareTrend(actual, anterior);
+            }
+
+            var usersUltimas4Semanas = _context.Users
+                .Where(u => u.BirthDate >= now.AddDays(-28))
+                .ToList();
+
+            var agrupadoPorSemana = usersUltimas4Semanas
+                .GroupBy(u => System.Globalization.CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(
+                    u.BirthDate,
+                    System.Globalization.CalendarWeekRule.FirstDay,
+                    DayOfWeek.Monday))
+                .OrderBy(g => g.Key)
+                .Select(g => new
+                {
+                    Semana = "Semana " + g.Key,
+                    Cantidad = g.Count()
+                })
+                .ToList();
+
+            return new DashboardUsuariosDto
+            {
+                TotalUsers = totalUsers,
+                TotalUsersTrend = totalUsersTrend,
+                NewUsers = newUsers,
+                NewUsersTrend = newUsersTrend,
+                ActiveUsers = activeUsers,
+                ActiveUsersTrend = activeUsersTrend,
+                UsersByCity = usersByCity,
+                UsersByCityTrend = usersByCityTrend,
+                WeeklyActivity = new WeeklyActivityDto
+                {
+                    Labels = agrupadoPorSemana.Select(x => x.Semana).ToList(),
+                    Data = agrupadoPorSemana.Select(x => x.Cantidad).ToList()
+                }
+            };
+        }
+
+        private int CompareTrend(int current, int previous)
+        {
+            if (current > previous) return 1;
+            if (current < previous) return -1;
+            return 0;
+        }
     }
 }

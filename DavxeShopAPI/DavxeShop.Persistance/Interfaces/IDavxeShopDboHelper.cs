@@ -49,5 +49,6 @@ namespace DavxeShop.Persistance.Interfaces
         bool DeleteFavorito(int userId, int productoId);
         List<ProductoDTO> GetFavoritUsersProducts(int userId);
         ContraOfertaResponseDto EnviarContraOferta(int userId, ContraOfertaDto dto);
+        DashboardUsuariosDto GetUsersData();
     }
 }
