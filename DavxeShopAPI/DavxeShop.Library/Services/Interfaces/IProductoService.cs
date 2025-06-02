@@ -11,5 +11,6 @@ namespace DavxeShop.Library.Services.Interfaces
         ProductoDTO? GetProductosByProductoId(int productoId);
         List<ProductoDTO> GetSearchedProducts(string query);
         bool EditProduct(ProductoDTO producto);
+        bool DeleteProduct(int productId);
     }
 }

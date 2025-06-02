@@ -44,5 +44,6 @@ namespace DavxeShop.Persistance.Interfaces
         int ObtenerConversacionIdPorMensajeId(int mensajeId);
         bool EditarMensaje(int mensajeId, EditarMensajeDto dto);
         bool EditProduct(ProductoDTO producto);
+        bool DeleteProduct(int productId);
     }
 }

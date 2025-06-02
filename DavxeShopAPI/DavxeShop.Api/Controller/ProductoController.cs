@@ -85,14 +85,41 @@ namespace DavxeShop.Api.Controller
                 return NotFound(new { message = "El usuario no existe." });
             }
 
-            bool productAdded = _productoService.EditProduct(request);
+            bool productEdited = _productoService.EditProduct(request);
 
-            if (!productAdded)
+            if (!productEdited)
             {
-                return StatusCode(500, new { message = "El producto no se ha añadido." });
+                return StatusCode(500, new { message = "El producto no se ha editado." });
             }
 
-            return Ok(new { message = "El producto se ha añadido correctamente" });
+            return Ok(new { message = "El producto se ha editado correctamente" });
+        }
+
+        [HttpDelete("producto/{productId}")]
+        public IActionResult DeleteProduct(int productId)
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(new { message = "No se ha enviado el token." });
+            }
+
+            var tokenIsValid = _validations.ValidToken(token);
+
+            if (!tokenIsValid)
+            {
+                return Unauthorized(new { message = "El token es incorrecto." });
+            }
+
+            bool productDeleted = _productoService.DeleteProduct(productId);
+
+            if (!productDeleted)
+            {
+                return StatusCode(500, new { message = "El producto no se ha eliminado." });
+            }
+
+            return Ok(new { message = "El producto se ha eliminado correctamente" });
         }
 
         [HttpGet("productos/users/{userId}")]

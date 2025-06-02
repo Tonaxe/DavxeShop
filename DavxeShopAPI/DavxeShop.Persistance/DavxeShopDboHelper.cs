@@ -658,5 +658,17 @@ namespace DavxeShop.Persistance
             _context.SaveChanges();
             return true;
         }
+
+        public bool DeleteProduct(int productId)
+        {
+            var producto = _context.Productos.FirstOrDefault(c => c.ProductoId == productId);
+
+            if (producto == null)
+                return false;
+
+            _context.Productos.Remove(producto);
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

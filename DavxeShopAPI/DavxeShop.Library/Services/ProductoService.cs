@@ -22,6 +22,10 @@ namespace DavxeShop.Library.Services
         {
             return _davxeShopDboHelper.EditProduct(producto);
         }
+        public bool DeleteProduct(int productId)
+        {
+            return _davxeShopDboHelper.DeleteProduct(productId);
+        }
 
         public List<ProductoDTO> GetProductosByUserId(int userId)
         {

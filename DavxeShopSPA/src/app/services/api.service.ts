@@ -136,4 +136,8 @@ export class ApiService {
   editarProducto(producto: Producto): Observable<any> {
     return this.http.patch(`${this.baseUrl}producto`, producto, { headers: this.getHeaders() });
   }
+
+  deleteProduct(productoId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}producto/${productoId}`, { headers: this.getHeaders() });
+  }
 }

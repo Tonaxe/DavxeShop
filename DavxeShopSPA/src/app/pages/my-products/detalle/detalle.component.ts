@@ -151,9 +151,14 @@ export class DetalleComponent implements OnInit {
   }
 
   eliminarProducto(): void {
-    console.log('Simulando eliminación de producto');
-    alert('Producto eliminado (simulado)');
-    this.router.navigate(['/my-products']);
+    this.apiService.deleteProduct(this.producto.productoId).subscribe({
+        next: () => {
+          this.router.navigate(['/my-products']);
+        },
+        error: (err: any) => {
+          console.error('Error al actualizar producto:', err);
+        }
+      });
   }
 
   getCategoriaNombre(categoriaId: number): string {
