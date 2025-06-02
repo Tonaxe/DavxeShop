@@ -15,5 +15,6 @@
 
         public virtual Estado Estado { get; set; } = null!;
         public virtual User User { get; set; } = null!;
+        public virtual ICollection<Favorito> Favoritos { get; set; } = new List<Favorito>();
     }
 }

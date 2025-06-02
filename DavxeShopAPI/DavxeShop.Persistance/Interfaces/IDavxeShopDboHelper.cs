@@ -28,7 +28,7 @@ namespace DavxeShop.Persistance.Interfaces
         List<ProductoDTO> GetRandomProductos();
         List<CategoriaDTO> GetAllCategorias();
         List<UserProductsDTO> GetRandomProductosUsers();
-        ProductoDTO? GetProductosByProductoId(int productoId);
+        ProductoDTO? GetProductosByProductoId(int productoId, int loggedUserId);
         List<EstadoDTO> GetAllEstados();
         List<ProductoDTO> GetProductosByCategoria(int categoriaId);
         List<ProductoDTO> GetSearchedProducts(string query);
@@ -45,5 +45,7 @@ namespace DavxeShop.Persistance.Interfaces
         bool EditarMensaje(int mensajeId, EditarMensajeDto dto);
         bool EditProduct(ProductoDTO producto);
         bool DeleteProduct(int productId);
+        bool AddFavorito(FavoritoDTO favoritoDto);
+        bool DeleteFavorito(int userId, int productoId);
     }
 }

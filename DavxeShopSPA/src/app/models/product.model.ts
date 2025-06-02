@@ -11,6 +11,7 @@ export interface Producto {
   userCiudad: string;
   estado: number;
   comprado: boolean;
+  favorito: boolean;
 }
 
 export interface ProductosResponse {

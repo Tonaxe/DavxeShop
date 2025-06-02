@@ -45,7 +45,8 @@ export class ComprarComponent {
       userNombre: '',
       userCiudad: '',
       estado: 0,
-      comprado: false
+      comprado: false,
+      favorito: false
     };
   }
 

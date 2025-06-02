@@ -21,5 +21,6 @@
         public virtual ICollection<Conversacion> ConversacionesComoComprador { get; set; } = new List<Conversacion>();
         public virtual ICollection<Conversacion> ConversacionesComoVendedor { get; set; } = new List<Conversacion>();
         public virtual ICollection<Mensaje> MensajesEnviados { get; set; } = new List<Mensaje>();
+        public virtual ICollection<Favorito> Favoritos { get; set; } = new List<Favorito>();
     }
 }

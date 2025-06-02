@@ -8,9 +8,11 @@ namespace DavxeShop.Library.Services.Interfaces
         List<ProductoDTO> GetProductosByUserId(int userId);
         List<ProductoDTO> GetRandomProductos();
         List<UserProductsDTO> GetRandomProductosUsers();
-        ProductoDTO? GetProductosByProductoId(int productoId);
+        ProductoDTO? GetProductosByProductoId(int productoId, int loggedUserId);
         List<ProductoDTO> GetSearchedProducts(string query);
         bool EditProduct(ProductoDTO producto);
         bool DeleteProduct(int productId);
+        bool AddFavorito(FavoritoDTO favoritoDto);
+        bool DeleteFavorito(int userId, int productoId);
     }
 }

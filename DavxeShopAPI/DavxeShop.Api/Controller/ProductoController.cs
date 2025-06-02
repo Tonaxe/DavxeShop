@@ -224,8 +224,9 @@ namespace DavxeShop.Api.Controller
             {
                 return Unauthorized(new { message = "El token es incorrecto." });
             }
+            var loggedUserId = _validations.GetUserIdFromToken(token);
 
-            var producto = _productoService.GetProductosByProductoId(productoId);
+            var producto = _productoService.GetProductosByProductoId(productoId, loggedUserId.Value);
 
             if (producto == null)
             {
@@ -257,7 +258,71 @@ namespace DavxeShop.Api.Controller
 
             var productos = _productoService.GetSearchedProducts(query);
 
+            if (productos == null)
+            {
+                return NotFound(new { message = "El producto no existe." });
+            }
+
             return Ok(new { productos = productos });
+        }
+
+        [HttpPost("favoritos")]
+        public IActionResult AddFavorito([FromBody] FavoritoDTO favoritoDto)
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(new { message = "No se ha enviado el token." });
+            }
+
+            var tokenIsValid = _validations.ValidToken(token);
+
+            if (!tokenIsValid)
+            {
+                return Unauthorized(new { message = "El token es incorrecto." });
+            }
+
+            if (favoritoDto == null || HasNullOrEmptyProperties(favoritoDto))
+            {
+                return BadRequest(new { message = "El contenido de la petición está incompleto." });
+            }
+
+            var productos = _productoService.AddFavorito(favoritoDto);
+
+            if (productos == null)
+            {
+                return NotFound(new { message = "El producto no existe." });
+            }
+
+            return Ok(new { message = "Producto agregado a favoritos." });
+        }
+
+        [HttpDelete("favoritos")]
+        public async Task<IActionResult> DeleteFavorito([FromQuery] int userId, [FromQuery] int productoId)
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(new { message = "No se ha enviado el token." });
+            }
+
+            var tokenIsValid = _validations.ValidToken(token);
+
+            if (!tokenIsValid)
+            {
+                return Unauthorized(new { message = "El token es incorrecto." });
+            }
+
+            var resultado = _productoService.DeleteFavorito(userId, productoId);
+
+            if (!resultado)
+            {
+                return NotFound(new { message = "Favorito no encontrado o no pudo ser eliminado" });
+            }
+
+            return Ok(new { message = "Producto se ha eliminado de favoritos." });
         }
 
         private bool HasNullOrEmptyProperties(object obj)

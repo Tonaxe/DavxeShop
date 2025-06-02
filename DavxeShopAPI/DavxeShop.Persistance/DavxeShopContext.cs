@@ -19,6 +19,8 @@ namespace DavxeShop.Persistance
         public DbSet<ProductoCompra> ProductosCompra { get; set; } = null!;
         public DbSet<Conversacion> Conversaciones { get; set; }
         public DbSet<Mensaje> Mensajes { get; set; }
+        public DbSet<Favorito> Favoritos { get; set; } = null!;
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,6 +38,7 @@ namespace DavxeShop.Persistance
             modelBuilder.ApplyConfiguration(new ProductoCompraConfig());
             modelBuilder.ApplyConfiguration(new ConversacionConfiguration());
             modelBuilder.ApplyConfiguration(new MensajeConfiguration());
+            modelBuilder.ApplyConfiguration(new FavoritoConfig());
         }
     }
 }

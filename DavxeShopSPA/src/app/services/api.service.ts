@@ -13,6 +13,7 @@ import { CrearCompraRequest, CrearCompraResponse } from "../models/compra.model"
 import { CrearConversacionDto, CrearMensajeDto } from "../models/chat.model";
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { FavoritoRequest } from "../models/favorito.model";
 
 
 
@@ -132,12 +133,20 @@ export class ApiService {
     const body = { contenido };
     return this.http.patch(`${this.baseUrl}chat/mensaje/${mensajeId}`, body, { headers: this.getHeaders() });
   }
-  
+
   editarProducto(producto: Producto): Observable<any> {
     return this.http.patch(`${this.baseUrl}producto`, producto, { headers: this.getHeaders() });
   }
 
   deleteProduct(productoId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}producto/${productoId}`, { headers: this.getHeaders() });
+  }
+
+  addFavorito(favoritoDto: FavoritoRequest): Observable<string> {
+    return this.http.post<string>(`${this.baseUrl}favoritos`, favoritoDto, { headers: this.getHeaders() });
+  }
+
+  deleteFavorito(userId: number, productoId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}favoritos?userId=${userId}&productoId=${productoId}`, { headers: this.getHeaders() });
   }
 }

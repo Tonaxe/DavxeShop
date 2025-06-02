@@ -42,14 +42,24 @@ namespace DavxeShop.Library.Services
             return _davxeShopDboHelper.GetRandomProductosUsers();
         }
 
-        public ProductoDTO? GetProductosByProductoId(int productoId)
+        public ProductoDTO? GetProductosByProductoId(int productoId, int loggedUserId)
         {
-            return _davxeShopDboHelper.GetProductosByProductoId(productoId);
+            return _davxeShopDboHelper.GetProductosByProductoId(productoId, loggedUserId);
         }
 
         public List<ProductoDTO> GetSearchedProducts(string query)
         {
             return _davxeShopDboHelper.GetSearchedProducts(query);
+        }
+
+        public bool AddFavorito(FavoritoDTO favoritoDto)
+        {
+            return _davxeShopDboHelper.AddFavorito(favoritoDto);
+        }
+
+        public bool DeleteFavorito(int userId, int productoId)
+        {
+            return _davxeShopDboHelper.DeleteFavorito(userId, productoId);
         }
     }
 }

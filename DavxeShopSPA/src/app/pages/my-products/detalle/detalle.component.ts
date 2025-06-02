@@ -29,7 +29,8 @@ export class DetalleComponent implements OnInit {
     userNombre: '',
     userCiudad: '',
     estado: 0,
-    comprado: false
+    comprado: false,
+    favorito: false
   };
   categorias: { categoriaId: number; nombre: string }[] = [];
   esProductoMio: boolean | null = null;
@@ -62,10 +63,7 @@ export class DetalleComponent implements OnInit {
         next: (res: ProductoResponse) => {
           this.producto = res.producto;
           this.esProductoMio = this.user?.userId === this.producto?.userId;
-          console.log(res.producto.estado);
-          console.log('Estados:', this.estados);
-          console.log('Producto estado:', this.producto.estado);
-
+          this.esFavorito = !!res.producto.favorito;
         },
         error: (err: any) => {
           console.error('Error al cargar producto:', err);
@@ -99,8 +97,49 @@ export class DetalleComponent implements OnInit {
     this.productoOriginal = { ...this.producto };
   }
 
+  agregarFavorito(): void {
+    if (!this.user) {
+      console.warn('Usuario no logueado');
+      return;
+    }
+
+    const favoritoDto = {
+      userId: this.user.userId,
+      productoId: this.producto.productoId
+    };
+
+    this.apiService.addFavorito(favoritoDto).subscribe({
+      next: (res: string) => {
+        this.esFavorito = true;
+      },
+      error: (error) => {
+        console.error('Error al agregar favorito:', error);
+      }
+    });
+  }
+
+  quitarFavorito(): void {
+    if (!this.user) {
+      console.warn('Usuario no logueado');
+      return;
+    }
+
+    this.apiService.deleteFavorito(this.user.userId, this.producto.productoId).subscribe({
+      next: () => {
+        this.esFavorito = false;
+      },
+      error: (error) => {
+        console.error('Error al eliminar favorito:', error);
+      }
+    });
+  }
+
   toggleFavorito(): void {
-    this.esFavorito = !this.esFavorito;
+    if (!this.esFavorito) {
+      this.agregarFavorito();
+    } else {
+      this.quitarFavorito();
+    }
   }
 
   volverAtras(): void {
@@ -153,13 +192,13 @@ export class DetalleComponent implements OnInit {
 
   eliminarProducto(): void {
     this.apiService.deleteProduct(this.producto.productoId).subscribe({
-        next: () => {
-          this.router.navigate(['/my-products']);
-        },
-        error: (err: any) => {
-          console.error('Error al actualizar producto:', err);
-        }
-      });
+      next: () => {
+        this.router.navigate(['/my-products']);
+      },
+      error: (err: any) => {
+        console.error('Error al actualizar producto:', err);
+      }
+    });
   }
 
   getCategoriaNombre(categoriaId: number): string {

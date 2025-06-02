@@ -315,7 +315,7 @@ namespace DavxeShop.Persistance
             return resultado;
         }
 
-        public ProductoDTO? GetProductosByProductoId(int productoId)
+        public ProductoDTO? GetProductosByProductoId(int productoId, int loggedUserId)
         {
             try
             {
@@ -333,7 +333,8 @@ namespace DavxeShop.Persistance
                         UserId = p.UserId,
                         UserNombre = p.User.Name,
                         UserCiudad = p.User.City,
-                        Estado = p.Estado.EstadoId
+                        Estado = p.Estado.EstadoId,
+                        Favorito = _context.Favoritos.Any(f => f.ProductoId == productoId && f.UserId == loggedUserId),
                     })
                     .FirstOrDefault();
             }
@@ -671,6 +672,37 @@ namespace DavxeShop.Persistance
                 return false;
 
             _context.Productos.Remove(producto);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool AddFavorito(FavoritoDTO favoritoDto)
+        {
+            bool existe = _context.Favoritos.Any(f => f.UserId == favoritoDto.UserId && f.ProductoId == favoritoDto.ProductoId);
+
+            if (existe)
+                return false;
+
+            var favorito = new Favorito
+            {
+                UserId = favoritoDto.UserId,
+                ProductoId = favoritoDto.ProductoId,
+                FechaCreacion = DateTime.Now
+            };
+
+            _context.Favoritos.Add(favorito);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool DeleteFavorito(int userId, int productoId)
+        {
+            var favorito = _context.Favoritos.FirstOrDefault(f => f.UserId == userId && f.ProductoId == productoId);
+
+            if (favorito == null)
+                return false;
+
+            _context.Favoritos.Remove(favorito);
             _context.SaveChanges();
             return true;
         }
