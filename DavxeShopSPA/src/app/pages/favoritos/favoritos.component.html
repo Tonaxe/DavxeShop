@@ -14,8 +14,8 @@
     <div *ngFor="let producto of favoritos" class="producto-usuario" (click)="verDetalle(producto)">
       <div class="producto-imagen-container">
         <img [src]="producto.imagenUrl" [alt]="producto.nombre" class="producto-imagen" />
-        <span class="estado-badge">
-          {{ producto.estado }}
+        <span class="estado-badge" [ngClass]="formatEstado(producto.estado)">
+          {{ getNombreEstado(producto.estado) }}
         </span>
       </div>
       <div class="producto-info">

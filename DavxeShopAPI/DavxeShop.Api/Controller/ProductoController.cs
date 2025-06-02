@@ -208,6 +208,33 @@ namespace DavxeShop.Api.Controller
             return Ok(new { userProducts = userProducts });
         }
 
+        [HttpGet("favoritos/users/{userId}")]
+        public IActionResult GetFavoritUsersProducts(int userId)
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(new { message = "No se ha enviado el token." });
+            }
+
+            var tokenIsValid = _validations.ValidToken(token);
+
+            if (!tokenIsValid)
+            {
+                return Unauthorized(new { message = "El token es incorrecto." });
+            }
+
+            var userFavoritProducts = _productoService.GetFavoritUsersProducts(userId);
+
+            if (userFavoritProducts == null || !userFavoritProducts.Any())
+            {
+                return NotFound(new { message = "El usuario no tiene productos." });
+            }
+
+            return Ok(new { userFavoritProducts = userFavoritProducts });
+        }
+
         [HttpGet("productos/{productoId}")]
         public IActionResult GetProductosByProductoId(int productoId)
         {

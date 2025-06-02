@@ -47,6 +47,11 @@ namespace DavxeShop.Library.Services
             return _davxeShopDboHelper.GetProductosByProductoId(productoId, loggedUserId);
         }
 
+        public List<ProductoDTO> GetFavoritUsersProducts(int userId)
+        {
+            return _davxeShopDboHelper.GetFavoritUsersProducts(userId);
+        }
+
         public List<ProductoDTO> GetSearchedProducts(string query)
         {
             return _davxeShopDboHelper.GetSearchedProducts(query);

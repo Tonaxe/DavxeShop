@@ -6,7 +6,7 @@ import { RegisterRequest } from "../models/register.model";
 import { ResetPasswordComponentRequest } from "../models/resetPasswordRequest.model";
 import { UpdateProfile, User } from "../models/user.model";
 import { VerifyRecoveryCode } from "../models/verifyRecoveryCode.model";
-import { Producto, ProductoResponse, ProductosResponse, UserProductsResponse } from "../models/product.model";
+import { Producto, ProductoResponse, ProductosFavoritosResponse, ProductosResponse, UserProductsResponse } from "../models/product.model";
 import { CategoriaResponse } from "../models/categoria.model";
 import { EstadoResponse } from "../models/estado.model";
 import { CrearCompraRequest, CrearCompraResponse } from "../models/compra.model";
@@ -148,5 +148,9 @@ export class ApiService {
 
   deleteFavorito(userId: number, productoId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}favoritos?userId=${userId}&productoId=${productoId}`, { headers: this.getHeaders() });
+  }
+
+  getFavoritUsersProducts(userId: number): Observable<ProductosFavoritosResponse> {
+    return this.http.get<ProductosFavoritosResponse>(`${this.baseUrl}favoritos/users/${userId}`, { headers: this.getHeaders() });
   }
 }

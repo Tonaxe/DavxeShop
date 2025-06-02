@@ -706,5 +706,34 @@ namespace DavxeShop.Persistance
             _context.SaveChanges();
             return true;
         }
+
+        public List<ProductoDTO> GetFavoritUsersProducts(int userId)
+        {
+            try
+            {
+                return (from p in _context.Productos
+                        join f in _context.Favoritos on p.ProductoId equals f.ProductoId
+                        where f.UserId == userId
+                        select new ProductoDTO
+                        {
+                            ProductoId = p.ProductoId,
+                            Nombre = p.Nombre,
+                            Descripcion = p.Descripcion,
+                            Precio = p.Precio,
+                            FechaPublicacion = p.FechaPublicacion,
+                            Categoria = p.CategoriaId,
+                            ImagenUrl = p.ImagenUrl,
+                            UserId = p.UserId,
+                            UserNombre = p.User.Name,
+                            UserCiudad = p.User.City,
+                            Estado = p.Estado.EstadoId,
+                            Comprado = _context.ProductosCompra.Any(pc => pc.ProductoId == p.ProductoId)
+                        }).ToList();
+            }
+            catch (Exception)
+            {
+                return new List<ProductoDTO>();
+            }
+        }
     }
 }

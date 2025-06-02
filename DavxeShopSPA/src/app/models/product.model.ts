@@ -18,6 +18,10 @@ export interface ProductosResponse {
   productos: Producto[];
 }
 
+export interface ProductosFavoritosResponse {
+  userFavoritProducts: Producto[];
+}
+
 export interface UsuarioConProductos {
   userId: number;
   nombre: string;
