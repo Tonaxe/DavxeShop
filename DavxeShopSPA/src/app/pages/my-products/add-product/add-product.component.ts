@@ -96,7 +96,6 @@ export class AddProductComponent implements OnInit {
       const imageUrl = await this.subirImagenACloudinary();
       this.form.patchValue({ ImagenUrl: imageUrl });
       const producto: Producto = this.form.value;
-      producto.estado = 1;
 
       this.apiService.addProduct(producto).subscribe({
         next: () => this.router.navigate(['/home']),
