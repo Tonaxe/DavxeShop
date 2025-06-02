@@ -17,12 +17,21 @@ export class ComprarComponent {
   codigoPostal: string = '';
   pais: string = '';
   loading = false;
+  shippingCost: number = 5.99; 
 
   constructor(private router: Router, private apiService: ApiService) {
     const navigation = this.router.getCurrentNavigation();
     this.producto = navigation?.extras.state?.['producto'] || this.getDefaultProduct();
   }
+  
+  get subtotal(): number {
+    return this.producto.precio; 
+  }
 
+  get total(): number {
+    return this.subtotal + this.shippingCost;
+  }
+  
   private getDefaultProduct(): Producto {
     return {
       productoId: 0,
@@ -36,6 +45,7 @@ export class ComprarComponent {
       userNombre: '',
       userCiudad: '',
       estado: 0,
+      comprado: false
     };
   }
 
@@ -56,7 +66,7 @@ export class ComprarComponent {
       pais,
       email,
       productoIds: [this.producto.productoId],
-      total: this.producto.precio
+      total: this.total
     };
 
     this.apiService.crearCompra(compraDto).subscribe({

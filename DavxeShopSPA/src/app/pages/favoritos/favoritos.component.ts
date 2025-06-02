@@ -33,7 +33,8 @@ export class FavoritosComponent implements OnInit {
           estado: 1,
           userId: 101,
           userNombre: 'Juan Pérez',
-          userCiudad: 'Madrid'
+          userCiudad: 'Madrid',
+          comprado: false
         },
         {
           productoId: 2,
@@ -46,11 +47,10 @@ export class FavoritosComponent implements OnInit {
           estado: 1,
           userId: 102,
           userNombre: 'Laura Gómez',
-          userCiudad: 'Barcelona'
+          userCiudad: 'Barcelona',
+          comprado: false
         }
       ];
-
-
     }
   }
 

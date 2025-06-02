@@ -204,6 +204,28 @@
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
 }
 
+.summary-payment {
+  margin-top: 15px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.summary-row.total {
+  font-weight: bold;
+  font-size: 18px;
+  border-top: 1px solid #4CAF50;
+  padding-top: 8px;
+  color: #4CAF50;
+}
+
+
 @media (max-width: 768px) {
   .checkout-layout {
     flex-direction: column;

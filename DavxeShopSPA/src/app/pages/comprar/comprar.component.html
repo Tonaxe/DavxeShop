@@ -18,6 +18,20 @@
           <p class="producto-precio">{{ producto.precio | currency: 'EUR':'symbol':'1.2-2' }}</p>
         </div>
       </div>
+      <div class="summary-payment">
+        <div class="summary-row">
+          <span>Subtotal:</span>
+          <span>{{ subtotal | currency: 'EUR':'symbol':'1.2-2' }}</span>
+        </div>
+        <div class="summary-row">
+          <span>Envío:</span>
+          <span>{{ shippingCost | currency: 'EUR':'symbol':'1.2-2' }}</span>
+        </div>
+        <div class="summary-row total">
+          <strong>Total:</strong>
+          <strong>{{ total | currency: 'EUR':'symbol':'1.2-2' }}</strong>
+        </div>
+      </div>
       <div class="metodos-pago">
         <p>Métodos de pago aceptados:</p>
         <div class="tarjetas">
@@ -30,7 +44,7 @@
 
     <div class="payment-form">
       <form #formCompra="ngForm" (ngSubmit)="cargarDatos(formCompra)" class="formulario-pago" novalidate>
-        
+
         <div class="form-group">
           <label for="tarjeta">Número de tarjeta</label>
           <div class="input-icon">
@@ -39,17 +53,8 @@
               <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
               <line x1="1" y1="10" x2="23" y2="10" />
             </svg>
-            <input
-              type="text"
-              id="tarjeta"
-              name="tarjeta"
-              placeholder="1234 5678 9012 3456"
-              maxlength="19"
-              pattern="[0-9 ]{19}"
-              required
-              ngModel
-              #tarjeta="ngModel"
-            />
+            <input type="text" id="tarjeta" name="tarjeta" placeholder="1234 5678 9012 3456" maxlength="19"
+              pattern="[0-9 ]{19}" required ngModel #tarjeta="ngModel" />
           </div>
           <div *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched)" class="error">
             Número de tarjeta inválido.
@@ -59,17 +64,8 @@
         <div class="form-columns">
           <div class="form-group">
             <label for="fecha">Fecha de expiración</label>
-            <input
-              type="text"
-              id="fecha"
-              name="fecha"
-              placeholder="MM/AA"
-              maxlength="5"
-              pattern="[0-9]{2}/[0-9]{2}"
-              required
-              ngModel
-              #fecha="ngModel"
-            />
+            <input type="text" id="fecha" name="fecha" placeholder="MM/AA" maxlength="5" pattern="[0-9]{2}/[0-9]{2}"
+              required ngModel #fecha="ngModel" />
             <div *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)" class="error">
               Fecha inválida (MM/AA).
             </div>
@@ -83,17 +79,8 @@
                 <circle cx="12" cy="12" r="10" />
                 <circle cx="12" cy="12" r="4" />
               </svg>
-              <input
-                type="text"
-                id="cvv"
-                name="cvv"
-                placeholder="123"
-                maxlength="3"
-                pattern="[0-9]{3}"
-                required
-                ngModel
-                #cvv="ngModel"
-              />
+              <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3" pattern="[0-9]{3}" required ngModel
+                #cvv="ngModel" />
             </div>
             <div *ngIf="cvv.invalid && (cvv.dirty || cvv.touched)" class="error">
               CVV inválido.
@@ -103,15 +90,8 @@
 
         <div class="form-group">
           <label for="nombre">Nombre en la tarjeta</label>
-          <input
-            type="text"
-            id="nombre"
-            name="nombre"
-            placeholder="Nombre Apellido"
-            required
-            ngModel
-            #nombre="ngModel"
-          />
+          <input type="text" id="nombre" name="nombre" placeholder="Nombre Apellido" required ngModel
+            #nombre="ngModel" />
           <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="error">
             Nombre requerido.
           </div>
@@ -125,15 +105,7 @@
               <path d="M4 4h16v16H4z" />
               <polyline points="22,6 12,13 2,6" />
             </svg>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="tu@email.com"
-              required
-              ngModel
-              #email="ngModel"
-            />
+            <input type="email" id="email" name="email" placeholder="tu@email.com" required ngModel #email="ngModel" />
           </div>
           <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
             Correo inválido.
@@ -142,14 +114,7 @@
 
         <div class="form-group">
           <label for="direccionEnvio">Dirección de Domicilio</label>
-          <input
-            type="text"
-            id="direccionEnvio"
-            name="direccionEnvio"
-            required
-            ngModel
-            #direccionEnvio="ngModel"
-          />
+          <input type="text" id="direccionEnvio" name="direccionEnvio" required ngModel #direccionEnvio="ngModel" />
           <div *ngIf="direccionEnvio.invalid && (direccionEnvio.dirty || direccionEnvio.touched)" class="error">
             Dirección requerida.
           </div>
@@ -158,28 +123,15 @@
         <div class="form-columns">
           <div class="form-group">
             <label for="ciudad">Ciudad</label>
-            <input
-              type="text"
-              id="ciudad"
-              name="ciudad"
-              required
-              [(ngModel)]="ciudad"
-              #ciudadCtrl="ngModel"
-            />
+            <input type="text" id="ciudad" name="ciudad" required [(ngModel)]="ciudad" #ciudadCtrl="ngModel" />
             <div *ngIf="ciudadCtrl.invalid && (ciudadCtrl.dirty || ciudadCtrl.touched)" class="error">
               Ciudad requerida.
             </div>
           </div>
           <div class="form-group">
             <label for="codigoPostal">Código Postal</label>
-            <input
-              type="text"
-              id="codigoPostal"
-              name="codigoPostal"
-              required
-              [(ngModel)]="codigoPostal"
-              #codigoPostalCtrl="ngModel"
-            />
+            <input type="text" id="codigoPostal" name="codigoPostal" required [(ngModel)]="codigoPostal"
+              #codigoPostalCtrl="ngModel" />
             <div *ngIf="codigoPostalCtrl.invalid && (codigoPostalCtrl.dirty || codigoPostalCtrl.touched)" class="error">
               Código postal requerido.
             </div>
@@ -188,13 +140,7 @@
 
         <div class="form-group">
           <label for="pais">País</label>
-          <select
-            id="pais"
-            name="pais"
-            required
-            [(ngModel)]="pais"
-            #paisCtrl="ngModel"
-          >
+          <select id="pais" name="pais" required [(ngModel)]="pais" #paisCtrl="ngModel">
             <option value="" disabled selected>Selecciona un país</option>
             <option value="ES">España</option>
             <option value="FR">Francia</option>

@@ -28,7 +28,8 @@ export class DetalleComponent implements OnInit {
     userId: 0,
     userNombre: '',
     userCiudad: '',
-    estado: 0
+    estado: 0,
+    comprado: false
   };
   categorias: { categoriaId: number; nombre: string }[] = [];
   esProductoMio: boolean | null = null;

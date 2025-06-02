@@ -10,7 +10,8 @@
   </div>
   <h3 class="subtitulo">Mis productos publicados</h3>
   <div class="grid-productos">
-    <div *ngFor="let producto of productos" class="producto-usuario" (click)="verDetalle(producto)">
+    <div *ngFor="let producto of productos" class="producto-usuario" [class.comprado]="producto.comprado"
+      (click)="!producto.comprado && verDetalle(producto)">
       <div class="producto-imagen-container">
         <img [src]="producto.imagenUrl" [alt]="producto.nombre" class="producto-imagen" />
         <span class="estado-badge" [ngClass]="formatEstado(producto.estado)">

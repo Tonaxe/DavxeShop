@@ -224,7 +224,8 @@ namespace DavxeShop.Persistance
                         UserId = p.UserId,
                         UserNombre = p.User.Name,
                         UserCiudad = p.User.City,
-                        Estado = p.Estado.EstadoId
+                        Estado = p.Estado.EstadoId,
+                        Comprado = _context.ProductosCompra.Any(pc => pc.ProductoId == p.ProductoId)
                     })
                     .ToList();
             }
@@ -239,6 +240,7 @@ namespace DavxeShop.Persistance
             try
             {
                 return _context.Productos
+                    .Where(p => !_context.ProductosCompra.Any(pc => pc.ProductoId == p.ProductoId))
                     .OrderBy(p => Guid.NewGuid())
                     .Take(12)
                     .Select(p => new ProductoDTO
@@ -253,7 +255,7 @@ namespace DavxeShop.Persistance
                         UserId = p.UserId,
                         UserNombre = p.User.Name,
                         UserCiudad = p.User.City,
-                        Estado = p.Estado.EstadoId
+                        Estado = p.Estado.EstadoId,
                     })
                     .ToList();
             }
@@ -275,7 +277,7 @@ namespace DavxeShop.Persistance
         public List<UserProductsDTO> GetRandomProductosUsers()
         {
             var usuariosValidos = _context.Users
-                .Where(u => u.Productos.Count >= 8)
+                .Where(u => u.Productos.Count(p => !_context.ProductosCompra.Any(pc => pc.ProductoId == p.ProductoId)) >= 8)
                 .ToList();
 
             if (usuariosValidos.Count < 2)
@@ -292,12 +294,12 @@ namespace DavxeShop.Persistance
             foreach (var user in usuariosSeleccionados)
             {
                 var productos = _context.Productos
-                    .Where(p => p.UserId == user.UserId)
+                    .Where(p => p.UserId == user.UserId && !_context.ProductosCompra.Any(pc => pc.ProductoId == p.ProductoId))
                     .Select(p => new ProductoResumenDTO
                     {
                         ProductoId = p.ProductoId,
                         Nombre = p.Nombre,
-                        ImagenUrl = p.ImagenUrl
+                        ImagenUrl = p.ImagenUrl,
                     })
                     .ToList();
 
@@ -385,7 +387,7 @@ namespace DavxeShop.Persistance
             {
                 var queryLower = query.ToLower();
                 var resultados = _context.Productos
-                    .Where(p => p.Nombre.ToLower().StartsWith(queryLower))
+                    .Where(p => !_context.ProductosCompra.Any(pc => pc.ProductoId == p.ProductoId) && p.Nombre.ToLower().StartsWith(queryLower))
                     .Take(10)
                     .Select(p => new ProductoDTO
                     {
@@ -399,14 +401,15 @@ namespace DavxeShop.Persistance
                         UserId = p.UserId,
                         UserNombre = p.User.Name,
                         UserCiudad = p.User.City,
-                        Estado = p.Estado.EstadoId
+                        Estado = p.Estado.EstadoId,
+                        Comprado = _context.ProductosCompra.Any(pc => pc.ProductoId == p.ProductoId)
                     })
                     .ToList();
 
                 if (!resultados.Any())
                 {
                     resultados = _context.Productos
-                        .Where(p => p.Nombre.ToLower().Contains(queryLower))
+                        .Where(p => !_context.ProductosCompra.Any(pc => pc.ProductoId == p.ProductoId) && p.Nombre.ToLower().Contains(queryLower))
                         .Take(10)
                         .Select(p => new ProductoDTO
                         {
@@ -420,7 +423,8 @@ namespace DavxeShop.Persistance
                             UserId = p.UserId,
                             UserNombre = p.User.Name,
                             UserCiudad = p.User.City,
-                            Estado = p.Estado.EstadoId
+                            Estado = p.Estado.EstadoId,
+                            Comprado = _context.ProductosCompra.Any(pc => pc.ProductoId == p.ProductoId)
                         })
                         .ToList();
                 }

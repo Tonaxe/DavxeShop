@@ -10,6 +10,7 @@ export interface Producto {
   userNombre: string;
   userCiudad: string;
   estado: number;
+  comprado: boolean;
 }
 
 export interface ProductosResponse {
@@ -20,6 +21,7 @@ export interface UsuarioConProductos {
   userId: number;
   nombre: string;
   foto: string;
+  comprado: boolean;
   productos: { productoId: number; nombre: string; imagenUrl: string }[];
 }
 

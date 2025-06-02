@@ -13,5 +13,6 @@
         public string UserNombre { get; set; }
         public string UserCiudad { get; set; }
         public int Estado { get; set; }
+        public bool Comprado { get; set; }
     }
 }
