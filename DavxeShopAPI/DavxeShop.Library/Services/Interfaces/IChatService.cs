@@ -12,4 +12,5 @@ public interface IChatService
     bool EliminarMensaje(int mensajeId);
     int ObtenerConversacionIdPorMensajeId(int mensajeId);
     bool EditarMensaje(int mensajeId, EditarMensajeDto dto);
+    ContraOfertaResponseDto EnviarContraOferta(int userId, ContraOfertaDto dto);
 }

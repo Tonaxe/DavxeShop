@@ -58,5 +58,10 @@
         {
             return _davxeShopDboHelper.EditarMensaje(mensajeId, dto);
         }
+
+        public ContraOfertaResponseDto EnviarContraOferta(int userId, ContraOfertaDto dto)
+        {
+            return _davxeShopDboHelper.EnviarContraOferta(userId, dto);
+        }
     }
 }

@@ -10,7 +10,7 @@ import { Producto, ProductoResponse, ProductosFavoritosResponse, ProductosRespon
 import { CategoriaResponse } from "../models/categoria.model";
 import { EstadoResponse } from "../models/estado.model";
 import { CrearCompraRequest, CrearCompraResponse } from "../models/compra.model";
-import { CrearConversacionDto, CrearMensajeDto } from "../models/chat.model";
+import { ContraOfertaDto, ContraOfertaResponseDto, CrearConversacionDto, CrearMensajeDto } from "../models/chat.model";
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { FavoritoRequest } from "../models/favorito.model";
@@ -152,5 +152,9 @@ export class ApiService {
 
   getFavoritUsersProducts(userId: number): Observable<ProductosFavoritosResponse> {
     return this.http.get<ProductosFavoritosResponse>(`${this.baseUrl}favoritos/users/${userId}`, { headers: this.getHeaders() });
+  }
+  
+  enviarContraOferta(dto: ContraOfertaDto): Observable<ContraOfertaResponseDto> {
+    return this.http.post<ContraOfertaResponseDto>(`${this.baseUrl}chat/contraoferta`, dto, { headers: this.getHeaders() });
   }
 }

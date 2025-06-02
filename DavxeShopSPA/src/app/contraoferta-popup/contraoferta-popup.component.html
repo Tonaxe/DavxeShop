@@ -1,0 +1,22 @@
+<div class="popup-overlay" (click)="close()" *ngIf="isVisible">
+    <div class="popup-content" (click)="$event.stopPropagation()">
+        <h3>Enviar Contraoferta</h3>
+
+        <div class="producto-info" *ngIf="offerPreview?.nombre && offerPreview?.imagenUrl" style="margin-bottom: 20px;">
+            <img [src]="offerPreview?.imagenUrl" alt="Imagen del producto" class="offer-image" />
+            <p class="producto-nombre" style="font-weight: 600; color: #4b5563; margin-top: 10px; text-align: center;">
+                {{ offerPreview?.nombre }}
+            </p>
+        </div>
+
+        <form (ngSubmit)="sendCounterOffer()">
+            <label for="amount">Contraoferta:</label>
+            <input type="number" id="amount" [(ngModel)]="amount" name="amount" required min="1"
+                class="popup-content__input" />
+            <div class="popup-buttons" style="margin-top: 15px;">
+                <button type="submit" [disabled]="!amount" class="confirm-btn">Enviar</button>
+                <button type="button" (click)="close()" class="cancel-btn">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

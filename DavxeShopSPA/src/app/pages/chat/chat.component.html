@@ -8,28 +8,52 @@
       </li>
     </ul>
   </aside>
-  <div class="chat-wrapper">
+  <div class="chat-wrapper" *ngIf="activeUser">
     <div class="chat-container">
       <div class="chat-header">
         <h2>Chat con {{ activeUser?.name }}</h2>
       </div>
       <div class="chat-messages">
         <div *ngFor="let msg of messages" [ngClass]="{
-          'message': true,
-          'from-current': msg.senderId === currentUserId,
-          'from-other': msg.senderId !== currentUserId
-        }">
+               'message': true,
+               'from-current': msg.senderId === currentUserId,
+               'from-other': msg.senderId !== currentUserId
+             }">
           <div class="message-content">
-            {{ msg.content }}
+            <div *ngIf="msg.isContraOfertaJson; else normalMessage">
+              <div class="contraoferta-card">
+                <div class="campo">
+                  <span class="label">Comentario</span>
+                  <span class="value">{{ msg.contraOfertaData.Comentario }}</span>
+                </div>
+                <div class="campo">
+                  <span class="label">Precio</span>
+                  <span class="value">€{{ msg.contraOfertaData.PrecioContraOferta }}</span>
+                </div>
+                <div class="campo">
+                  <span class="label">Estado</span>
+                  <span class="value">{{ msg.contraOfertaData.Estado || 'Pendiente' }}</span>
+                </div>
+                <div class="campo">
+                  <span class="label">Producto</span>
+                  <span class="value">{{ msg.contraOfertaData.ProductoNombre }}</span>
+                </div>
+                <img class="producto-imagen" [src]="msg.contraOfertaData.ProductoFotoUrl" alt="Producto">
+              </div>
+              
+            </div>
+            <ng-template #normalMessage>
+              <p>{{ msg.content }}</p>
+            </ng-template>
             <div class="message-actions" *ngIf="msg.senderId === currentUserId">
-              <button class="edit-btn" (click)="editMessage(msg); $event.stopPropagation()">
+              <button class="edit-btn" (click)="editMessage(msg); $event.stopPropagation()" title="Editar">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                   <path d="M12 20h9" />
                   <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
                 </svg>
               </button>
-              <button class="delete-btn" (click)="deleteMessage(msg.id); $event.stopPropagation()">
+              <button class="delete-btn" (click)="deleteMessage(msg.id); $event.stopPropagation()" title="Eliminar">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                   <polyline points="3 6 5 6 21 6" />
@@ -41,18 +65,24 @@
               </button>
             </div>
           </div>
+          <div class="timestamp">
+            {{ msg.timestamp | date:'shortTime' }}
+          </div>
         </div>
       </div>
       <div class="chat-input">
-        <input type="text" placeholder="Escribe un mensaje..." [(ngModel)]="messageInput"
-          (keyup.enter)="sendMessage()" />
-        <button (click)="sendMessage()" [disabled]="!messageInput.trim()">
-          {{ editingMessage ? 'Actualizar' : 'Enviar' }}
+        <textarea rows="2" [(ngModel)]="messageInput" placeholder="Escribe tu mensaje..."
+          (keyup.enter)="sendMessage()"></textarea>
+        <button class="btn-primary" (click)="sendMessage()">
+          {{ editingMessage ? 'Guardar' : 'Enviar' }}
         </button>
-        <button *ngIf="editingMessage" (click)="cancelEdit()" class="cancel-btn">
+        <button *ngIf="editingMessage" (click)="cancelEdit()" class="btn-secondary">
           Cancelar
         </button>
       </div>
     </div>
   </div>
+  <app-contraoferta-popup [isVisible]="showContraoferta" [offerPreview]="offerPreview"
+    (send)="enviarContraoferta($event)" (closed)="handleCloseContraoferta()">
+  </app-contraoferta-popup>
 </div>

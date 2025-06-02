@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using DavxeShop.Models.models;
+using Microsoft.AspNetCore.SignalR;
 
 public class ChatHub : Hub
 {
@@ -36,5 +37,10 @@ public class ChatHub : Hub
             Contenido = nuevoContenido,
             FechaModificacion = DateTime.UtcNow
         });
+    }
+
+    public async Task EnviarContraOferta(string conversacionId, ContraOfertaResponseDto contraOferta)
+    {
+        await Clients.Group(conversacionId).SendAsync("RecibirContraOferta", contraOferta);
     }
 }

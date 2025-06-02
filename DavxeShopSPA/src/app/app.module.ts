@@ -28,6 +28,7 @@ import { PagoComponent } from './pages/pago/pago.component';
 import { FavoritosComponent } from './pages/favoritos/favoritos.component';
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
+import { ContraofertaPopupComponent } from './contraoferta-popup/contraoferta-popup.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { BaseChartDirective } from 'ng2-charts';
     ComprarComponent,
     LoadingComponent,
     PagoComponent,
-    FavoritosComponent
+    FavoritosComponent,
+    ContraofertaPopupComponent
   ],
   imports: [
     BrowserModule,

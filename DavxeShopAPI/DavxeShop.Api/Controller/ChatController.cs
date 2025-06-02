@@ -119,6 +119,36 @@ public class ChatController : ControllerBase
         return Ok(mensaje);
     }
 
+    [HttpPost("chat/contraoferta")]
+    public async Task<IActionResult> EnviarContraOferta([FromBody] ContraOfertaDto dto)
+    {
+        var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+        if (string.IsNullOrEmpty(token))
+        {
+            return Unauthorized(new { message = "No se ha enviado el token." });
+        }
+
+        var tokenIsValid = _validations.ValidToken(token);
+
+        if (!tokenIsValid)
+        {
+            return Unauthorized(new { message = "El token es incorrecto." });
+        }
+
+        var userId = _validations.GetUserIdFromToken(token);
+        if (userId == null) return Unauthorized(new { message = "Token inválido." });
+
+        var response = _chatService.EnviarContraOferta((int)userId, dto);
+
+        await _hubContext.Clients.Group(response.ConversacionId.ToString()).SendAsync("RecibirContraOferta", response);
+
+        if (response == null)
+            return BadRequest(new { message = "No se pudo enviar la contraoferta." });
+
+        return Ok(response);
+    }
+
     [HttpDelete("chat/conversacion/{id}")]
     public IActionResult EliminarConversacion(int id)
     {

@@ -28,6 +28,7 @@ export const routes: Routes = [
     { path: 'my-products', component: MyProductsComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'add-product', component: AddProductComponent },
+    { path: 'chat/:conversationId', component: ChatComponent },
     { path: 'chat', component: ChatComponent },
     { path: 'perfil', component: PerfilComponent },
     { path: 'filtro', component: FiltroComponent },

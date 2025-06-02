@@ -735,5 +735,52 @@ namespace DavxeShop.Persistance
                 return new List<ProductoDTO>();
             }
         }
+
+        public ContraOfertaResponseDto EnviarContraOferta(int userId, ContraOfertaDto dto)
+        {
+            if (dto.PrecioContraOferta <= 0)
+                return null;
+
+            var producto = GetProductosByProductoId(dto.ProductoId, userId);
+            if (producto == null)
+                return null;
+
+            var contraOfertaData = new
+            {
+                Comentario = dto.Comentario,
+                PrecioContraOferta = dto.PrecioContraOferta,
+                ProductoId = producto.ProductoId,
+                ProductoNombre = producto.Nombre,
+                ProductoFotoUrl = producto.ImagenUrl
+            };
+
+            string contenidoJson = System.Text.Json.JsonSerializer.Serialize(contraOfertaData);
+
+            var mensaje = new Mensaje
+            {
+                ConversacionId = dto.ConversacionId,
+                RemitenteId = userId,
+                Contenido = contenidoJson,
+                FechaEnvio = DateTime.UtcNow,
+                Leido = false
+            };
+
+            _context.Mensajes.Add(mensaje);
+            _context.SaveChanges();
+
+            return new ContraOfertaResponseDto
+            {
+                MensajeId = mensaje.MensajeId,
+                ConversacionId = mensaje.ConversacionId,
+                RemitenteId = mensaje.RemitenteId,
+                PrecioContraOferta = dto.PrecioContraOferta,
+                Comentario = dto.Comentario,
+                FechaEnvio = mensaje.FechaEnvio,
+                Leido = mensaje.Leido,
+                ProductoId = producto.ProductoId,
+                ProductoNombre = producto.Nombre,
+                ProductoFotoUrl = producto.ImagenUrl
+            };
+        }
     }
 }

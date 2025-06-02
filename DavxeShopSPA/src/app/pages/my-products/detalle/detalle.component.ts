@@ -5,6 +5,7 @@ import { ApiService } from '../../../services/api.service';
 import { User } from '../../../models/user.model';
 import { Estado } from '../../../models/estado.model';
 import { HttpClient } from '@angular/common/http';
+import { CrearConversacionDto } from '../../../models/chat.model';
 
 @Component({
   selector: 'app-detalle',
@@ -147,7 +148,31 @@ export class DetalleComponent implements OnInit {
   }
 
   Chat(): void {
-    this.router.navigate(['/chat']);
+    if (!this.user) {
+      return;
+    }
+
+    const dto: CrearConversacionDto = {
+      SellerId: this.producto.userId,
+    };
+
+    this.apiService.crearConversacion(dto).subscribe({
+      next: (conversation) => {
+        const conversationId = conversation.conversacionId || conversation.conversationId;
+        this.router.navigate(['/chat', conversationId], {
+          state: {
+            producto: {
+              nombre: this.producto.nombre,
+              imagenUrl: this.producto.imagenUrl,
+              productoId: this.producto.productoId,
+            }
+          }
+        });
+      },
+      error: (err) => {
+        console.error('Error al obtener o crear conversación:', err);
+      }
+    });
   }
 
   comprar(): void {
