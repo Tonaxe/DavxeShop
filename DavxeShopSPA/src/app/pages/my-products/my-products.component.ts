@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { User } from '../../models/user.model';
 import { Producto, ProductosResponse } from '../../models/product.model';
+import { Estado } from '../../models/estado.model';
 
 @Component({
   selector: 'app-my-products',
@@ -13,10 +14,16 @@ import { Producto, ProductosResponse } from '../../models/product.model';
 export class MyProductsComponent implements OnInit {
   user!: User;
   productos: Producto[] = [];
+  estados: Estado[] = [];
 
   constructor(private router: Router, private apiService: ApiService) {}
 
   ngOnInit(): void {
+    const estadosJson = sessionStorage.getItem('estados');
+    if (estadosJson) {
+      this.estados = JSON.parse(estadosJson);
+    }
+    
     const sessionUser = sessionStorage.getItem('user');
     if (sessionUser) {
       this.user = JSON.parse(sessionUser).user as User;
@@ -47,7 +54,14 @@ export class MyProductsComponent implements OnInit {
     return 'Hace ' + diff + ' días';
   }
 
-  formatEstado(estado: string | number): string {
-    return 'estado-' + estado.toString().toLowerCase().replace(/\s/g, '-');
+  formatEstado(estadoId: number): string {
+    const estado = this.estados.find(e => e.estadoId === estadoId);
+    if (!estado) return 'estado-desconocido';
+    return 'estado-' + estado.nombre.toLowerCase().replace(/\s/g, '-');
+  }
+
+  getNombreEstado(estadoId: number): string {
+    const estado = this.estados.find(e => e.estadoId === estadoId);
+    return estado ? estado.nombre : 'Desconocido';
   }
 }

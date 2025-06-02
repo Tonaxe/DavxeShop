@@ -4,6 +4,7 @@ import { ApiService } from '../../services/api.service';
 import { Producto, ProductoResponse, UsuarioConProductos } from '../../models/product.model';
 import { Categoria } from '../../models/categoria.model';
 import { forkJoin } from 'rxjs';
+import { Estado } from '../../models/estado.model';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,7 @@ export class HomeComponent implements OnInit {
   productosAleatorios: Producto[] = [];
   categorias: Categoria[] = [];
   userProducts: UsuarioConProductos[] = [];
+  estados: Estado[] = [];
 
   @ViewChildren('contenedor') contenedores!: QueryList<ElementRef>;
 
@@ -26,17 +28,20 @@ export class HomeComponent implements OnInit {
     forkJoin({
       productosAleatorios: this.apiService.getRandomProductos(),
       categorias: this.apiService.getAllCategorias(),
-      userProducts: this.apiService.getRandomProductosUsers()
+      userProducts: this.apiService.getRandomProductosUsers(),
+      estados: this.apiService.getAllEstados()
     }).subscribe({
-      next: ({ productosAleatorios, categorias, userProducts }) => {
+      next: ({ productosAleatorios, categorias, userProducts, estados }) => {
         this.productosAleatorios = productosAleatorios.productos;
         this.productosAleatorios.forEach(producto => {
           producto.imagenUrl = producto.imagenUrl.replace('/upload/', '/upload/w_500,f_auto,q_auto/');
         });
         this.categorias = categorias.categorias;
         this.userProducts = userProducts.userProducts;
+        this.estados = estados.estados;
 
         sessionStorage.setItem("categorias", JSON.stringify(this.categorias));
+        sessionStorage.setItem("estados", JSON.stringify(estados.estados));
       },
       error: (err) => {
         console.error("Error al cargar datos:", err);
@@ -73,7 +78,14 @@ export class HomeComponent implements OnInit {
     return 'Hace ' + diff + ' días';
   }
 
-  formatEstado(estado: string | number): string {
-    return 'estado-' + estado.toString().toLowerCase().replace(/\s/g, '-');
+  formatEstado(estadoId: number): string {
+    const estado = this.estados.find(e => e.estadoId === estadoId);
+    if (!estado) return 'estado-desconocido';
+    return 'estado-' + estado.nombre.toLowerCase().replace(/\s/g, '-');
+  }
+
+  getNombreEstado(estadoId: number): string {
+    const estado = this.estados.find(e => e.estadoId === estadoId);
+    return estado ? estado.nombre : 'Desconocido';
   }
 }

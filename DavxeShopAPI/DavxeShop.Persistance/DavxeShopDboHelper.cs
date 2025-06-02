@@ -224,7 +224,7 @@ namespace DavxeShop.Persistance
                         UserId = p.UserId,
                         UserNombre = p.User.Name,
                         UserCiudad = p.User.City,
-                        Estado = p.Estado.Nombre
+                        Estado = p.Estado.EstadoId
                     })
                     .ToList();
             }
@@ -253,7 +253,7 @@ namespace DavxeShop.Persistance
                         UserId = p.UserId,
                         UserNombre = p.User.Name,
                         UserCiudad = p.User.City,
-                        Estado = p.Estado.Nombre
+                        Estado = p.Estado.EstadoId
                     })
                     .ToList();
             }
@@ -331,7 +331,7 @@ namespace DavxeShop.Persistance
                         UserId = p.UserId,
                         UserNombre = p.User.Name,
                         UserCiudad = p.User.City,
-                        Estado = p.Estado.Nombre
+                        Estado = p.Estado.EstadoId
                     })
                     .FirstOrDefault();
             }
@@ -370,7 +370,7 @@ namespace DavxeShop.Persistance
                         UserId = p.UserId,
                         UserNombre = p.User.Name,
                         UserCiudad = p.User.City,
-                        Estado = p.Estado.Nombre
+                        Estado = p.Estado.EstadoId
                     }).ToList();
             }
             catch (Exception)
@@ -399,7 +399,7 @@ namespace DavxeShop.Persistance
                         UserId = p.UserId,
                         UserNombre = p.User.Name,
                         UserCiudad = p.User.City,
-                        Estado = p.Estado.Nombre
+                        Estado = p.Estado.EstadoId
                     })
                     .ToList();
 
@@ -420,7 +420,7 @@ namespace DavxeShop.Persistance
                             UserId = p.UserId,
                             UserNombre = p.User.Name,
                             UserCiudad = p.User.City,
-                            Estado = p.Estado.Nombre
+                            Estado = p.Estado.EstadoId
                         })
                         .ToList();
                 }
@@ -636,6 +636,25 @@ namespace DavxeShop.Persistance
                 return false;
 
             mensaje.Contenido = dto.Contenido;
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool EditProduct(ProductoDTO producto)
+        {
+            var productoToEdit = _context.Productos.FirstOrDefault(c => c.ProductoId == producto.ProductoId);
+
+            if (productoToEdit == null)
+                return false;
+
+            productoToEdit.Nombre = producto.Nombre;
+            productoToEdit.Descripcion = producto.Descripcion;
+            productoToEdit.Precio = producto.Precio;
+            productoToEdit.FechaPublicacion = producto.FechaPublicacion;
+            productoToEdit.ImagenUrl = producto.ImagenUrl;
+            productoToEdit.CategoriaId = producto.Categoria;
+            productoToEdit.EstadoId = producto.Estado;
+
             _context.SaveChanges();
             return true;
         }

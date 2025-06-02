@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from '../models/product.model';
 import { ApiService } from '../services/api.service';
+import { Estado } from '../models/estado.model';
 
 @Component({
   selector: 'app-filtro',
@@ -14,6 +15,7 @@ export class FiltroComponent implements OnInit {
   categoriaId?: number;
   categoriaNombre: string = '';
   query: string = '';
+  estados: Estado[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -22,6 +24,11 @@ export class FiltroComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    const estadosJson = sessionStorage.getItem('estados');
+    if (estadosJson) {
+      this.estados = JSON.parse(estadosJson);
+    }
+    
     this.route.queryParams.subscribe(params => {
       this.query = params['query']?.trim() || '';
       this.categoriaId = +params['categoria'];
@@ -74,7 +81,14 @@ export class FiltroComponent implements OnInit {
     return `${Math.floor(diffDias / 30)} meses`;
   }
 
-  formatEstado(estado: string | number): string {
-    return 'estado-' + estado.toString().toLowerCase().replace(/\s/g, '-');
+  formatEstado(estadoId: number): string {
+    const estado = this.estados.find(e => e.estadoId === estadoId);
+    if (!estado) return 'estado-desconocido';
+    return 'estado-' + estado.nombre.toLowerCase().replace(/\s/g, '-');
+  }
+
+  getNombreEstado(estadoId: number): string {
+    const estado = this.estados.find(e => e.estadoId === estadoId);
+    return estado ? estado.nombre : 'Desconocido';
   }
 }

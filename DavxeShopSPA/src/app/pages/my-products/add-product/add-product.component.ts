@@ -44,7 +44,7 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarCategoriasDesdeStorage();
-    this.cargarEstadosDesdeApi();
+    this.cargarEstadosDesdeStorage();
   }
 
   private cargarCategoriasDesdeStorage(): void {
@@ -55,16 +55,16 @@ export class AddProductComponent implements OnInit {
     }
   }
 
-  private cargarEstadosDesdeApi(): void {
-    this.apiService.getAllEstados().subscribe({
-      next: (res) => {
-        this.estados = res.estados;
-        sessionStorage.setItem("estados", JSON.stringify(this.estados));
-      },
-      error: (err) => {
-        console.error('Error al cargar estados', err);
-      }
-    });
+  private cargarEstadosDesdeStorage(): void {
+    const estadosStorage = sessionStorage.getItem('estados');
+    if (estadosStorage) {
+      const parsed = JSON.parse(estadosStorage);
+      const rawEstados = Array.isArray(parsed) ? parsed : parsed.estados;
+      this.estados = rawEstados.map((e: any) => ({
+        ...e,
+        estadoId: +e.estadoId
+      }));
+    }
   }
 
   mostrarVistaPrevia(event: any): void {

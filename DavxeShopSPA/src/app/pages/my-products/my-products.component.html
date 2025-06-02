@@ -14,7 +14,7 @@
       <div class="producto-imagen-container">
         <img [src]="producto.imagenUrl" [alt]="producto.nombre" class="producto-imagen" />
         <span class="estado-badge" [ngClass]="formatEstado(producto.estado)">
-          {{ producto.estado }}
+          {{ getNombreEstado(producto.estado) }}
         </span>
       </div>
       <div class="producto-info">

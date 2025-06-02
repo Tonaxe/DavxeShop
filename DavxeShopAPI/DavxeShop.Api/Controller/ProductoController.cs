@@ -56,6 +56,45 @@ namespace DavxeShop.Api.Controller
             return Ok(new { message = "El producto se ha añadido correctamente" });
         }
 
+        [HttpPatch("producto")]
+        public IActionResult EditProduct([FromBody] ProductoDTO request)
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(new { message = "No se ha enviado el token." });
+            }
+
+            var tokenIsValid = _validations.ValidToken(token);
+
+            if (!tokenIsValid)
+            {
+                return Unauthorized(new { message = "El token es incorrecto." });
+            }
+
+            if (request == null || HasNullOrEmptyProperties(request))
+            {
+                return BadRequest(new { message = "El contenido de la petición está incompleto." });
+            }
+
+            bool userExists = _validations.UserExistsById(request.UserId);
+
+            if (!userExists)
+            {
+                return NotFound(new { message = "El usuario no existe." });
+            }
+
+            bool productAdded = _productoService.EditProduct(request);
+
+            if (!productAdded)
+            {
+                return StatusCode(500, new { message = "El producto no se ha añadido." });
+            }
+
+            return Ok(new { message = "El producto se ha añadido correctamente" });
+        }
+
         [HttpGet("productos/users/{userId}")]
         public IActionResult GetProductosByUserId(int userId)
         {

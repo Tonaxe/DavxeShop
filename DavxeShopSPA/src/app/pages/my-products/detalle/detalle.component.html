@@ -30,7 +30,9 @@
     <div class="product-content">
       <div class="product-image-column">
         <div class="producto-imagen-container" *ngIf="producto">
-          <img [src]="producto.imagenUrl" alt="Imagen del producto" class="producto-imagen" />
+          <img [src]="producto.imagenUrl" alt="Imagen del producto" class="producto-imagen" (click)="fileInput.click()"
+            [class.editable]="isEditingProducto" />
+          <input #fileInput type="file" (change)="onImageSelected($event)" accept="image/*" style="display: none;" />
         </div>
       </div>
       <div class="product-details-column">

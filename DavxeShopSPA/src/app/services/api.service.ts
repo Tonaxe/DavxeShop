@@ -132,10 +132,8 @@ export class ApiService {
     const body = { contenido };
     return this.http.patch(`${this.baseUrl}chat/mensaje/${mensajeId}`, body, { headers: this.getHeaders() });
   }
-   actualizarProducto(producto: Producto) {
-    console.log('Simulando actualización del producto:', producto);
-
-    // Simulamos una espera de 1 segundo como si fuera una llamada real
-    return of({ mensaje: 'Producto actualizado correctamente' }).pipe(delay(1000));
+  
+  editarProducto(producto: Producto): Observable<any> {
+    return this.http.patch(`${this.baseUrl}producto`, producto, { headers: this.getHeaders() });
   }
 }

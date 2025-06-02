@@ -12,6 +12,6 @@
         public int UserId { get; set; }
         public string UserNombre { get; set; }
         public string UserCiudad { get; set; }
-        public string Estado { get; set; }
+        public int Estado { get; set; }
     }
 }
